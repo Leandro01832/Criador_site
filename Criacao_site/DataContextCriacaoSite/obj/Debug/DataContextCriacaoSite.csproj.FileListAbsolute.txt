@@ -1,0 +1,12 @@
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\DataContextCriacaoSite.dll.config
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\DataContextCriacaoSite.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\DataContextCriacaoSite.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\business.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\business.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.xml
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.csprojResolveAssemblyReference.cache
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.pdb

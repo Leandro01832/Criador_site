@@ -1,0 +1,40 @@
+﻿@model IEnumerable<business.Imagem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Figura)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @{
+                if (item.Figura != null)
+                {
+                    <img src="@Url.Content(item.Figura)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdImagem }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdImagem }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdImagem })
+        </td>
+    </tr>
+}
+
+</table>

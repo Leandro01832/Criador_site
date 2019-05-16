@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript">
+        var areas = document.getElementsByTagName("area");
+
+        function areaCor(v) {
+            document.getElementById("Cor").value = v;
+        }
+
+        function areaLetra(v) {
+            document.getElementById("Tipo").value = v;
+        }
+
+    </script>
+    @*<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=m8nq39l31dv5y829ehcjsd0rciwei8crem0yubndhdgs72fd"></script> 
+    <script>tinymce.init({ selector:'textarea' });</script>*@
+
+</head>
+<body>
+    <div id="config_cor" style="display:none;">
+        <map name="imagemap">
+            <area shape="rect" coords="5,30,168,48" onclick="areaCor('#FFFAFA');" href="#ponto1" />
+            <area shape="rect" coords="5,52,168,70" onclick="areaCor('#F8F8FF');" href="#ponto1" />
+            <area shape="rect" coords="5,74,168,92" onclick="areaCor('#F5F5F5');" href="#ponto1" />
+            <area shape="rect" coords="5,97,168,116" onclick="areaCor('#DCDCDC');" href="#ponto1" />
+            <area shape="rect" coords="5,120,168,139" onclick="areaCor('#FFFAF0');" href="#ponto1" />
+            <area shape="rect" coords="5,143,168,162" onclick="areaCor('#FDF5E6');" href="#ponto1" />
+            <area shape="rect" coords="5,166,168,185" onclick="areaCor('#FAF0E6');" href="#ponto1" />
+            <area shape="rect" coords="5,189,168,208" onclick="areaCor('#FAEBD7');" href="#ponto1" />
+            <area shape="rect" coords="5,212,168,231" onclick="areaCor('#FFEFD5');" href="#ponto1" />
+            <area shape="rect" coords="5,235,168,254" onclick="areaCor('#FFEBCD');" href="#ponto1" />
+            <area shape="rect" coords="5,258,168,277" onclick="areaCor('#FFE4C4');" href="#ponto1" />
+            <area shape="rect" coords="5,281,168,300" onclick="areaCor('#FFDAB9');" href="#ponto1" />
+            <area shape="rect" coords="5,304,168,323" onclick="areaCor('#FFDEAD');" href="#ponto1" />
+            <area shape="rect" coords="5,327,168,346" onclick="areaCor('#FFE4B5');" href="#ponto1" />
+            <area shape="rect" coords="5,350,168,369" onclick="areaCor('#FFF8DC');" href="#ponto1" />
+            <area shape="rect" coords="5,373,168,392" onclick="areaCor('#FFFFF0');" href="#ponto1" />
+            <area shape="rect" coords="5,396,168,415" onclick="areaCor('#FFFACD');" href="#ponto1" />
+            <area shape="rect" coords="5,419,168,438" onclick="areaCor('#FFF5EE');" href="#ponto1" />
+            <area shape="rect" coords="5,442,168,461" onclick="areaCor('#F0FFF0');" href="#ponto1" />
+            <area shape="rect" coords="5,465,168,484" onclick="areaCor('#F5FFFA');" href="#ponto1" />
+            <area shape="rect" coords="5,488,168,507" onclick="areaCor('#F0FFFF');" href="#ponto1" />
+            <area shape="rect" coords="5,511,168,530" onclick="areaCor('#F0F8FF');" href="#ponto1" />
+            <area shape="rect" coords="5,534,168,553" onclick="areaCor('#E6E6FA');" href="#ponto1" />
+            <area shape="rect" coords="5,557,168,576" onclick="areaCor('#FFF0F5');" href="#ponto1" />
+            <area shape="rect" coords="5,580,168,599" onclick="areaCor('#FFE4E1');" href="#ponto1" />
+            <area shape="rect" coords="5,603,168,622" onclick="areaCor('#FFFFFF');" href="#ponto1" />
+            <area shape="rect" coords="5,626,168,645" onclick="areaCor('#000000');" href="#ponto1" />
+            <area shape="rect" coords="5,649,168,668" onclick="areaCor('#2F4F4F');" href="#ponto1" />
+            <area shape="rect" coords="5,672,168,691" onclick="areaCor('#696969');" href="#ponto1" />
+            <area shape="rect" coords="5,695,168,714" onclick="areaCor('#708090');" href="#ponto1" />
+            <area shape="rect" coords="5,718,168,737" onclick="areaCor('#778899');" href="#ponto1" />
+            <area shape="rect" coords="5,741,168,760" onclick="areaCor('#BEBEBE');" href="#ponto1" />
+            <area shape="rect" coords="5,764,168,783" onclick="areaCor('#D3D3D3');" href="#ponto1" />
+            <area shape="rect" coords="5,787,168,806" onclick="areaCor('#191970');" href="#ponto1" />
+            <area shape="rect" coords="5,810,168,829" onclick="areaCor('#000080');" href="#ponto1" />
+            <area shape="rect" coords="5,833,168,852" onclick="areaCor('#6495ED');" href="#ponto1" />
+            <area shape="rect" coords="5,856,168,875" onclick="areaCor('#483D8B');" href="#ponto1" />
+            <area shape="rect" coords="5,879,168,898" onclick="areaCor('#6A5ACD');" href="#ponto1" />
+
+            @*segunda coluna*@
+
+            <area shape="rect" coords="184,30,368,48" onclick="areaCor('#1E90FF');" href="#ponto1" />
+            <area shape="rect" coords="184,52,368,70" onclick="areaCor('#00BFFF');" href="#ponto1" />
+            <area shape="rect" coords="184,74,368,92" onclick="areaCor('#87CEEB');" href="#ponto1" />
+            <area shape="rect" coords="184,97,368,116" onclick="areaCor('#87CEFA');" href="#ponto1" />
+            <area shape="rect" coords="184,120,368,139" onclick="areaCor('#4682B4');" href="#ponto1" />
+            <area shape="rect" coords="184,143,368,162" onclick="areaCor('#B0C4DE');" href="#ponto1" />
+            <area shape="rect" coords="184,166,368,185" onclick="areaCor('#ADD8E6');" href="#ponto1" />
+            <area shape="rect" coords="184,189,368,208" onclick="areaCor('#B0E0E6');" href="#ponto1" />
+            <area shape="rect" coords="184,212,368,231" onclick="areaCor('#AFEEEE');" href="#ponto1" />
+            <area shape="rect" coords="184,235,368,254" onclick="areaCor('#00CED1');" href="#ponto1" />
+            <area shape="rect" coords="184,258,368,277" onclick="areaCor('#48D1CC');" href="#ponto1" />
+            <area shape="rect" coords="184,281,368,300" onclick="areaCor('#40E0D0');" href="#ponto1" />
+            <area shape="rect" coords="184,304,368,323" onclick="areaCor('#00FFFF');" href="#ponto1" />
+            <area shape="rect" coords="184,327,368,346" onclick="areaCor('#E0FFFF');" href="#ponto1" />
+            <area shape="rect" coords="184,350,368,369" onclick="areaCor('#5F9EA0');" href="#ponto1" />
+            <area shape="rect" coords="184,373,368,392" onclick="areaCor('#66CDAA');" href="#ponto1" />
+            <area shape="rect" coords="184,396,368,415" onclick="areaCor('#7FFFD4');" href="#ponto1" />
+            <area shape="rect" coords="184,419,368,438" onclick="areaCor('#006400');" href="#ponto1" />
+            <area shape="rect" coords="184,442,368,461" onclick="areaCor('#556B2F');" href="#ponto1" />
+            <area shape="rect" coords="184,465,368,484" onclick="areaCor('#8FBC8F');" href="#ponto1" />
+            <area shape="rect" coords="184,488,368,507" onclick="areaCor('#2E8B57');" href="#ponto1" />
+            <area shape="rect" coords="184,511,368,530" onclick="areaCor('#3CB371');" href="#ponto1" />
+            <area shape="rect" coords="184,534,368,553" onclick="areaCor('#20B2AA');" href="#ponto1" />
+            <area shape="rect" coords="184,557,368,576" onclick="areaCor('#98FB98');" href="#ponto1" />
+            <area shape="rect" coords="184,580,368,599" onclick="areaCor('#00FF7F');" href="#ponto1" />
+            <area shape="rect" coords="184,603,368,622" onclick="areaCor('#7CFC00');" href="#ponto1" />
+            <area shape="rect" coords="184,626,368,645" onclick="areaCor('#00FF00');" href="#ponto1">
+            <area shape="rect" coords="184,649,368,668" onclick="areaCor('#7FFF00');" href="#ponto1" />
+            <area shape="rect" coords="184,672,368,691" onclick="areaCor('#00FA9A');" href="#ponto1" />
+            <area shape="rect" coords="184,695,368,714" onclick="areaCor('#ADFF2F');" href="#ponto1" />
+            <area shape="rect" coords="184,718,368,737" onclick="areaCor('#32CD32');" href="#ponto1" />
+            <area shape="rect" coords="184,741,368,760" onclick="areaCor('#9ACD32');" href="#ponto1" />
+            <area shape="rect" coords="184,764,368,783" onclick="areaCor('#228B22');" href="#ponto1" />
+            <area shape="rect" coords="184,787,368,806" onclick="areaCor('#6B8E23');" href="#ponto1" />
+            <area shape="rect" coords="184,810,368,829" onclick="areaCor('#BDB76B');" href="#ponto1" />
+            <area shape="rect" coords="184,833,368,852" onclick="areaCor('#EEE8AA');" href="#ponto1" />
+            <area shape="rect" coords="184,856,368,875" onclick="areaCor('#FAFAD2');" href="#ponto1" />
+            <area shape="rect" coords="184,879,368,898" onclick="areaCor('#FFFFE0');" href="#ponto1" />
+
+            @*terceira coluna*@
+
+            <area shape="rect" coords="388,30,572,48" onclick="areaCor('#BC8F8F');" href="#ponto1" />
+            <area shape="rect" coords="388,52,572,70" onclick="areaCor('#CD5C5C');" href="#ponto1" />
+            <area shape="rect" coords="388,74,572,92" onclick="areaCor('#8B4513');" href="#ponto1" />
+            <area shape="rect" coords="388,97,572,116" onclick="areaCor('#A0522D');" href="#ponto1" />
+            <area shape="rect" coords="388,120,572,139" onclick="areaCor('#CD853F');" href="#ponto1" />
+            <area shape="rect" coords="388,143,572,162" onclick="areaCor('#DEB887');" href="#ponto1" />
+            <area shape="rect" coords="388,166,572,185" onclick="areaCor('#F5F5DC');" href="#ponto1" />
+            <area shape="rect" coords="388,189,572,208" onclick="areaCor('#F5DEB3');" href="#ponto1" />
+            <area shape="rect" coords="388,212,572,231" onclick="areaCor('#F4A460');" href="#ponto1" />
+            <area shape="rect" coords="388,235,572,254" onclick="areaCor('#D2B48C');" href="#ponto1" />
+            <area shape="rect" coords="388,258,572,277" onclick="areaCor('#D2691E');" href="#ponto1" />
+            <area shape="rect" coords="388,281,572,300" onclick="areaCor('#B22222');" href="#ponto1" />
+            <area shape="rect" coords="388,304,572,323" onclick="areaCor('#A52A2A');" href="#ponto1" />
+            <area shape="rect" coords="388,327,572,346" onclick="areaCor('#E9967A');" href="#ponto1" />
+            <area shape="rect" coords="388,350,572,369" onclick="areaCor('#FA8072');" href="#ponto1" />
+            <area shape="rect" coords="388,373,572,392" onclick="areaCor('#FFA07A');" href="#ponto1" />
+            <area shape="rect" coords="388,396,572,415" onclick="areaCor('#FFA500');" href="#ponto1" />
+            <area shape="rect" coords="388,419,572,438" onclick="areaCor('#FF8C00');" href="#ponto1" />
+            <area shape="rect" coords="388,442,572,461" onclick="areaCor('#FF7F50');" href="#ponto1" />
+            <area shape="rect" coords="388,465,572,484" onclick="areaCor('#F08080');" href="#ponto1" />
+            <area shape="rect" coords="388,488,572,507" onclick="areaCor('#FF6347');" href="#ponto1" />
+            <area shape="rect" coords="388,511,572,530" onclick="areaCor('#FF4500');" href="#ponto1" />
+            <area shape="rect" coords="388,534,572,553" onclick="areaCor('#FF0000');" href="#ponto1" />
+            <area shape="rect" coords="388,557,572,576" onclick="areaCor('#FF69B4');" href="#ponto1" />
+            <area shape="rect" coords="388,580,572,599" onclick="areaCor('#FF1493');" href="#ponto1" />
+            <area shape="rect" coords="388,603,572,622" onclick="areaCor('#FFC0CB');" href="#ponto1" />
+            <area shape="rect" coords="388,626,572,645" onclick="areaCor('#FFB6C1');" href="#ponto1" />
+            <area shape="rect" coords="388,649,572,668" onclick="areaCor('#DB7093');" href="#ponto1" />
+            <area shape="rect" coords="388,672,572,691" onclick="areaCor('#B03060');" href="#ponto1" />
+            <area shape="rect" coords="388,695,572,714" onclick="areaCor('#C71585');" href="#ponto1" />
+            <area shape="rect" coords="388,718,572,737" onclick="areaCor('#D02090');" href="#ponto1" />
+            <area shape="rect" coords="388,741,572,760" onclick="areaCor('#FF00FF');" href="#ponto1" />
+            <area shape="rect" coords="388,764,572,783" onclick="areaCor('#EE82EE');" href="#ponto1" />
+            <area shape="rect" coords="388,787,572,806" onclick="areaCor('#DDA0DD');" href="#ponto1" />
+            <area shape="rect" coords="388,810,572,829" onclick="areaCor('#DA70D6');" href="#ponto1" />
+            <area shape="rect" coords="388,833,572,852" onclick="areaCor('#BA55D3');" href="#ponto1" />
+            <area shape="rect" coords="388,856,572,875" onclick="areaCor('#9932CC');" href="#ponto1" />
+            <area shape="rect" coords="388,879,572,898" onclick="areaCor('#9400D3');" href="#ponto1" />
+
+            @*quarta coluna*@
+
+            <area shape="rect" coords="584,30,747,48" onclick="areaCor('#7B68EE');" href="#ponto1" />
+            <area shape="rect" coords="584,52,747,70" onclick="areaCor('#8470FF');" href="#ponto1" />
+            <area shape="rect" coords="584,74,747,92" onclick="areaCor('#0000CD');" href="#ponto1" />
+            <area shape="rect" coords="584,97,747,116" onclick="areaCor('#4169E1');" href="#ponto1" />
+            <area shape="rect" coords="584,120,747,139" onclick="areaCor('#0000FF');" href="#ponto1" />
+            <area shape="rect" coords="584,143,747,162" onclick="areaCor('#EEE9E9');" href="#ponto1" />
+            <area shape="rect" coords="584,166,747,185" onclick="areaCor('#CDC9C9');" href="#ponto1" />
+            <area shape="rect" coords="584,189,747,208" onclick="areaCor('#8B8989');" href="#ponto1" />
+            <area shape="rect" coords="584,212,747,231" onclick="areaCor('#FFF5EE');" href="#ponto1" />
+            <area shape="rect" coords="584,235,747,254" onclick="areaCor('#EEE5DE');" href="#ponto1" />
+            <area shape="rect" coords="584,258,747,277" onclick="areaCor('#CDC5BF');" href="#ponto1" />
+            <area shape="rect" coords="584,281,747,300" onclick="areaCor('#8B8682');" href="#ponto1" />
+            <area shape="rect" coords="584,304,747,323" onclick="areaCor('#FFEFDB');" href="#ponto1" />
+            <area shape="rect" coords="584,327,747,346" onclick="areaCor('#EEDFCC');" href="#ponto1" />
+            <area shape="rect" coords="584,350,747,369" onclick="areaCor('#CDC0B0');" href="#ponto1" />
+            <area shape="rect" coords="584,373,747,392" onclick="areaCor('#8B8378');" href="#ponto1" />
+            <area shape="rect" coords="584,396,747,415" onclick="areaCor('#FFE4C4');" href="#ponto1" />
+            <area shape="rect" coords="584,419,747,438" onclick="areaCor('#EED5B7');" href="#ponto1" />
+            <area shape="rect" coords="584,442,747,461" onclick="areaCor('#CDB79E');" href="#ponto1" />
+            <area shape="rect" coords="584,465,747,484" onclick="areaCor('#8B7D6B');" href="#ponto1" />
+            <area shape="rect" coords="584,488,747,507" onclick="areaCor('#FFDAB9');" href="#ponto1" />
+            <area shape="rect" coords="584,511,747,530" onclick="areaCor('#EECBAD');" href="#ponto1" />
+            <area shape="rect" coords="584,534,747,553" onclick="areaCor('#CDAF95');" href="#ponto1" />
+            <area shape="rect" coords="584,557,747,576" onclick="areaCor('#8B7765');" href="#ponto1" />
+            <area shape="rect" coords="584,580,747,599" onclick="areaCor('#FFDEAD');" href="#ponto1" />
+            <area shape="rect" coords="584,603,747,622" onclick="areaCor('#EECFA1');" href="#ponto1" />
+            <area shape="rect" coords="584,626,747,645" onclick="areaCor('#CDB38B');" href="#ponto1" />
+            <area shape="rect" coords="584,649,747,668" onclick="areaCor('#8B795E');" href="#ponto1" />
+            <area shape="rect" coords="584,672,747,691" onclick="areaCor('#FFFACD');" href="#ponto1" />
+            <area shape="rect" coords="584,695,747,714" onclick="areaCor('#EEE9BF');" href="#ponto1" />
+            <area shape="rect" coords="584,718,747,737" onclick="areaCor('#CDC9A5');" href="#ponto1" />
+            <area shape="rect" coords="584,741,747,760" onclick="areaCor('#8B8970');" href="#ponto1" />
+            <area shape="rect" coords="584,764,747,783" onclick="areaCor('#FFF8DC');" href="#ponto1" />
+            <area shape="rect" coords="584,787,747,806" onclick="areaCor('#EEE8CD');" href="#ponto1" />
+            <area shape="rect" coords="584,810,747,829" onclick="areaCor('#CDC8B1');" href="#ponto1" />
+            <area shape="rect" coords="584,833,747,852" onclick="areaCor('#8B8878');" href="#ponto1" />
+            <area shape="rect" coords="584,856,747,875" onclick="areaCor('#FFFFF0');" href="#ponto1" />
+            <area shape="rect" coords="584,879,747,898" onclick="areaCor('#EEEEE0');" href="#ponto1" />
+
+            @*quinta coluna*@
+
+            <area shape="rect" coords="759,30,943,48" onclick="areaCor('#6C7B8B');" href="#ponto1" />
+            <area shape="rect" coords="759,52,943,70" onclick="areaCor('#CAE1FF');" href="#ponto1" />
+            <area shape="rect" coords="759,74,943,92" onclick="areaCor('#BCD2EE');" href="#ponto1" />
+            <area shape="rect" coords="759,97,943,116" onclick="areaCor('#A2B5CD');" href="#ponto1" />
+            <area shape="rect" coords="759,120,943,139" onclick="areaCor('#6E7B8B');" href="#ponto1" />
+            <area shape="rect" coords="759,143,943,162" onclick="areaCor('#BFEFFF');" href="#ponto1" />
+            <area shape="rect" coords="759,143,943,162" onclick="areaCor('#B2DFEE');" href="#ponto1" />
+            <area shape="rect" coords="759,166,943,185" onclick="areaCor('#9AC0CD');" href="#ponto1" />
+            <area shape="rect" coords="759,189,943,208" onclick="areaCor('#68838B');" href="#ponto1" />
+            <area shape="rect" coords="759,212,943,231" onclick="areaCor('#E0FFFF');" href="#ponto1" />
+            <area shape="rect" coords="759,235,943,254" onclick="areaCor('#D1EEEE');" href="#ponto1" />
+            <area shape="rect" coords="759,258,943,277" onclick="areaCor('#B4CDCD');" href="#ponto1" />
+            <area shape="rect" coords="759,281,943,300" onclick="areaCor('#7A8B8B');" href="#ponto1" />
+            <area shape="rect" coords="759,304,943,323" onclick="areaCor('#BBFFFF');" href="#ponto1" />
+            <area shape="rect" coords="759,327,943,346" onclick="areaCor('#AEEEEE');" href="#ponto1" />
+            <area shape="rect" coords="759,350,943,369" onclick="areaCor('#96CDCD');" href="#ponto1" />
+            <area shape="rect" coords="759,373,943,392" onclick="areaCor('#668B8B');" href="#ponto1" />
+            <area shape="rect" coords="759,396,943,415" onclick="areaCor('#98F5FF');" href="#ponto1" />
+            <area shape="rect" coords="759,419,943,438" onclick="areaCor('#8EE5EE');" href="#ponto1" />
+            <area shape="rect" coords="759,442,943,461" onclick="areaCor('#7AC5CD');" href="#ponto1" />
+            <area shape="rect" coords="759,465,943,484" onclick="areaCor('#53868B');" href="#ponto1" />
+            <area shape="rect" coords="759,488,943,507" onclick="areaCor('#00F5FF');" href="#ponto1" />
+            <area shape="rect" coords="759,511,943,530" onclick="areaCor('#00E5EE');" href="#ponto1" />
+            <area shape="rect" coords="759,534,943,553" onclick="areaCor('#00C5CD');" href="#ponto1" />
+            <area shape="rect" coords="759,557,943,576" onclick="areaCor('#00868B');" href="#ponto1" />
+            <area shape="rect" coords="759,580,943,599" onclick="areaCor('#00FFFF');" href="#ponto1" />
+            <area shape="rect" coords="759,603,943,622" onclick="areaCor('#00EEEE');" href="#ponto1" />
+            <area shape="rect" coords="759,626,943,645" onclick="areaCor('#00CDCD');" href="#ponto1" />
+            <area shape="rect" coords="759,649,943,668" onclick="areaCor('#008B8B');" href="#ponto1" />
+            <area shape="rect" coords="759,672,943,691" onclick="areaCor('#97FFFF');" href="#ponto1" />
+            <area shape="rect" coords="759,695,943,714" onclick="areaCor('#8DEEEE');" href="#ponto1" />
+            <area shape="rect" coords="759,718,943,737" onclick="areaCor('#79CDCD');" href="#ponto1" />
+            <area shape="rect" coords="759,741,943,760" onclick="areaCor('#528B8B');" href="#ponto1" />
+            <area shape="rect" coords="759,764,943,783" onclick="areaCor('#7FFFD4');" href="#ponto1" />
+            <area shape="rect" coords="759,787,943,806" onclick="areaCor('#FFFF00');" href="#ponto1" />
+            <area shape="rect" coords="759,810,943,829" onclick="areaCor('#FFD700');" href="#ponto1" />
+            <area shape="rect" coords="759,833,943,852" onclick="areaCor('#EEDD82');" href="#ponto1" />
+            <area shape="rect" coords="759,856,943,875" onclick="areaCor('#DAA520');" href="#ponto1" />
+            <area shape="rect" coords="759,879,943,898" onclick="areaCor('#B8860B');" href="#ponto1" />
+
+            @*sexta coluna*@
+
+            <area shape="rect" coords="958,30,1143,48" onclick="areaCor('#FFE4E1');" href="#ponto1" />
+            <area shape="rect" coords="958,52,1143,70" onclick="areaCor('#EED5D2');" href="#ponto1" />
+            <area shape="rect" coords="958,74,1143,92" onclick="areaCor('#CDB7B5');" href="#ponto1" />
+            <area shape="rect" coords="958,97,1143,116" onclick="areaCor('#8B7D7B');" href="#ponto1" />
+            <area shape="rect" coords="958,120,1143,139" onclick="areaCor('#F0FFFF');" href="#ponto1" />
+            <area shape="rect" coords="958,143,1143,162" onclick="areaCor('#E0EEEE');" href="#ponto1" />
+            <area shape="rect" coords="958,166,1143,185" onclick="areaCor('#C1CDCD');" href="#ponto1" />
+            <area shape="rect" coords="958,189,1143,208" onclick="areaCor('#838B8B');" href="#ponto1" />
+            <area shape="rect" coords="958,212,1143,231" onclick="areaCor('#836FFF');" href="#ponto1" />
+            <area shape="rect" coords="958,235,1143,254" onclick="areaCor('#7A67EE');" href="#ponto1" />
+            <area shape="rect" coords="958,258,1143,277" onclick="areaCor('#6959CD');" href="#ponto1" />
+            <area shape="rect" coords="958,281,1143,300" onclick="areaCor('#473C8B');" href="#ponto1" />
+            <area shape="rect" coords="958,304,1143,323" onclick="areaCor('#4876FF');" href="#ponto1" />
+            <area shape="rect" coords="958,327,1143,346" onclick="areaCor('#436EEE');" href="#ponto1" />
+            <area shape="rect" coords="958,350,1143,369" onclick="areaCor('#3A5FCD');" href="#ponto1" />
+            <area shape="rect" coords="958,373,1143,392" onclick="areaCor('#27408B');" href="#ponto1" />
+            <area shape="rect" coords="958,396,1143,415" onclick="areaCor('#0000FF');" href="#ponto1" />
+            <area shape="rect" coords="958,419,1143,438" onclick="areaCor('#0000EE');" href="#ponto1" />
+            <area shape="rect" coords="958,442,1143,461" onclick="areaCor('#0000CD');" href="#ponto1" />
+            <area shape="rect" coords="958,465,1143,484" onclick="areaCor('#00008B');" href="#ponto1" />
+            <area shape="rect" coords="958,488,1143,507" onclick="areaCor('#1E90FF');" href="#ponto1" />
+            <area shape="rect" coords="958,511,1143,530" onclick="areaCor('#1C86EE');" href="#ponto1" />
+            <area shape="rect" coords="958,534,1143,553" onclick="areaCor('#1874CD');" href="#ponto1" />
+            <area shape="rect" coords="958,557,1143,576" onclick="areaCor('#104E8B');" href="#ponto1" />
+            <area shape="rect" coords="958,580,1143,599" onclick="areaCor('#63B8FF');" href="#ponto1" />
+            <area shape="rect" coords="958,603,1143,622" onclick="areaCor('#5CACEE');" href="#ponto1" />
+            <area shape="rect" coords="958,626,1143,645" onclick="areaCor('#4F94CD');" href="#ponto1" />
+            <area shape="rect" coords="958,649,1143,668" onclick="areaCor('#36648B');" href="#ponto1" />
+            <area shape="rect" coords="958,672,1143,691" onclick="areaCor('#00BFFF');" href="#ponto1" />
+            <area shape="rect" coords="958,695,1143,714" onclick="areaCor('#00B2EE');" href="#ponto1" />
+            <area shape="rect" coords="958,718,1143,737" onclick="areaCor('#009ACD');" href="#ponto1" />
+            <area shape="rect" coords="958,741,1143,760" onclick="areaCor('#00688B');" href="#ponto1" />
+            <area shape="rect" coords="958,764,1143,783" onclick="areaCor('#87CEFF');" href="#ponto1" />
+            <area shape="rect" coords="958,787,1143,806" onclick="areaCor('#7EC0EE');" href="#ponto1" />
+            <area shape="rect" coords="958,810,1143,829" onclick="areaCor('#8A2BE2');" href="#ponto1" />
+            <area shape="rect" coords="958,833,1143,852" onclick="areaCor('#A020F0');" href="#ponto1" />
+            <area shape="rect" coords="958,856,1143,875" onclick="areaCor('#9370DB');" href="#ponto1" />
+            <area shape="rect" coords="958,879,1143,898" onclick="areaCor('#D8BFD8');" href="#ponto1" />
+
+            @*termino no skyblue2*@
+        </map>
+        
+        <img src="~/imagem/cores.jpg" usemap="#imagemap" />         
+
+        @*<form>
+            <input id="valor" type="text" readonly />
+        </form>*@
+    </div>
+
+    <div id="config_letra" style="display:none;"> 
+        <map name="imagemapletra">
+            <area shape="rect" coords="8,45,185,125" onclick="areaLetra('Bookman Old Style');" href="#ponto1"  />
+            <area shape="rect" coords="8,195,185,275" onclick="areaLetra('Brush Script MT');" href="#ponto1"  />
+            <area shape="rect" coords="8,345,185,425" onclick="areaLetra('Cambria Math');" href="#ponto1"  />
+            <area shape="rect" coords="8,495,185,575" onclick="areaLetra('Century Gothic');" href="#ponto1"  />
+            <area shape="rect" coords="8,645,185,725" onclick="areaLetra('Agency FB');" href="#ponto1"  />
+            <area shape="rect" coords="8,795,185,875" onclick="areaLetra('BankGothic Lt BT');" href="#ponto1"  />
+            <area shape="rect" coords="8,945,185,1025" onclick="areaLetra('Berlin Sans FB');" href="#ponto1"  />
+            <area shape="rect" coords="8,1095,185,1175" onclick="areaLetra('Comic Sans MS');" href="#ponto1"  />
+            <area shape="rect" coords="8,1245,185,1325" onclick="areaLetra('Constantia');" href="#ponto1"  />
+            <area shape="rect" coords="8,1395,185,1475" onclick="areaLetra('Courier New');" href="#ponto1"  />
+
+            @*segunda coluna*@
+
+            <area shape="rect" coords="238,45,425,125" onclick="areaLetra('Calibri');" href="#ponto1"  />
+            <area shape="rect" coords="238,195,425,275" onclick="areaLetra('Candara');" href="#ponto1"  />
+            <area shape="rect" coords="238,345,425,425" onclick="areaLetra('Century Schoolbook');" href="#ponto1"  />
+            <area shape="rect" coords="238,495,425,575" onclick="areaLetra('Arial');" href="#ponto1"  />
+            <area shape="rect" coords="238,645,425,725" onclick="areaLetra('BankGothic Md BT');" href="#ponto1"  />
+            <area shape="rect" coords="238,795,425,875" onclick="areaLetra('Bernard MT');" href="#ponto1"  />
+            <area shape="rect" coords="238,945,425,1025" onclick="areaLetra('Cooper');" href="#ponto1"  />
+            <area shape="rect" coords="238,1095,425,1175" onclick="areaLetra('Curlz MT');" href="#ponto1"  />
+            @*<area shape="rect" coords="238,1245,425,1325" onclick="areaLetra('#FFFAFA');" href="#ponto1"  />
+            <area shape="rect" coords="238,1395,425,1475" onclick="areaLetra('#FFFAFA');" href="#ponto1"  />*@
+
+            @*terceira coluna*@
+
+            <area shape="rect" coords="448,45,645,125" onclick="areaLetra('Bradley Hand ITC');" href="#ponto1"  />
+            <area shape="rect" coords="448,195,645,275" onclick="areaLetra('Californian FB');" href="#ponto1"  />
+            <area shape="rect" coords="448,345,645,425" onclick="areaLetra('Castellar');" href="#ponto1"  />
+            <area shape="rect" coords="448,495,645,575" onclick="areaLetra('Chiller');" href="#ponto1"  />
+            <area shape="rect" coords="448,645,645,725" onclick="areaLetra('Arial Rounded MT');" href="#ponto1"  />
+            <area shape="rect" coords="448,795,645,875" onclick="areaLetra('Baskerville Old Face');" href="#ponto1"  />
+            <area shape="rect" coords="448,945,645,1025" onclick="areaLetra('Blackadder ITC');" href="#ponto1"  />
+            <area shape="rect" coords="448,1095,645,1175" onclick="areaLetra('CommercialScript BT');" href="#ponto1"  />
+            <area shape="rect" coords="448,1245,645,1325" onclick="areaLetra('Copperplate Gothic');" href="#ponto1"  />
+            <area shape="rect" coords="448,1395,645,1475" onclick="areaLetra('DengXian');" href="#ponto1"  />
+
+            @*quarta coluna*@
+
+            <area shape="rect" coords="675,45,855,125" onclick="areaLetra('Britannic');" href="#ponto1"  />
+            <area shape="rect" coords="675,195,855,275" onclick="areaLetra('Calisto MT');" href="#ponto1"  />
+            <area shape="rect" coords="675,345,855,425" onclick="areaLetra('Algerian');" href="#ponto1"  />
+            <area shape="rect" coords="675,495,855,575" onclick="areaLetra('Arial Unicode MS');" href="#ponto1"  />
+            <area shape="rect" coords="675,645,855,725" onclick="areaLetra('Bauhaus 93');" href="#ponto1"  />
+            <area shape="rect" coords="675,795,855,875" onclick="areaLetra('Bodoni MT');" href="#ponto1"  />
+            <area shape="rect" coords="675,945,855,1025" onclick="areaLetra('Complex');" href="#ponto1"  />
+            <area shape="rect" coords="675,1095,855,1175" onclick="areaLetra('Corbel');" href="#ponto1"  />
+            <area shape="rect" coords="675,1245,855,1325" onclick="areaLetra('Dosis');" href="#ponto1"  />
+            @*<area shape="rect" coords="675,1395,855,1475" onclick="areaLetra('#FFFAFA');" href="#ponto1"  />*@
+
+            @*quinta coluna*@
+
+            <area shape="rect" coords="894,45,1100,125" onclick="areaLetra('Broadway');" href="#ponto1"  />
+            <area shape="rect" coords="894,195,1100,275" onclick="areaLetra('Cambria');" href="#ponto1"  />
+            <area shape="rect" coords="894,345,1100,425" onclick="areaLetra('Century');" href="#ponto1"  />
+            <area shape="rect" coords="894,495,1100,575" onclick="areaLetra('Colonna MT');" href="#ponto1"  />
+            <area shape="rect" coords="894,645,1100,725" onclick="areaLetra('Bahnschrift');" href="#ponto1"  />
+            <area shape="rect" coords="894,795,1100,875" onclick="areaLetra('Bell MT');" href="#ponto1"  />
+            <area shape="rect" coords="894,945,1100,1025" onclick="areaLetra('Book Antiqua');" href="#ponto1"  />
+            <area shape="rect" coords="894,1095,1100,1175" onclick="areaLetra('Consolas');" href="#ponto1"  />
+            <area shape="rect" coords="894,1245,1100,1325" onclick="areaLetra('');" href="#ponto1"  />
+            <area shape="rect" coords="894,1395,1100,1475" onclick="areaLetra('Dutch801 Rm BT');" href="#ponto1"  />
+
+        </map> 
+        <img src="~/imagem/letras.jpg" usemap="#imagemapletra" />
+        
+        <form>
+            <input id="valorletra" type="text" readonly />
+        </form>         
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("EcommerceNow", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+

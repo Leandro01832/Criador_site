@@ -1,0 +1,42 @@
+﻿@model business.Pagina
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pagina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Servico.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Servico.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodigoHtml)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodigoHtml)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPagina }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,74 @@
+﻿@model business.Div
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Div</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Background.Cor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Background.Cor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Carousel.IdCarousel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Carousel.IdCarousel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Letra.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Letra.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pagina.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pagina.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Texto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Texto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdicionarImagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdicionarImagem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagemDiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagemDiv)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdDiv }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
