@@ -1,0 +1,40 @@
+﻿
+@model projeto.Models.userview
+
+@{
+    ViewBag.Title = "AddRole";
+    SelectList lista = ViewBag.RoleId;
+}
+
+<h2>Permissões do usuario - @Model.Nome</h2>
+
+@using (Html.BeginForm("AddRole", "Users", new {id = Model.UserId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        <hr />        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Role.RoleId, "Permissões", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoleId", lista, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Role.RoleId, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+        
+        <h3>@ViewBag.error</h3>       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Adicionar permissão" class="btn btn-default" id="RoleId" />
+            </div>
+        </div>
+    </div>
+}
+
+<p>
+    @Html.ActionLink("voltar", "Roles", new { id = Model.UserId}, new { @class = "btn btn-primary" })
+</p>
+

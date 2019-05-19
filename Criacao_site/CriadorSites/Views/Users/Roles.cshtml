@@ -1,0 +1,36 @@
+﻿
+@model projeto.Models.userview
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h2>Configurações de permissões - usuario - @Model.Nome </h2>
+
+
+<p>
+    @Html.ActionLink("Nova Permissão", "AddRole", new { id = Model.UserId }, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+   
+
+   @for (int i = 0; i < Model.Roles.Count; i++)
+       {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Roles[i].Nome)
+            </td>
+            
+            <td>
+              
+                @Html.ActionLink("Excluir", "Delete", new { id = Model.UserId, roleId = Model.Roles[i].RoleId })
+            </td>
+        </tr>
+       }
+             
+</table>
+
+<p>
+    @Html.ActionLink("Voltar", "Index", new { @class = "btn btn-info" })
+</p>
+

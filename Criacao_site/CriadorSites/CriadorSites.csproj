@@ -214,12 +214,15 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaginaController.cs" />
     <Compile Include="Controllers\ServicoController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\roleview.cs" />
+    <Compile Include="Models\userview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -229,10 +232,27 @@
     <Content Include="Content\ImagensGaleria\1.jpg" />
     <Content Include="Content\ImagensGaleria\2.jpg" />
     <Content Include="Content\ImagensGaleria\3.jpg" />
+    <Content Include="Content\shop-homepage.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.js" />
+    <Content Include="Content\vendor\jquery\jquery.min.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.js" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="imagem\28122217400203-t1200x480.jpg" />
+    <Content Include="imagem\background.jpg" />
     <Content Include="imagem\background\4237522-background-hd.jpg" />
     <Content Include="imagem\background\4K-Ultra-Background-Pics.jpg" />
     <Content Include="imagem\background\5zhr3HWlQB4OmyCBFyHbFuoIhxrZY6l6.png" />
@@ -257,9 +277,14 @@
     <Content Include="imagem\background\Ripples_02_A-small-map8dcb19b09ef2efd0be971460f87b8f67.jpg" />
     <Content Include="imagem\background\UjIPp0N.jpg" />
     <Content Include="imagem\background\wp-content%252Fgallery%252Fspring-desktop-backgrounds%252Fflower-lomo.jpg%252Ffit-in__850x850.jpg" />
+    <Content Include="imagem\carrosel.jpg" />
     <Content Include="imagem\cores.jpg" />
+    <Content Include="imagem\design.jpg" />
+    <Content Include="imagem\gerenciamento.jpg" />
     <Content Include="imagem\letras.jpg" />
+    <Content Include="imagem\now.jpg" />
     <Content Include="imagem\teste.jpg" />
+    <Content Include="imagem\website.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -267,6 +292,18 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.js.map" />
+    <Content Include="Content\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Content\vendor\jquery\jquery.min.map" />
+    <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\JavaScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -354,6 +391,9 @@
     <Content Include="Views\Imagem\Details.cshtml" />
     <Content Include="Views\Imagem\Edit.cshtml" />
     <Content Include="Views\Imagem\Index.cshtml" />
+    <Content Include="Views\Users\AddRole.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Roles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
