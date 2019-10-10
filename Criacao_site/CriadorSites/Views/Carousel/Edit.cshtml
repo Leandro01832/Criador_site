@@ -1,36 +1,59 @@
 ﻿@model business.Carousel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Carousel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdCarousel)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.div_2, "div_2", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("div_2", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.div_2, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
+    <h4>Carrossel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdCarousel)
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("pagina", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.div_2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("div_2", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.div_2, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Salvar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
@@ -39,4 +62,59 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#site").click(function () {
+
+                $("#pagina").empty();
+                $("#pagina").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+            });
+
+            $("#pagina").change(function () {
+
+                $("#div_2").empty();
+                $("#div_2").append('<option value="0">[Selecione  um bloco..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDivs")',
+                    dataType: 'json',
+                    data: { PaginaId: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#div_2").append('<option value="'
+                                + data.IdDiv + '">'
+                             + data.Nome + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar blocos.' + ex);
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+
 }

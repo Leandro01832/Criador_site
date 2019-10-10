@@ -1,0 +1,39 @@
+﻿* { 
+	margin:0; 
+	padding:0;
+} 
+
+.carousel-item img { 
+	position: absolute; 
+    width: 100%;
+	z-index: 1;
+    /*display:none;
+     left: 0;*/ 
+} 
+
+.carousel-item  { 
+	
+    display:none;
+    
+}
+
+#ocupa  { 
+	
+    display:none;
+    
+}
+
+    .carousel-item p {
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        font-family: Arial;
+        font-size: 18px;
+        background: rgba(0, 0, 0, 0.3);
+        color: #fff;
+    }
+
+

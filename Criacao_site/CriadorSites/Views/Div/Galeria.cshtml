@@ -1,0 +1,53 @@
+﻿@model IEnumerable<business.Div>
+
+@{
+    ViewBag.Title = "Galeria";
+}
+
+<h2>Galeria</h2>
+
+<p>
+    @Html.ActionLink("Criar bloco", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Divisao)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Height)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Divisao)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Height)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.IdDiv }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IdDiv }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.IdDiv })
+        </td>
+    </tr>
+}
+
+</table>
+
+

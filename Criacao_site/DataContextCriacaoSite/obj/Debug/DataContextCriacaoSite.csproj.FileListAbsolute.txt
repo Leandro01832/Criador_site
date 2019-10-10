@@ -10,3 +10,18 @@ C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCri
 C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.csprojResolveAssemblyReference.cache
 C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.dll
 C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.pdb
+F:\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.csprojAssemblyReference.cache
+F:\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.csproj.CoreCompileInputs.cache
+F:\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.dll
+F:\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.pdb
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\DataContextCriacaoSite.dll.config
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\DataContextCriacaoSite.dll
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\DataContextCriacaoSite.pdb
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\business.dll
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.dll
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.SqlServer.dll
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\business.pdb
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\business.dll.config
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.xml
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.SqlServer.xml
+F:\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.csproj.CopyComplete

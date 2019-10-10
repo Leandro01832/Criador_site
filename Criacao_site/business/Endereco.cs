@@ -10,7 +10,7 @@ namespace business
 {
    public class Endereco
     {
-        [Key, ForeignKey("Pedido")]
+        [Key, ForeignKey("Cliente")]
         public int IdEndereco { get; set; }
         public string Estado { get; set; }
         public string Cidade { get; set; }
@@ -18,6 +18,6 @@ namespace business
         public string Rua { get; set; }
         public long Numero { get; set; }
         public string Cep { get; set; }
-        public virtual Pedido Pedido { get; set; }
+        public virtual CLiente Cliente { get; set; }
     }
 }

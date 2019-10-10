@@ -1,0 +1,49 @@
+﻿@model IEnumerable<business.Video>
+
+@{
+    ViewBag.Title = "Video";
+}
+
+<h2>Videos</h2>
+
+<p>
+    @Html.ActionLink("Criar video", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArquivoVideo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Processado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            <div>
+                <video style="width:70%; height:70%" controls>
+                    <source src="@Url.Content(item.ArquivoVideo)" type="video/mp4" />
+                </video>
+            </div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Processado)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.IdVideo }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IdVideo }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.IdVideo })
+        </td>
+    </tr>
+}
+
+</table>

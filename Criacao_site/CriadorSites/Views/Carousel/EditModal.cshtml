@@ -1,0 +1,223 @@
+﻿@model business.Carousel
+
+<style>
+    .modal .modal-dialog .modal-content .modal-header button {
+        float: left;
+    }
+
+    .modal .modal-dialog .modal-content .modal-footer button {
+        float: left;
+    }
+</style>
+
+
+<a href="#" class="btn btn-success imagem">Adicionar imagens</a>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Carrossel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdCarousel)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdCarousel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IdCarousel, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.IdCarousel, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("pagina", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.div_2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("div_2", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.div_2, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+</div>
+}
+
+<div class="modal fade" id="exampleModalLong" style="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="conteudomodal"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".close").click(function () {
+
+                $(".Topo").css("border", "0");
+                $(".Menu").css("border", "0");
+                $(".bloco").css("border", "0");
+                $(".ClassDiv").css("border", "0");
+                $(".Textos").css("border", "0");
+                $(".Carrosel").css("border", "0");
+                $(".video").css("border", "0");
+                $(".bordaEsquerda").css("border", "0");
+                $(".bordaDireita").css("border", "0");
+
+
+
+            });
+            $(".btn-secondary").click(function () {
+                $(".Topo").css("border", "0");
+                $(".Menu").css("border", "0");
+                $(".bloco").css("border", "0");
+                $(".ClassDiv").css("border", "0");
+                $(".Textos").css("border", "0");
+                $(".Carrosel").css("border", "0");
+                $(".video").css("border", "0");
+                $(".bordaEsquerda").css("border", "0");
+                $(".bordaDireita").css("border", "0");
+            });
+        });
+    </script>
+</div>
+
+<div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#site").click(function () {
+
+                $("#pagina").empty();
+                $("#pagina").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+            });
+
+            $("#pagina").change(function () {
+
+                $("#div_2").empty();
+                $("#div_2").append('<option value="0">[Selecione  um bloco..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDivs")',
+                    dataType: 'json',
+                    data: { PaginaId: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#div_2").append('<option value="'
+                                + data.IdDiv + '">'
+                             + data.Nome + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar blocos.' + ex);
+                    }
+                });
+                return false;
+            });
+
+
+
+
+                $("input[name='Nome'], input[name='div_2']").change(function () {
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AlterarCarousel")',
+                    dataType: 'json',
+                    data: { Id: $("#IdCarousel").val(), Nome: $("#Nome").val(), div_2: $("#div_2").val() },
+                    success: function (data) {  
+
+                        alert('alteração efetuada');
+                        location.reload(); 
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar cidades.' + ex);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+
+</div>
+
+
+<div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        $(".btn-success").click(function () {
+
+            var id = $("#IdCarousel").val();
+
+                    $("#conteudomodal").load("/Carousel/AdicionarImagem/" + id, function () {
+                        $('#exampleModalLong').modal("show");
+                    });                                     
+            });
+
+        });
+
+    </script>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-1.10.2.js"></script> 
+}

@@ -1,0 +1,58 @@
+﻿@model business.Elemento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Elemento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.carousel.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.carousel.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.div.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.div.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imagem.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imagem.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.texto.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.texto.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.video.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.video.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdElemento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

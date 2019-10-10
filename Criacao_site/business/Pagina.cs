@@ -8,15 +8,21 @@ namespace business
     {
         [Key]
         public int IdPagina { get; set; }
+
+        [Required(ErrorMessage = "O titulo é necessário")]
+        [Display(Name = "Titulo da pagina")]
         public string Titulo { get; set; }
-        public ICollection<Codigo> Efeitos { get; set; }
-        public string CodigoHtml { get; set; }
-        public int servico_ { get; set; }
-        public virtual ICollection<Background> Background { get; set; }     
-        public virtual ICollection<Div> Div { get; set; }
 
+        public string Codigo { get; set; } 
+        
+        public virtual ICollection<Background> Background { get; set; }
+        public virtual ICollection<Imagem> Imagem { get; set; }
+        public virtual ICollection<Div> Div { get; set; }        
 
-        [ForeignKey("servico_")]
-        public virtual Servico Servico { get; set; }
+        [Range(1, 10000, ErrorMessage = "Escolha qual o site para esta pagina")]
+        [Display(Name = "Qual é o site desta pagina?")]
+        public int pedido_ { get; set; }
+        [ForeignKey("pedido_")]
+        public virtual Pedido Pedido { get; set; }
     }
 }

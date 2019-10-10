@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataContextCriacaoSite;
 using business;
+using Microsoft.AspNet.Identity;
 
 namespace CriadorSites.Controllers
 {
@@ -18,7 +19,8 @@ namespace CriadorSites.Controllers
         // GET: Servico
         public ActionResult Index()
         {
-            return View(db.Servico.ToList());
+            var servico = db.Servico.Include(s => s.Pedido);
+            return View(servico.ToList());
         }
 
         // GET: Servico/Details/5
@@ -37,18 +39,24 @@ namespace CriadorSites.Controllers
         }
 
         // GET: Servico/Create
+        [Authorize]
         public ActionResult Create()
         {
+            ViewBag.IdServico = new SelectList(db.Pedido, "IdPedido", "Status");
             return View();
         }
 
         // POST: Servico/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdServico,Preco,Descricao")] Servico servico)
+        [Authorize]
+        public ActionResult Create([Bind(Include = "IdServico,Descricao,Nome")] Servico servico)
         {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (ModelState.IsValid)
             {
                 db.Servico.Add(servico);
@@ -56,11 +64,11 @@ namespace CriadorSites.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.IdServico = new SelectList(db.Pedido, "IdPedido", "Status", servico.IdServico);
             return View(servico);
         }
 
         // GET: Servico/Edit/5
-        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -72,16 +80,16 @@ namespace CriadorSites.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.IdServico = new SelectList(db.Pedido, "IdPedido", "Status", servico.IdServico);
             return View(servico);
         }
 
         // POST: Servico/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public ActionResult Edit([Bind(Include = "IdServico,Preco,Descricao")] Servico servico)
+        public ActionResult Edit([Bind(Include = "IdServico,Descricao,Nome")] Servico servico)
         {
             if (ModelState.IsValid)
             {
@@ -89,6 +97,7 @@ namespace CriadorSites.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.IdServico = new SelectList(db.Pedido, "IdPedido", "Status", servico.IdServico);
             return View(servico);
         }
 

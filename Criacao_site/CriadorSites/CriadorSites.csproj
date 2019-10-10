@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -206,15 +207,20 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackgroundController.cs" />
     <Compile Include="Controllers\CarouselController.cs" />
-    <Compile Include="Controllers\CodigoController.cs" />
+    <Compile Include="Controllers\CLienteController.cs" />
     <Compile Include="Controllers\DivController.cs" />
+    <Compile Include="Controllers\ElementoController.cs" />
+    <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagemController.cs" />
-    <Compile Include="Controllers\LetraController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaginaController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ServicoController.cs" />
+    <Compile Include="Controllers\TelefoneController.cs" />
+    <Compile Include="Controllers\TextoController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,6 +253,12 @@
     <Content Include="Content\vendor\jquery\jquery.min.js" />
     <Content Include="Content\vendor\jquery\jquery.slim.js" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="css\carousel.css" />
+    <Content Include="css\IMG-20190621-WA0002.jpg" />
+    <Content Include="css\large.css" />
+    <Content Include="css\medium.css" />
+    <Content Include="css\small.css" />
+    <Content Include="css\the-big-picture.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -281,6 +293,7 @@
     <Content Include="imagem\cores.jpg" />
     <Content Include="imagem\design.jpg" />
     <Content Include="imagem\gerenciamento.jpg" />
+    <Content Include="imagem\Layout.jpg" />
     <Content Include="imagem\letras.jpg" />
     <Content Include="imagem\now.jpg" />
     <Content Include="imagem\teste.jpg" />
@@ -351,36 +364,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Servico\Create.cshtml" />
-    <Content Include="Views\Servico\Delete.cshtml" />
-    <Content Include="Views\Servico\Details.cshtml" />
-    <Content Include="Views\Servico\Edit.cshtml" />
-    <Content Include="Views\Servico\Index.cshtml" />
-    <Content Include="Views\Codigo\Create.cshtml" />
-    <Content Include="Views\Codigo\Delete.cshtml" />
-    <Content Include="Views\Codigo\Details.cshtml" />
-    <Content Include="Views\Codigo\Edit.cshtml" />
-    <Content Include="Views\Codigo\Index.cshtml" />
-    <Content Include="Views\Letra\Create.cshtml" />
-    <Content Include="Views\Letra\Delete.cshtml" />
-    <Content Include="Views\Letra\Details.cshtml" />
-    <Content Include="Views\Letra\Edit.cshtml" />
-    <Content Include="Views\Letra\Index.cshtml" />
-    <Content Include="Views\Background\Create.cshtml" />
-    <Content Include="Views\Background\Delete.cshtml" />
-    <Content Include="Views\Background\Details.cshtml" />
-    <Content Include="Views\Background\Edit.cshtml" />
-    <Content Include="Views\Background\Index.cshtml" />
     <Content Include="Views\Pagina\Create.cshtml" />
     <Content Include="Views\Pagina\Delete.cshtml" />
-    <Content Include="Views\Pagina\Details.cshtml" />
     <Content Include="Views\Pagina\Edit.cshtml" />
     <Content Include="Views\Pagina\Index.cshtml" />
-    <Content Include="Views\Div\Create.cshtml" />
-    <Content Include="Views\Div\Delete.cshtml" />
-    <Content Include="Views\Div\Details.cshtml" />
-    <Content Include="Views\Div\Edit.cshtml" />
-    <Content Include="Views\Div\Index.cshtml" />
     <Content Include="Views\Carousel\Create.cshtml" />
     <Content Include="Views\Carousel\Delete.cshtml" />
     <Content Include="Views\Carousel\Details.cshtml" />
@@ -394,11 +381,98 @@
     <Content Include="Views\Users\AddRole.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Roles.cshtml" />
+    <Content Include="Views\Shared\_Render.cshtml" />
+    <Content Include="Views\CLiente\Create.cshtml" />
+    <Content Include="Views\CLiente\Delete.cshtml" />
+    <Content Include="Views\CLiente\Details.cshtml" />
+    <Content Include="Views\CLiente\Edit.cshtml" />
+    <Content Include="Views\CLiente\Index.cshtml" />
+    <Content Include="Views\Background\Create.cshtml" />
+    <Content Include="Views\Background\Delete.cshtml" />
+    <Content Include="Views\Background\Edit.cshtml" />
+    <Content Include="Views\Background\Index.cshtml" />
+    <Content Include="Views\Background\Renderizar_Dinamico.cshtml" />
+    <Content Include="Views\Div\Create.cshtml" />
+    <Content Include="Views\Div\Delete.cshtml" />
+    <Content Include="Views\Div\Edit.cshtml" />
+    <Content Include="Views\Div\Index.cshtml" />
+    <Content Include="Views\Texto\Create.cshtml" />
+    <Content Include="Views\Texto\Delete.cshtml" />
+    <Content Include="Views\Texto\Details.cshtml" />
+    <Content Include="Views\Texto\Edit.cshtml" />
+    <Content Include="Views\Texto\Index.cshtml" />
+    <Content Include="Views\Div\Renderizar_dinamico.cshtml" />
+    <Content Include="Views\Endereco\Create.cshtml" />
+    <Content Include="Views\Endereco\Delete.cshtml" />
+    <Content Include="Views\Endereco\Details.cshtml" />
+    <Content Include="Views\Endereco\Edit.cshtml" />
+    <Content Include="Views\Endereco\Index.cshtml" />
+    <Content Include="Views\Telefone\Create.cshtml" />
+    <Content Include="Views\Telefone\Delete.cshtml" />
+    <Content Include="Views\Telefone\Details.cshtml" />
+    <Content Include="Views\Telefone\Edit.cshtml" />
+    <Content Include="Views\Telefone\Index.cshtml" />
+    <Content Include="Views\Pedido\Create.cshtml" />
+    <Content Include="Views\Pedido\Delete.cshtml" />
+    <Content Include="Views\Pedido\Details.cshtml" />
+    <Content Include="Views\Pedido\Edit.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\Servico\Create.cshtml" />
+    <Content Include="Views\Servico\Delete.cshtml" />
+    <Content Include="Views\Servico\Details.cshtml" />
+    <Content Include="Views\Servico\Edit.cshtml" />
+    <Content Include="Views\Servico\Index.cshtml" />
+    <Content Include="Views\CLiente\IndexCliente.cshtml" />
+    <Content Include="Views\Pagina\Renderizar_Dinamico.cshtml" />
+    <Content Include="Views\Texto\Renderizar_Dinamico.cshtml" />
+    <Content Include="Views\Carousel\Renderizar_Dinamico.cshtml" />
+    <Content Include="Views\Texto\EditModal.cshtml" />
+    <Content Include="Views\Div\EditModal.cshtml" />
+    <Content Include="Views\Background\EditModal.cshtml" />
+    <Content Include="Views\Pagina\EditModal.cshtml" />
+    <Content Include="Views\Carousel\EditModal.cshtml" />
+    <Content Include="Views\Div\Galeria.cshtml" />
+    <Content Include="Views\Carousel\Galeria.cshtml" />
+    <Content Include="Views\Texto\Galeria.cshtml" />
+    <Content Include="Views\Background\Galeria.cshtml" />
+    <Content Include="Views\Pagina\Galeria.cshtml" />
+    <Content Include="Views\Imagem\Galeria.cshtml" />
+    <Content Include="Views\Video\Create.cshtml" />
+    <Content Include="Views\Video\Delete.cshtml" />
+    <Content Include="Views\Video\Details.cshtml" />
+    <Content Include="Views\Video\Edit.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Video\Galeria.cshtml" />
+    <Content Include="Views\Elemento\Create.cshtml" />
+    <Content Include="Views\Elemento\Delete.cshtml" />
+    <Content Include="Views\Elemento\Details.cshtml" />
+    <Content Include="Views\Elemento\Edit.cshtml" />
+    <Content Include="Views\Elemento\Index.cshtml" />
+    <Content Include="Views\Pedido\Galeria.cshtml" />
+    <Content Include="Views\Video\EditModal.cshtml" />
+    <Content Include="Views\Home\Nike.cshtml" />
+    <Content Include="Views\Background\Details.cshtml" />
+    <Content Include="Views\Pagina\Details.cshtml" />
+    <Content Include="Views\Div\Details.cshtml" />
+    <Content Include="Views\Background\CreateModal.cshtml" />
+    <Content Include="Views\Video\CreateModal.cshtml" />
+    <Content Include="Views\Texto\CreateModal.cshtml" />
+    <Content Include="Views\Carousel\CreateModal.cshtml" />
+    <Content Include="Views\Div\CreateModal.cshtml" />
+    <Content Include="Views\Home\Porto_Alegre.cshtml" />
+    <Content Include="Views\Home\Layout.cshtml" />
+    <Content Include="Views\Home\Blocos.cshtml" />
+    <Content Include="Views\Home\Planos_de_fundo.cshtml" />
+    <Content Include="Views\Home\Carrossel.cshtml" />
+    <Content Include="Views\Home\WebSiteNow.cshtml" />
+    <Content Include="Views\Imagem\CreateModal.cshtml" />
+    <Content Include="Views\Carousel\AdicionarImagem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\ImagensDiv\" />
     <Folder Include="Content\Imagens\" />
+    <Folder Include="Content\VideosGaleria\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

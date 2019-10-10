@@ -1,0 +1,64 @@
+﻿@model business.Elemento
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Elemento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.carousel.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.carousel.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.div.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.div.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imagem.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imagem.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.texto.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.texto.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.video.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.video.Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

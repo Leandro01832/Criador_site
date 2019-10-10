@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<business.Carousel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Carrossel";
 }
 
-<h2>Index</h2>
+<h2>Carrossel</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar carrossel", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Div.Texto)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th></th>
     </tr>
@@ -20,12 +20,12 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Div.Texto)
+            @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdCarousel }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdCarousel }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdCarousel })
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdCarousel }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdCarousel }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.IdCarousel })
         </td>
     </tr>
 }

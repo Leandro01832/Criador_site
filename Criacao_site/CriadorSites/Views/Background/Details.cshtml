@@ -1,21 +1,61 @@
 ﻿@model business.Background
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Background</h4>
+    <h4>Plano de fundo</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.imagem.Arquivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imagem.Arquivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pagina.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pagina.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.backgroundImage)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.backgroundImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.backgroundTransparente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.backgroundTransparente)
         </dd>
 
         <dt>
@@ -26,9 +66,40 @@
             @Html.DisplayFor(model => model.Cor)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Background_Repeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Background_Repeat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Background_Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Background_Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Imagem")
+        </dt>
+
+        <dd>
+            @{
+                if (Model.imagem.Arquivo != null)
+                {
+                    <img src="@Url.Content(Model.imagem.Arquivo)" alt="Image" style="width:300px;max-width: 100%; height: auto;" />
+                }
+            }
+        </dd>
+
+
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdBackground }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdBackground }) |
+    @Html.ActionLink("Voltar para a lista", "Galeria", new { id = Model.pagina_2 })
 </p>

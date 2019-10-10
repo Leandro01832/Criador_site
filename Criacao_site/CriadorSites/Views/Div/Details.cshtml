@@ -1,37 +1,29 @@
 ﻿@model business.Div
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
-    <h4>Div</h4>
+    <h4>Bloco</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Background.Cor)
+            @Html.DisplayNameFor(model => model.Background.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Background.Cor)
+            @Html.DisplayFor(model => model.Background.Nome)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Carousel.IdCarousel)
+            @Html.DisplayNameFor(model => model.imagem.Arquivo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Carousel.IdCarousel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Letra.Tipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Letra.Tipo)
+            @Html.DisplayFor(model => model.imagem.Arquivo)
         </dd>
 
         <dt>
@@ -43,32 +35,88 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Texto)
+            @Html.DisplayNameFor(model => model.Codigo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Texto)
+            @Html.DisplayFor(model => model.Codigo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AdicionarImagem)
+            @Html.DisplayNameFor(model => model.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AdicionarImagem)
+            @Html.DisplayFor(model => model.Nome)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ImagemDiv)
+            @Html.DisplayNameFor(model => model.Padding)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImagemDiv)
+            @Html.DisplayFor(model => model.Padding)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Desenhado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Desenhado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Divisao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Divisao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BorderRadius)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BorderRadius)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Videos")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Videos", "Galeria", "Video", new { id = Model.IdDiv }, new { @class = "btn btn-primary" })
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Carrosseis")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Carrosseis", "Galeria", "Carousel", new { id = Model.IdDiv }, new { @class = "btn btn-primary" })
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Textos")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Textos", "Galeria", "Texto", new { id = Model.IdDiv }, new { @class = "btn btn-primary" })
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdDiv }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdDiv }) |
+    @Html.ActionLink("Voltar para a lista", "Galeria", new { id = Model.pagina_ })
 </p>

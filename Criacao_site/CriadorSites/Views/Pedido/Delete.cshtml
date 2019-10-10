@@ -1,0 +1,49 @@
+﻿@model business.Pedido
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar</h2>
+
+<h3>Deseja realmente apagar este item?</h3>
+<div>
+    <h4>Site</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Servico.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Servico.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datapedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datapedido)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para a lista", "Index")
+        </div>
+    }
+</div>

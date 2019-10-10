@@ -1,0 +1,43 @@
+﻿@model IEnumerable<business.Pagina>
+
+@{
+    ViewBag.Title = "Galeria";
+}
+
+<h2>Galeria</h2>
+
+<p>
+    @Html.ActionLink("Criar nova Pagina", "Create")
+</p>
+<table class="table">
+    <tr>         
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayName("Preview dinâminco")
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+
+        <td>
+            <a href="/Pagina/Renderizar_Dinamico/@item.IdPagina" target="_blank" class="btn btn-warning">Mostrar Pagina</a>
+        </td>
+
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.IdPagina }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IdPagina }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.IdPagina })
+        </td>
+    </tr>
+}
+
+</table>

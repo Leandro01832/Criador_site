@@ -1,0 +1,43 @@
+﻿@model IEnumerable<business.Imagem>
+
+@{
+    ViewBag.Title = "Galeria";
+}
+
+<h2>Galeria</h2>
+
+<p>
+    @Html.ActionLink("Criar novas imagens", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Arquivo)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{
+                if (item.Arquivo != null)
+                {
+                    <img src="@Url.Content(item.Arquivo)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                }
+            }
+        </td>
+        
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdImagem }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdImagem }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.IdImagem })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+

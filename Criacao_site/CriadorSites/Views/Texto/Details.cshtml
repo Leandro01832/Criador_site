@@ -1,0 +1,35 @@
+﻿@model business.Texto
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Texto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.div.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.div.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Palavras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Palavras)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdTexto }) |
+    @Html.ActionLink("Voltar para a lista", "Index")
+</p>

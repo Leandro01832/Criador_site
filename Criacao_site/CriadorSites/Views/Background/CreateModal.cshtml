@@ -1,0 +1,237 @@
+﻿@model business.Background
+
+@{
+    ViewBag.Title = "Criar";
+
+}
+
+
+<a href="#" class="btn btn-success imagem">Criar novas imagens</a>
+
+<h2>Criar plano de fundo</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Plano de fundo</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.backgroundImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.backgroundImage)
+                    @Html.ValidationMessageFor(model => model.backgroundImage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.backgroundTransparente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.backgroundTransparente)
+                    @Html.ValidationMessageFor(model => model.backgroundTransparente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="color" id="cores" name="cores" />
+                @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Background_Repeat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Background_Repeat, new List<SelectListItem>
+           {
+               new SelectListItem{ Text="Repetido", Value="repeat" },
+               new SelectListItem{ Text="Não repetido", Value="no-repeat" },
+               new SelectListItem{ Text="Repetido horizontalmente", Value="repeat-x" },
+               new SelectListItem{ Text="Repetido verticalmente", Value="repeat-y" }
+           }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Background_Repeat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Background_Position, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Background_Position, new List<SelectListItem>
+           {
+               new SelectListItem{ Text="Posição no centro", Value="center" },
+               new SelectListItem{ Text="Posição para baixo e esquerda", Value="left botton" },
+               new SelectListItem{ Text="Posição para baixo e direita", Value="right botton" },
+               new SelectListItem{ Text="Posição para cima e esquerda", Value="left top" },
+               new SelectListItem{ Text="Posição para cima e direita", Value="right top" }
+
+           }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Background_Position, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.pagina_2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("pagina_2", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.pagina_2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.imagem_, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("imagem_", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.imagem_, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="img">
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Criar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+    <div class="modal fade" id="exampleModalLong2" style="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle2"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="conteudomodal2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $(".btn-success").click(function () {                 
+
+                
+
+                $("#conteudomodal2").load("/Imagem/CreateModal/", function () {
+                    $('#exampleModalLong2').modal("show");
+
+                });
+            });
+
+        $("#site").click(function () {
+                $("#pagina_2").empty();
+                $("#pagina_2").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina_2").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+        });
+
+
+        $("#pagina_2").change(function () {
+
+            $("#imagem_").empty();
+            $("#imagem_").append('<option value="0">[Selecione  uma imagem..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetImagens")',
+                    dataType: 'json',
+                    data: { PaginaId: $("#pagina_2").val() },
+                    success: function (data) {
+
+                        $.each(data, function (i, data) {
+
+                            $("#imagem_").append('<option id=" ' + data.IdImagem + ' " class="' + data.Arquivo + '" value="'
+                                + data.IdImagem + '" data-value="' + data.Arquivo + '" >'
+                                + data.Arquivo + '</option>');
+
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar imagens.' + ex);
+                    }
+                });
+            return false;            
+
+        });
+
+        
+
+            var items = document.getElementById('imagem_');
+            items.addEventListener('change', function () {
+                var x = document.getElementById('imagem_');
+                var y = x.selectedOptions[0].className;
+                y = y.replace("~", "../..");
+
+                document.getElementById("img").innerHTML = "<br /> <img src='" + y + "' style='width:300px; height:150px; max-width: 100%; height: auto;' /> <br />";
+
+            });
+         
+
+
+    });
+    </script>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

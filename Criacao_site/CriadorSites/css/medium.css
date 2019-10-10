@@ -1,0 +1,25 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+.carousel-item {
+    width: 70%;
+    overflow: hidden;
+    min-height: 250px;    
+    height: auto;
+    margin: 30px auto;
+    box-shadow: 0 0 30px #000;
+    position: relative;
+}
+
+.Carrosel {
+    height: 100%;
+}
+
+
+
+
+
+
+

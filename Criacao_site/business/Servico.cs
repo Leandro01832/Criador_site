@@ -10,11 +10,11 @@ namespace business
 {
    public class Servico
     {
-        [Key]
+        [Key, ForeignKey("Pedido")]
         public int IdServico { get; set; }
         public string Descricao { get; set; }
-        public double Preco { get; set; }
-        public virtual ICollection<Pedido> Pedidos { get; set; }
-        public virtual ICollection<Pagina> Paginas { get; set; }
+        public virtual Pedido Pedido { get; set; }
+        
+        
     }
 }

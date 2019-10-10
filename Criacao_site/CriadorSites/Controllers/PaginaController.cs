@@ -8,9 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using DataContextCriacaoSite;
 using business;
+using Microsoft.AspNet.Identity;
 using NVelocity.App;
-using System.Text;
 using NVelocity;
+using System.Text;
 using System.IO;
 
 namespace CriadorSites.Controllers
@@ -19,12 +20,36 @@ namespace CriadorSites.Controllers
     {
         private BD db = new BD();
 
+        public JsonResult Alterar(int Id, string Titulo, int pedido_)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+           
+            Pagina pagina = db.Pagina.First(di => di.IdPagina == Id);
+            pagina.Titulo = Titulo;
+            pagina.pedido_ = pedido_;
+
+            db.Entry(pagina).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json("");
+        }
+
         // GET: Pagina
         public ActionResult Index()
         {
-            var pagina = db.Pagina.Include(p => p.Servico);
+            var pagina = db.Pagina.Include(p => p.Pedido);
             return View(pagina.ToList());
         }
+
+
+        [Authorize]
+        public ActionResult Galeria(int id)
+        {
+            var paginas = db.Pagina.Where(p => p.pedido_ == id).ToList();
+
+            return View(paginas);
+        }
+
+
 
         // GET: Pagina/Details/5
         public ActionResult Details(int? id)
@@ -42,36 +67,153 @@ namespace CriadorSites.Controllers
         }
 
         // GET: Pagina/Create
+        [Authorize]
         [ValidateInput(false)]
         public ActionResult Create()
         {
-            ViewBag.servico_ = new SelectList(db.Servico, "IdServico", "Descricao");
+            var email = User.Identity.GetUserName();           
+
+            var Cliente = db.Cliente.First(c => c.UserName == email);
+
+            //ViewBag.copia = new SelectList(Cliente.GaleriaPagina, "IdPagina", "Titulo");
+            ViewBag.pedido_ = new SelectList(Cliente.Servicos, "IdPedido", "Nome");
             return View();
         }
 
         // POST: Pagina/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "IdPagina,Titulo,CodigoHtml,servico_")] Pagina pagina)
+        public ActionResult Create([Bind(Include = "IdPagina,Titulo,Codigo,pedido_")] Pagina pagina)
         {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (ModelState.IsValid)
             {
-                db.Pagina.Add(pagina);
+              
+                    pagina.Codigo = db.Pagina.Find(1).Codigo;
+                    db.Pagina.Add(pagina);
+                    db.SaveChanges();
+
+                Background back1 = new Background
+                {
+                    backgroundImage = true,
+                    backgroundTransparente = false,
+                    Background_Position = "",
+                    Background_Repeat = "",
+                    pagina_2 = pagina.IdPagina,
+                    Codigo = "",
+                    Cor = "#000000",
+                    imagem = db.Imagem.ToList()[0],
+                    imagem_ = db.Imagem.ToList()[0].IdImagem,
+                    Nome = "plano de fundo da pagina"
+                };
+
+                Background back2 = new Background
+                {
+                    backgroundImage = true,
+                    backgroundTransparente = false,
+                    Background_Position = "",
+                    Background_Repeat = "",
+                    pagina_2 = pagina.IdPagina,
+                    Codigo = "",
+                    Cor = "#000000",
+                    imagem = db.Imagem.ToList()[1],
+                    imagem_ = db.Imagem.ToList()[1].IdImagem,
+                    Nome = "topo"
+                };
+
+
+                Background back3 = new Background
+                {
+                    backgroundImage = true,
+                    backgroundTransparente = false,
+                    Background_Position = "",
+                    Background_Repeat = "",
+                    pagina_2 = pagina.IdPagina,
+                    Codigo = "",
+                    Cor = "#000000",
+                    imagem = db.Imagem.ToList()[2],
+                    imagem_ = db.Imagem.ToList()[2].IdImagem,
+                    Nome = "menu"
+                };
+
+                Background back4 = new Background
+                {
+                    backgroundImage = false,
+                    backgroundTransparente = true,
+                    Background_Position = "",
+                    Background_Repeat = "",
+                    pagina_2 = pagina.IdPagina,
+                    Codigo = "",
+                    Cor = "#000000",
+                    imagem = db.Imagem.ToList()[0],
+                    imagem_ = db.Imagem.ToList()[0].IdImagem,
+                    Nome = "borda esquerda"
+                };
+
+                Background back5 = new Background
+                {
+                    backgroundImage = false,
+                    backgroundTransparente = true,
+                    Background_Position = "",
+                    Background_Repeat = "",
+                    pagina_2 = pagina.IdPagina,
+                    Codigo = "",
+                    Cor = "#000000",
+                    imagem = db.Imagem.ToList()[0],
+                    imagem_ = db.Imagem.ToList()[0].IdImagem,
+                    Nome = "borda direita"
+                };
+
+                Background back6 = new Background
+                {
+                    backgroundImage = false,
+                    backgroundTransparente = true,
+                    Background_Position = "",
+                    Background_Repeat = "",
+                    pagina_2 = pagina.IdPagina,
+                    Codigo = "",
+                    Cor = "#000000",
+                    imagem = db.Imagem.ToList()[0],
+                    imagem_ = db.Imagem.ToList()[0].IdImagem,
+                    Nome = "blocos"
+                };
+
+                List<Background> Background = new List<Background>();
+                Background.Add(back1);
+                Background.Add(back2);
+                Background.Add(back3);
+                Background.Add(back4);
+                Background.Add(back5);
+                Background.Add(back6);
+
+                db.Background.AddRange(Background);
                 db.SaveChanges();
-                return RedirectToAction("Create", "Background" , null);
+
+                pagina.Background.ToList().AddRange(Background);
+                db.SaveChanges();
+
+                return RedirectToAction("Galeria", new { id = pagina.pedido_ });               
             }
 
-            ViewBag.servico_ = new SelectList(db.Servico, "IdServico", "Descricao", pagina.servico_);
+           
+            ViewBag.pedido_ = new SelectList(cli.Servicos, "IdPedido", "Nome", pagina.pedido_);
             return View(pagina);
         }
 
         // GET: Pagina/Edit/5
         [ValidateInput(false)]
+        [Authorize]
         public ActionResult Edit(int? id)
         {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,53 +223,149 @@ namespace CriadorSites.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.servico_ = new SelectList(db.Servico, "IdServico", "Descricao", pagina.servico_);
+            
+           
+            ViewBag.pedido_ = new SelectList(cli.Servicos, "IdPedido", "Nome", pagina.pedido_);
+            return View(pagina);
+        }
+
+        // POST: Pagina/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        [Authorize]
+        public ActionResult Edit([Bind(Include = "IdPagina,Titulo,Codigo,pedido_")] Pagina pagina)
+        {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(pagina).State = EntityState.Modified;
+                db.SaveChanges();            
+
+                return RedirectToAction("Galeria", new { id = pagina.pedido_ });
+            }
+            
+            ViewBag.pedido_ = new SelectList(cli.Servicos, "IdPedido", "Nome", pagina.pedido_);
+            return View(pagina);
+        }
+
+        [ValidateInput(false)]
+        [Authorize]
+        public ActionResult EditModal(int? id)
+        {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pagina pagina = db.Pagina.Find(id);
+            if (pagina == null)
+            {
+                return HttpNotFound();
+            }
+            
+            ViewBag.pedido_ = new SelectList(cli.Servicos, "IdPedido", "Nome", pagina.pedido_);
+            return PartialView(pagina);
+        }
+
+
+        [Authorize]
+        public ActionResult Renderizar_Dinamico(int? id)
+        {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pagina pagina = db.Pagina.Find(id);
+            if (pagina == null)
+            {
+                return HttpNotFound();
+            }
+
+            int espaco = 0;
+            int rows = 0;
+
+            foreach(var bloco in pagina.Div)
+            {
+                if(bloco.Divisao == "col-md-12" || bloco.Divisao == "col-sm-12")
+                espaco += 12;
+                
+
+                if(bloco.Divisao == "col-md-6" || bloco.Divisao == "col-sm-6")
+                espaco += 6;
+
+                if(bloco.Divisao == "col-md-4" || bloco.Divisao == "col-sm-4")
+                espaco += 4;
+
+                if(bloco.Divisao == "col-md-3" || bloco.Divisao == "col-sm-3")
+                espaco += 3;
+
+                if (bloco.Divisao == "col-md-2" || bloco.Divisao == "col-sm-2")
+                espaco += 2;
+
+                
+            }
+
+            rows = espaco / 12;
+
+            rows += 1;
+
+            int[] numero = new int[rows];
+
+            for (int i = 0; i < numero.Length; i++)
+            {
+                numero[i] += i + 1;
+                
+            }
+
+            foreach (var fundo in pagina.Background)
+            {
+                if (fundo.backgroundTransparente)
+                {
+                    fundo.Cor = "transparent";
+                }
+            }
 
             Velocity.Init();
 
             var Modelo = new
             {
-                background = "green",
-                cor = "Yellow",
-                font_family = "Arial",
-                Header = "Dados de tabela",
-                Itens = new[]
-                {
-                    new {ID = 1, Nome = "texto1", Negrito = false},
-                    new {ID = 2, Nome = "texto2", Negrito = false},
-                    new {ID = 3, Nome = "texto3", Negrito = false},
-                    new {ID = 4, Nome = "texto4", Negrito = false}
-                },
-
+                Pagina = pagina,
+                titulo = pagina.Titulo,
+                background = pagina.Background.ToList()[0],
+                background_url = pagina.Background.ToList()[0].imagem.Arquivo.Replace("~", "../.."),
+                background_topo = pagina.Background.ToList()[1],
+                background_menu = pagina.Background.ToList()[2],
+                background_borda_esquerda = pagina.Background.ToList()[3],
+                background_borda_direita = pagina.Background.ToList()[4],
+                background_bloco = pagina.Background.ToList()[5],
+                divs = pagina.Div,
+                Rows = numero,
+                espacamento = 0,
+                indice = 1
+                
             };
 
             var velocitycontext = new VelocityContext();
             velocitycontext.Put("model", Modelo);
-
+            velocitycontext.Put("divs", pagina.Div);
             var html = new StringBuilder();
-            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.CodigoHtml));
+            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.Codigo));
 
-            ViewBag.html = html.ToString();
+             ViewBag.html = html.ToString();
 
-            return View(pagina);
-        }
+             return View(pagina);
 
-        // POST: Pagina/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "IdPagina,Titulo,CodigoHtml,servico_")] Pagina pagina)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(pagina).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.servico_ = new SelectList(db.Servico, "IdServico", "Descricao", pagina.servico_);
-            return View(pagina);
+           // return html.ToString();
         }
 
         // GET: Pagina/Delete/5

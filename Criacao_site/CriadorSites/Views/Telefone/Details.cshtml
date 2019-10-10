@@ -1,0 +1,58 @@
+﻿@model business.Telefone
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Telefone</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDD_Celular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDD_Celular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Celular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Celular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDD_Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDD_Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTelefone }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

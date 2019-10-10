@@ -25,7 +25,7 @@ namespace Ecommerce.Classes
                 var userASP = userManager.FindByEmail(username);
                 if (userASP != null)
                 {
-                   var response = userManager.Delete(userASP);
+                    var response = userManager.Delete(userASP);
                     return response.Succeeded;
                 }
 

@@ -13,6 +13,32 @@ namespace CriadorSites
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+              name: "Preview_dinamico_div",
+              url: "Div/Renderizar_Dinamico/{id}",
+              defaults: new { controller = "Div", action = "Renderizar_Dinamico", id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
+              name: "Preview_dinamico_background",
+              url: "Background/Renderizar_Dinamico/{id}",
+              defaults: new { controller = "Background", action = "Renderizar_Dinamico", id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
+              name: "Preview_dinamico",
+              url: "Codigo/Renderizar_Dinamico/{id}",
+              defaults: new { controller = "Codigo", action = "Renderizar_Dinamico", id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
+               name: "Preview",
+               url: "Codigo/Renderizar/{id}",
+               defaults: new { controller = "Codigo", action = "Renderizar", id = UrlParameter.Optional }
+           );
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

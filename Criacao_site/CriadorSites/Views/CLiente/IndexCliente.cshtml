@@ -1,0 +1,56 @@
+﻿@model business.CLiente
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Workplace</h2>
+
+<a id="btn_dados" href="#" class="btn btn-danger">Dados Pessoais</a>
+@Html.ActionLink("Galeria de sites", "Galeria", "Pedido", null, new { @class = "btn btn-success" })
+
+
+<hr />
+
+<div class="jumbotron">
+    <div id="DadosPessoais" style="display:none;">
+        <h1>Dados pessoais</h1>
+        <p><label>Codigo do cliente: </label> @Model.IdCliente</p>
+        <p><label>Nome: </label> @Model.FirstName</p>
+        <p><label>Sobrenome: </label> @Model.LastName</p>
+        <p><label>CPF: </label> @Model.Cpf</p>
+        <p><label>Telefone: </label> @Model.Telefone.Fone</p>
+        <p><label>Celular: </label> @Model.Telefone.Celular</p>
+    </div>
+
+    <div id="Pedidos" style="display:none;">        
+
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#btn_dados").click(function () {
+                $("#Pedidos, #DadosPessoais").fadeOut("slow")
+                $("#DadosPessoais").fadeIn("slow");
+
+            });
+
+            $("#btn_pedidos").click(function () {
+                $("#Pedidos, #DadosPessoais").fadeOut("slow")
+                $("#Pedidos").fadeIn("slow");
+            });
+        });
+
+
+
+    </script>
+}
+
+

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<business.Telefone>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDD_Celular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Celular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDD_Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDD_Celular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Celular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDD_Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdTelefone }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdTelefone }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdTelefone })
+        </td>
+    </tr>
+}
+
+</table>

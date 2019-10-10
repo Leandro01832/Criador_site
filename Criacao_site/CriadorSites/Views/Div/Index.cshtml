@@ -4,33 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Blocos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar blocos", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Background.Cor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Carousel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Letra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pagina.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Texto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdicionarImagem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagemDiv)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th></th>
     </tr>
@@ -38,35 +20,12 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Background.Cor)
+            @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Carousel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Letra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pagina.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Texto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdicionarImagem)
-        </td>
-        <td>
-            @{
-                if (item.ImagemDiv != null)
-                {
-                    <img src="@Url.Content(item.ImagemDiv)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                }
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdDiv }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdDiv }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdDiv })
+            @Html.ActionLink("Editar", "Edit", new { id = item.IdDiv }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IdDiv }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.IdDiv })
         </td>
     </tr>
 }

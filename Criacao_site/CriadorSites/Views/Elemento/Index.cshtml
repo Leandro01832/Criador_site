@@ -1,0 +1,57 @@
+﻿@model IEnumerable<business.Elemento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.carousel.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.div.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imagem.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.texto.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.video.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.carousel.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.div.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.imagem.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.texto.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.video.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdElemento }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdElemento }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdElemento })
+        </td>
+    </tr>
+}
+
+</table>

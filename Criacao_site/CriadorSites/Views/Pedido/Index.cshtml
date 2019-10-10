@@ -1,0 +1,51 @@
+﻿@model IEnumerable<business.Pedido>
+
+@{
+    ViewBag.Title = "Sites";
+}
+
+<h2>Sites</h2>
+
+<p>
+    @Html.ActionLink("Criar site", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Servico.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datapedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Servico.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datapedido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdPedido }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdPedido }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.IdPedido })
+        </td>
+    </tr>
+}
+
+</table>

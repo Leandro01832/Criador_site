@@ -1,0 +1,18 @@
+﻿@model business.Carousel
+
+
+@{
+    ViewBag.Title = "Renderizar";
+
+    Layout = "~/Views/Shared/_Render.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<div class="content">
+    @Html.Raw(ViewBag.html)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

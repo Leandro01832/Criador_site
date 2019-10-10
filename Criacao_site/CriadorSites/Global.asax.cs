@@ -1,5 +1,6 @@
 ﻿using CriadorSites.Models;
 using DataContextCriacaoSite;
+using Ecommerce.Classes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -20,6 +21,7 @@ namespace CriadorSites
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<BD, DataContextCriacaoSite.Migrations.Configuration>());
             ApplicationDbContext db = new ApplicationDbContext();
+            checkedRolesAndSuperUser();
             criaroles(db);
             criarsuperuser(db);
             AddPermissoesSuperUser(db);
@@ -28,6 +30,13 @@ namespace CriadorSites
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        private void checkedRolesAndSuperUser()
+        {
+            UserHelper.UsersHelper.CheckRole("Admin");
+            UserHelper.UsersHelper.CheckRole("User");
+            UserHelper.UsersHelper.CheckSuperUser();
         }
 
         private void AddPermissoesSuperUser(ApplicationDbContext db)

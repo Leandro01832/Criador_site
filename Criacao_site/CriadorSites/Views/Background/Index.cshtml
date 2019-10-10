@@ -4,47 +4,52 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.backgroundImage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Imagem)
-        </th>
-        <th></th>
-    </tr>
+    <h2>Planos de fundo</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.backgroundImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cor)
-        </td>
-        <td>
-            @{
-                if (item.Imagem != null)
-                {
-                    <img src="@Url.Content(item.Imagem)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                }
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdBackground }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdBackground }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdBackground })
-        </td>
-    </tr>
-}
+    <p>
+        @Html.ActionLink("Criar plano de fundo", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayName("Imagem")
+            </th>
+            
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @{
+                        if (item.imagem.Arquivo != null)
+                        {
+                            <img src="@Url.Content(item.imagem.Arquivo)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                        }
+                    }
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdBackground }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.IdBackground }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.IdBackground })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+

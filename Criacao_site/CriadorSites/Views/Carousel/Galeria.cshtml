@@ -1,0 +1,42 @@
+﻿@model IEnumerable<business.Carousel>
+
+@{
+    ViewBag.Title = "Galeria";
+}
+
+<h2>Galeria</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Div.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Div.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Editat", "Edit", new { id = item.IdCarousel }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IdCarousel }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.IdCarousel }) |
+            @Html.ActionLink("Adicionar imagem ao carrosel", "AdicionarImagem", "Carousel", new { id = item.IdCarousel }, new { @class = "btn btn-primary" })
+        </td>
+    </tr>
+}
+
+</table>

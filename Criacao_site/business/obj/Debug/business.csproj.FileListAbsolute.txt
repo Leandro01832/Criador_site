@@ -10,3 +10,17 @@ C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\business\obj\D
 C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\business\obj\Debug\business.pdb
 C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\business\bin\Debug\NVelocity.dll
 C:\Users\leand\documents\visual studio 2015\Projects\Criacao_site\business\bin\Debug\NVelocity.xml
+F:\Projects\Criacao_site\business\bin\Debug\business.dll.config
+F:\Projects\Criacao_site\business\bin\Debug\business.dll
+F:\Projects\Criacao_site\business\bin\Debug\business.pdb
+F:\Projects\Criacao_site\business\bin\Debug\EntityFramework.dll
+F:\Projects\Criacao_site\business\bin\Debug\EntityFramework.SqlServer.dll
+F:\Projects\Criacao_site\business\bin\Debug\NVelocity.dll
+F:\Projects\Criacao_site\business\bin\Debug\EntityFramework.xml
+F:\Projects\Criacao_site\business\bin\Debug\EntityFramework.SqlServer.xml
+F:\Projects\Criacao_site\business\bin\Debug\NVelocity.xml
+F:\Projects\Criacao_site\business\obj\Debug\business.csproj.CoreCompileInputs.cache
+F:\Projects\Criacao_site\business\obj\Debug\business.csproj.CopyComplete
+F:\Projects\Criacao_site\business\obj\Debug\business.dll
+F:\Projects\Criacao_site\business\obj\Debug\business.pdb
+F:\Projects\Criacao_site\business\obj\Debug\business.csprojAssemblyReference.cache

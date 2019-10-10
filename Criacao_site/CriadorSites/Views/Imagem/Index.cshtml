@@ -4,16 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Imagem</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar imagens", "Create")
 </p>
 <table class="table">
     <tr>
        
         <th>
-            @Html.DisplayNameFor(model => model.Figura)
+            @Html.DisplayNameFor(model => model.Arquivo)
         </th>
         <th></th>
     </tr>
@@ -23,16 +23,16 @@
         
         <td>
             @{
-                if (item.Figura != null)
+                if (item.Arquivo != null)
                 {
-                    <img src="@Url.Content(item.Figura)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                    <img src="@Url.Content(item.Arquivo)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
                 }
             }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdImagem }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdImagem }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdImagem })
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdImagem }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdImagem }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.IdImagem })
         </td>
     </tr>
 }

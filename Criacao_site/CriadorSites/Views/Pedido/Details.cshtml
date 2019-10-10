@@ -1,0 +1,44 @@
+﻿@model business.Pedido
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Site</h4>
+    <hr />
+    
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Servico.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Servico.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paginas)
+        </dt>
+
+        <dd>
+            @foreach (var pagina in Model.Paginas)
+            {
+            <p>
+                @Html.ActionLink("Detalhes de pagina - " + pagina.Titulo, "Details", "Pagina", new { id = pagina.IdPagina }, new { @class = "btn btn-success" })
+            </p>           
+
+            }
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdPedido }) |
+    @Html.ActionLink("Voltar a lista", "Index")
+</p>

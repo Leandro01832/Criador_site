@@ -25,7 +25,13 @@ namespace CriadorSites
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/css/the-big-picture.css",
+                      "~/css/carousel.css",
+                      "~/css/small.css",
+                      "~/css/medium.css",
+                      "~/css/large.css"
+                      ));
         }
     }
 }

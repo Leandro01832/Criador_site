@@ -1,0 +1,47 @@
+﻿@model IEnumerable<business.Texto>
+
+@{
+    ViewBag.Title = "Galeria";
+}
+
+<h2>Galeria de Textos</h2>
+
+<p>
+    @Html.ActionLink("Criar Texto", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.div.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Palavras)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.div.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Palavras)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdTexto }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdTexto }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.IdTexto })
+        </td>
+    </tr>
+}
+
+</table>

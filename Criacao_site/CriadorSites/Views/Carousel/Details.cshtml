@@ -1,26 +1,47 @@
 ﻿@model business.Carousel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
-    <h4>Carousel</h4>
+    <h4>Carrossel</h4>
     <hr />
+    @Html.ActionLink("Adicionar imagem ao carrosel", "AdicionarImagem", "Carousel", new { id = Model.IdCarousel }, new { @class = "btn btn-primary" })
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Div.Texto)
+            @Html.DisplayNameFor(model => model.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Div.Texto)
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imagens)
+        </dt>
+
+        <dd>
+            @foreach (var imagem in Model.imagens)
+            {
+                <p>
+                    @Html.ActionLink("Editar imagem", "Edit", "Imagem", new { id = imagem.IdImagem }, null)
+                    @{
+                        if (imagem.Arquivo != null)
+                        {
+                            <img src="@Url.Content(imagem.Arquivo)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                        }
+                    }
+                </p>
+            }
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCarousel }) |
-    @Html.ActionLink("Back to List", "Index")
+   
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdCarousel }) |
+    @Html.ActionLink("Voltar para lista", "Galeria")
 </p>

@@ -11,11 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Servico.Descricao)
+            @Html.DisplayNameFor(model => model.Pedido.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Servico.Descricao)
+            @Html.DisplayFor(model => model.Pedido.Nome)
         </dd>
 
         <dt>
@@ -27,11 +27,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CodigoHtml)
+            @Html.DisplayName("Planos de fundo")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CodigoHtml)
+            @Html.ActionLink("Planos de fundo", "Galeria", "Background", new { id = Model.IdPagina }, new { @class = "btn btn-primary" })
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Blocos")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Blocos", "Galeria", "Div", new { id = Model.IdPagina }, new { @class = "btn btn-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Imagens")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Imagens", "Galeria", "Imagem", new { id = Model.IdPagina }, new { @class = "btn btn-danger" })
         </dd>
 
     </dl>

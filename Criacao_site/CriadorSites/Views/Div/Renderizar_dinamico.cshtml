@@ -1,0 +1,15 @@
+﻿@model business.Div
+
+@{
+    ViewBag.Title = "Renderizar";
+
+    Layout = "~/Views/Shared/_Render.cshtml";
+}
+
+<div class="content">
+    @Html.Raw(ViewBag.html)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
