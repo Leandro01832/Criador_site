@@ -136,7 +136,7 @@ namespace CriadorSites.Controllers
         {
             string email = User.Identity.GetUserName();
             CLiente cli = db.Cliente.First(c => c.UserName == email);
-            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.site3 = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
             return PartialView();
         }
@@ -201,7 +201,7 @@ namespace CriadorSites.Controllers
                 return RedirectToAction("Renderizar_Dinamico", "Pagina", new { id = pagina.IdPagina });
             }
 
-            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.site3 = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
             return View(imagem);
         }
@@ -210,18 +210,25 @@ namespace CriadorSites.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Imagem imagem = db.Imagem.Find(id);
+            if (imagem.pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (imagem == null)
             {
                 return HttpNotFound();
             }
 
-            string email = User.Identity.GetUserName();
-            CLiente cli = db.Cliente.First(c => c.UserName == email);
+            
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
             return View(imagem);
@@ -270,6 +277,82 @@ namespace CriadorSites.Controllers
             }
 
             
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
+            return View(imagem);
+        }
+
+        [Authorize]
+        public ActionResult EditModal(int? id)
+        {
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Imagem imagem = db.Imagem.Find(id);
+            if (imagem.pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
+            if (imagem == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
+            return PartialView(imagem);
+        }
+
+        // POST: Imagem/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult EditModal([Bind(Include = "IdImagem,Arquivo,FiguraFile,Pagina_")] Imagem imagem)
+        {
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+            if (ModelState.IsValid)
+            {
+                if (Request["pagina_"].ToString() == "0")
+                {
+                    ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+                    ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
+                    ViewBag.erro = "Escolha uma pagina";
+                    return View(imagem);
+                }
+
+                if (imagem.FiguraFile.Count() > 0)
+                {
+                    var pic = string.Empty;
+                    var folder = "~/Content/ImagensGaleria";
+                    var file = string.Format("{0}.jpg", imagem.IdImagem);
+
+                    var response = FileHelpers.UploadPhoto(imagem.FiguraFile.First(), folder, file);
+                    if (response)
+                    {
+                        pic = string.Format("{0}/{1}", folder, file);
+                        imagem.Arquivo = pic;
+                    }
+                }
+
+                db.Entry(imagem).State = EntityState.Modified;
+                db.SaveChanges();
+
+                Pagina pagina = db.Pagina.Find(int.Parse(Request["pagina_"].ToString()));
+
+                return RedirectToAction("Renderizar_Dinamico", "Pagina", new { id = pagina.IdPagina });
+            }
+
+
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Nome");
             return View(imagem);

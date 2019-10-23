@@ -19,9 +19,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Site3", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("site3", null, htmlAttributes: new { @class = "form-control" })
 
             </div>
         </div>
@@ -56,7 +56,7 @@
                     type: 'POST',
                     url: '@Url.Action("GetPaginas")',
                     dataType: 'json',
-                    data: { PedidoId: $("#site").val() },
+                    data: { PedidoId: $("#site3").val() },
                     success: function (data) {
                         $.each(data, function (i, data) {
                             $("#pagina_").append('<option value="'
@@ -69,7 +69,7 @@
                     }
                 });
 
-            $("#site").click(function () {
+            $("#site3").click(function () {
 
                 $("#pagina_").empty();
                 $("#pagina_").append('<option value="0">[Selecione  uma pagina..]</option>');
@@ -78,7 +78,7 @@
                     type: 'POST',
                     url: '@Url.Action("GetPaginas")',
                     dataType: 'json',
-                    data: { PedidoId: $("#site").val() },
+                    data: { PedidoId: $("#site3").val() },
                     success: function (data) {
                         $.each(data, function (i, data) {
                             $("#pagina_").append('<option value="'

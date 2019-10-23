@@ -54,7 +54,15 @@ namespace CriadorSites.Controllers
             carousel.div_2 = div_2;
             
             db.Entry(carousel).State = EntityState.Modified;
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                var erro = "Preencha o formulario corretamente";
+                return Json(erro);
+            }
 
             return Json("");
         }
@@ -199,6 +207,11 @@ namespace CriadorSites.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Carousel carousel = db.Carousel.Find(id);
+            if (carousel.Div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (carousel == null)
             {
                 return HttpNotFound();
@@ -249,6 +262,11 @@ namespace CriadorSites.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Carousel carousel = db.Carousel.Find(id);
+            if (carousel.Div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (carousel == null)
             {
                 return HttpNotFound();
@@ -271,6 +289,11 @@ namespace CriadorSites.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Carousel carousel = db.Carousel.Find(id);
+            if (carousel.Div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (carousel == null)
             {
                 return HttpNotFound();
@@ -278,7 +301,7 @@ namespace CriadorSites.Controllers
             
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
-            ViewBag.Imagem = new SelectList(new List<Imagem>(), "IdImagem", "Arquivo");
+            ViewBag.Imagem = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
             return PartialView(carousel);
         }
 
@@ -303,7 +326,7 @@ namespace CriadorSites.Controllers
             }
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
-            ViewBag.Imagem = new SelectList(new List<Imagem>(), "IdImagem", "Arquivo");
+            ViewBag.Imagem = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
             return View(carousel);
         }
 

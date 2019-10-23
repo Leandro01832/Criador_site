@@ -1,5 +1,9 @@
 ﻿@model business.Background
+  
+@{ 
+    Layout = "";      
 
+}
 
 <style>
     .modal .modal-dialog .modal-content .modal-header button {
@@ -11,8 +15,19 @@
     }
 </style>
 
+@using (Html.BeginForm())
+{
+    <h4>Configuração de bordas</h4>
+    @Html.Label("manter", "Manter a borda", htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.CheckBox("Manter", true)
+}
+
+<hr />
+
 
 <a href="#" class="btn btn-success imagem">Background da pagina</a>
+
+<hr />
 
 
 @using (Html.BeginForm())
@@ -24,6 +39,10 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.IdBackground)
+
+    <input id="Hidden1" name="Hidden1" type="hidden" value="" />
+
+    
 
     <div class="form-group">
         @Html.LabelFor(model => model.IdBackground, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -149,42 +168,15 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".close").click(function () {
 
-                $(".Topo").css("border", "0");
-                $(".Menu").css("border", "0");
-                $(".bloco").css("border", "0");
-                $(".ClassDiv").css("border", "0");
-                $(".Textos").css("border", "0");
-                $(".Carrosel").css("border", "0");
-                $(".video").css("border", "0");
-                $(".bordaEsquerda").css("border", "0");
-                $(".bordaDireita").css("border", "0");
-
-
-
-            });
-            $(".btn-secondary").click(function () {
-                $(".Topo").css("border", "0");
-                $(".Menu").css("border", "0");
-                $(".bloco").css("border", "0");
-                $(".ClassDiv").css("border", "0");
-                $(".Textos").css("border", "0");
-                $(".Carrosel").css("border", "0");
-                $(".video").css("border", "0");
-                $(".bordaEsquerda").css("border", "0");
-                $(".bordaDireita").css("border", "0");
-            });
-        });
-    </script>
 </div>
 
 <div>
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            var v = "";
 
             $(".btn-success").click(function () {
 
@@ -233,7 +225,7 @@
                     dataType: 'json',
                     data: { PaginaId: $("#pagina_2").val() },
                     success: function (data) {
-                        
+
                         $.each(data, function (i, data) {
 
                             $("#imagem_").append('<option id=" ' + data.IdImagem + ' " class="' + data.Arquivo + '" value="'
@@ -263,7 +255,8 @@
 
 
 
-                $("input[name='Nome'], input[name='cores'], input[name='Background_Position'], input[name='backgroundTransparente']").change(function () {
+            $("input[name='Nome'], input[name='cores'], input[name='Background_Position'], input[name='backgroundTransparente']").change(function () {
+                
 
                 $.ajax({
                     type: 'POST',
@@ -271,7 +264,17 @@
                     dataType: 'json',
                     data: { Id: $("#IdBackground").val(), Nome: $("#Nome").val(), backgroundImage: $("#backgroundImage").is(':checked'), cores: $("#cores").val(), Background_Repeat: $("#Background_Repeat").val(), Background_Position: $("#Background_Position").val(), imagem_: $("#imagem_").val(), backgroundTransparente: $("#backgroundTransparente").is(':checked') },
                     success: function (data) {
-                        alert('alteração efetuada');
+
+                        if (data != "")
+                        {         
+                            document.getElementById("Hidden1").value = data;
+                            v = document.getElementById("Hidden1").value;                             
+                           // alert(v);                               
+                          //  document.getElementsByClassName("content")[0].innerHTML = data;  
+                            
+                        }
+                        else { alert('Erro: Preencha o formulario corretamente'); } 
+
                         location.reload();
                     },
                     error: function (ex) {
@@ -280,6 +283,9 @@
                 });
                 return false;
             });
+
+                      
+
         });
     </script>
 
@@ -288,7 +294,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery-1.10.2.js"></script>
-
-
-
 }
+

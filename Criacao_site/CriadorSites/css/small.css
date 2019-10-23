@@ -1,31 +1,26 @@
-*{
+/**{
 	margin: 0px;
 	padding: 0px;
-}
+}*/
 
-.carousel-item {
-    width: 70%;
+/*.carousel-item {
+    
+    width: 100%;
     overflow: hidden;
-    min-height: 250px;
-    height: auto;
-    margin: 30px auto;
+    height: 50%;
+    margin: 50px auto;
     box-shadow: 0 0 15px #000;
     position: relative;
-}
+}*/
 
 .carousel-inner {
-    min-height: 320px;
-    height: auto;
-}
-
-.Carrosel {
-    height: 50%;
-}
-
-.carousel-item img 
-{
     height: 100%;
+    
 }
+
+/*.carousel {
+    height: 100%;
+}*/
 
 
 

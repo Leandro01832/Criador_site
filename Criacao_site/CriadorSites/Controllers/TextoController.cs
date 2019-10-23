@@ -156,18 +156,25 @@ namespace CriadorSites.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Texto texto = db.Texto.Find(id);
+            if (texto.div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (texto == null)
             {
                 return HttpNotFound();
             }
 
-            var email = User.Identity.GetUserName();
-            CLiente cli = db.Cliente.First(c => c.UserName == email);
+            
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", texto.div.Pagina.pedido_);
             ViewBag.pagina = new SelectList(db.Pagina.Where(p => p.IdPagina == texto.div.pagina_), "IdPagina", "Titulo", texto.div.pagina_);
             ViewBag.div_ = new SelectList(db.Div.Where(d => d.IdDiv == texto.div_), "IdDiv", "Nome", texto.div_);
@@ -203,18 +210,25 @@ namespace CriadorSites.Controllers
         [Authorize]
         public ActionResult EditModal(int? id)
         {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Texto texto = db.Texto.Find(id);
+            if (texto.div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (texto == null)
             {
                 return HttpNotFound();
             }
 
-            var email = User.Identity.GetUserName();
-            CLiente cli = db.Cliente.First(c => c.UserName == email);
+            
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", texto.div.Pagina.pedido_);
             ViewBag.pagina = new SelectList(db.Pagina.Where(p => p.IdPagina == texto.div.pagina_), "IdPagina", "Titulo", texto.div.pagina_);
             ViewBag.div_ = new SelectList(db.Div.Where(d => d.IdDiv == texto.div_), "IdDiv", "Nome", texto.div_);

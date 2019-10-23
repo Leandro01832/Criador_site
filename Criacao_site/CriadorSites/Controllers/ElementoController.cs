@@ -27,9 +27,43 @@ namespace CriadorSites.Controllers
         public JsonResult GetDivs(int PaginaId)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var divs = db.Div.Where(m => m.pagina_ == PaginaId);
+            var blocos = db.Div.Where(m => m.pagina_ == PaginaId);
 
-            return Json(divs);
+            return Json(blocos);
+        }
+
+        public JsonResult GetElementos(int DivId, string valor, int pagina)
+        {
+            if(valor == "Video")
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                var v = db.Video.Where(m => m.div_ == DivId);
+                return Json(v);
+            }
+
+            if (valor == "Imagem")
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                var imagens = db.Imagem.Where(b => b.pagina_ == pagina);
+
+                return Json(imagens);
+            }
+
+            if (valor == "Carrossel")
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                var c = db.Carousel.Where(m => m.div_2 == DivId);
+                return Json(c);
+            }
+
+            if (valor == "Texto")
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                var t = db.Texto.Where(m => m.div_ == DivId);
+                return Json(t);
+            }
+
+            return Json("");
         }
 
         // GET: Elemento
@@ -64,8 +98,8 @@ namespace CriadorSites.Controllers
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
             ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
-            ViewBag.div_ = new SelectList(new List<Div>(), "IdDiv", "Nome");
-            ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "Nome");
+            ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+            ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
             ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
             ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
             return View();
@@ -77,13 +111,28 @@ namespace CriadorSites.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "IdElemento,texto_,carousel_,imagem_,video_,div_")] Elemento elemento)
+        public ActionResult Create([Bind(Include = "IdElemento,texto_,carousel_,imagem_,video_,div_2")] Elemento elemento)
         {
             var email = User.Identity.GetUserName();
             var cli = db.Cliente.First(c => c.UserName == email);
 
             if (ModelState.IsValid)
             {
+
+                if(elemento.imagem_ == null && elemento.video_ == null && elemento.texto_ == null && elemento.carousel_ == null)
+                {
+                    ViewBag.erro = "Escolha um elemento.";
+                    ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+                    ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+                    ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
+                    ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+                    ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+                    ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
+                    ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
+                    return View(elemento);
+                }
+
+
                 db.Elemento.Add(elemento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,8 +141,69 @@ namespace CriadorSites.Controllers
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
             ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
             ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
-            ViewBag.div_ = new SelectList(new List<Div>(), "IdDiv", "Nome");
-            ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "Nome");
+            ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+            ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+            ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
+            ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
+            return View(elemento);
+        }
+
+        [Authorize]
+        public ActionResult CreateModal()
+        {
+            var email = User.Identity.GetUserName();
+            var cli = db.Cliente.First(c => c.UserName == email);
+
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+            ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
+            ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+            ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+            ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
+            ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
+            return PartialView();
+        }
+
+        // POST: Elemento/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult CreateModal([Bind(Include = "IdElemento,texto_,carousel_,imagem_,video_,div_2")] Elemento elemento)
+        {
+            var email = User.Identity.GetUserName();
+            var cli = db.Cliente.First(c => c.UserName == email);
+
+            if (ModelState.IsValid)
+            {
+
+                if (elemento.imagem_ == null && elemento.video_ == null && elemento.texto_ == null && elemento.carousel_ == null)
+                {
+                    ViewBag.erro = "Escolha um elemento.";
+                    ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+                    ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+                    ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
+                    ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+                    ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+                    ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
+                    ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
+                    return View(elemento);
+                }
+
+
+                db.Elemento.Add(elemento);
+                db.SaveChanges();
+
+                elemento = db.Elemento.Include(e => e.div).First(el => el.IdElemento == elemento.IdElemento);
+                return RedirectToAction("Renderizar_Dinamico", "Pagina", new { id = elemento.div.pagina_ });
+            }
+
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+            ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
+            ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+            ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
             ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
             ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
             return View(elemento);
@@ -111,6 +221,12 @@ namespace CriadorSites.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Elemento elemento = db.Elemento.Find(id);
+
+            if (elemento.div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (elemento == null)
             {
                 return HttpNotFound();
@@ -119,8 +235,8 @@ namespace CriadorSites.Controllers
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", elemento.div.Pagina.pedido_);
             ViewBag.pagina = new SelectList(db.Pagina.Where(p => p.IdPagina == elemento.div.pagina_), "IdPagina", "Titulo", elemento.div.pagina_);
             ViewBag.carousel_ = new SelectList(elemento.div.Carousel, "IdCarousel", "Nome");
-            ViewBag.div_ = new SelectList(db.Div, "IdDiv", "Nome", elemento.div_);
-            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == elemento.imagem_), "IdImagem", "Nome", elemento.imagem_);
+            ViewBag.div_2 = new SelectList(db.Div, "IdDiv", "Nome", elemento.div_2);
+            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == elemento.imagem_), "IdImagem", "IdImagem", elemento.imagem_);
             ViewBag.texto_ = new SelectList(elemento.div.Textos, "IdTexto", "Nome");
             ViewBag.video_ = new SelectList(elemento.div.Video, "IdVideo", "Nome");
             return View(elemento);
@@ -132,13 +248,26 @@ namespace CriadorSites.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "IdElemento,texto_,carousel_,imagem_,video_,div_")] Elemento elemento)
+        public ActionResult Edit([Bind(Include = "IdElemento,texto_,carousel_,imagem_,video_,div_2")] Elemento elemento)
         {
             var email = User.Identity.GetUserName();
             var cli = db.Cliente.First(c => c.UserName == email);
 
             if (ModelState.IsValid)
             {
+                if (elemento.imagem_ == null && elemento.video_ == null && elemento.texto_ == null && elemento.carousel_ == null)
+                {
+                    ViewBag.erro = "Escolha um elemento.";
+                    ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+                    ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+                    ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
+                    ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+                    ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+                    ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
+                    ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
+                    return View(elemento);
+                }
+
                 db.Entry(elemento).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -147,8 +276,84 @@ namespace CriadorSites.Controllers
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", elemento.div.Pagina.pedido_);
             ViewBag.pagina = new SelectList(db.Pagina.Where(p => p.IdPagina == elemento.div.pagina_), "IdPagina", "Titulo", elemento.div.pagina_);
             ViewBag.carousel_ = new SelectList(elemento.div.Carousel, "IdCarousel", "Nome");
-            ViewBag.div_ = new SelectList(db.Div, "IdDiv", "Nome", elemento.div_);
-            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == elemento.imagem_), "IdImagem", "Nome", elemento.imagem_);
+            ViewBag.div_2 = new SelectList(db.Div, "IdDiv", "Nome", elemento.div_2);
+            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == elemento.imagem_), "IdImagem", "IdImagem", elemento.imagem_);
+            ViewBag.texto_ = new SelectList(elemento.div.Textos, "IdTexto", "Nome");
+            ViewBag.video_ = new SelectList(elemento.div.Video, "IdVideo", "Nome");
+            return View(elemento);
+        }
+
+
+        [Authorize]
+        public ActionResult EditModal(int? id)
+        {
+            var email = User.Identity.GetUserName();
+            var cli = db.Cliente.First(c => c.UserName == email);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Elemento elemento = db.Elemento.Find(id);
+
+            if (elemento.div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
+            if (elemento == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", elemento.div.Pagina.pedido_);
+            ViewBag.pagina = new SelectList(db.Pagina.Where(p => p.IdPagina == elemento.div.pagina_), "IdPagina", "Titulo", elemento.div.pagina_);
+            ViewBag.carousel_ = new SelectList(elemento.div.Carousel, "IdCarousel", "Nome");
+            ViewBag.div_2 = new SelectList(db.Div, "IdDiv", "Nome", elemento.div_2);
+            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == elemento.imagem_), "IdImagem", "IdImagem", elemento.imagem_);
+            ViewBag.texto_ = new SelectList(elemento.div.Textos, "IdTexto", "Nome");
+            ViewBag.video_ = new SelectList(elemento.div.Video, "IdVideo", "Nome");
+            return PartialView(elemento);
+        }
+
+        // POST: Elemento/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult EditModal([Bind(Include = "IdElemento,texto_,carousel_,imagem_,video_,div_2")] Elemento elemento)
+        {
+            var email = User.Identity.GetUserName();
+            var cli = db.Cliente.First(c => c.UserName == email);
+
+            if (ModelState.IsValid)
+            {
+                if (elemento.imagem_ == null && elemento.video_ == null && elemento.texto_ == null && elemento.carousel_ == null)
+                {
+                    ViewBag.erro = "Escolha um elemento.";
+                    ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+                    ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+                    ViewBag.carousel_ = new SelectList(new List<Carousel>(), "IdCarousel", "Nome");
+                    ViewBag.div_2 = new SelectList(new List<Div>(), "IdDiv", "Nome");
+                    ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+                    ViewBag.texto_ = new SelectList(new List<Texto>(), "IdTexto", "Nome");
+                    ViewBag.video_ = new SelectList(new List<Video>(), "IdVideo", "Nome");
+                    return PartialView(elemento);
+                }
+
+                db.Entry(elemento).State = EntityState.Modified;
+                db.SaveChanges();
+
+                elemento = db.Elemento.Include(e => e.div).First(el => el.IdElemento == elemento.IdElemento);
+                return RedirectToAction("Renderizar_Dinamico", "Pagina", new { id = elemento.div.pagina_ });
+            }
+
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", elemento.div.Pagina.pedido_);
+            ViewBag.pagina = new SelectList(db.Pagina.Where(p => p.IdPagina == elemento.div.pagina_), "IdPagina", "Titulo", elemento.div.pagina_);
+            ViewBag.carousel_ = new SelectList(elemento.div.Carousel, "IdCarousel", "Nome");
+            ViewBag.div_2 = new SelectList(db.Div, "IdDiv", "Nome", elemento.div_2);
+            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == elemento.imagem_), "IdImagem", "IdImagem", elemento.imagem_);
             ViewBag.texto_ = new SelectList(elemento.div.Textos, "IdTexto", "Nome");
             ViewBag.video_ = new SelectList(elemento.div.Video, "IdVideo", "Nome");
             return View(elemento);

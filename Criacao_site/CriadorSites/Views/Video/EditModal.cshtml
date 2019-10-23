@@ -10,6 +10,15 @@
     }
 </style>
 
+@using (Html.BeginForm())
+{
+    <h4>Configuração de bordas</h4>
+    @Html.Label("manter", "Mater a borda", htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.CheckBox("Manter", true)
+}
+
+<hr />
+
 
 @using (Html.BeginForm())
 {

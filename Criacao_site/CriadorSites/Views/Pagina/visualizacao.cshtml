@@ -1,0 +1,21 @@
+﻿@model business.Pagina
+
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "Renderizar";
+
+    Layout = "~/Views/Shared/_Render.cshtml";
+
+    string valor = ViewBag.html;
+}
+
+
+<div class="content" data-id="">
+
+    @Html.Raw(ViewBag.html);
+
+
+</div>

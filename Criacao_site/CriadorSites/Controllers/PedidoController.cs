@@ -100,11 +100,18 @@ namespace CriadorSites.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            var email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Pedido pedido = db.Pedido.Find(id);
+            if(pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (pedido == null)
             {
                 return HttpNotFound();
@@ -124,6 +131,9 @@ namespace CriadorSites.Controllers
         {
             if (ModelState.IsValid)
             {
+                pedido.Datapedido = DateTime.Now;
+                pedido.Status = "Nao realizado";
+                db.Entry(pedido.Servico).State = EntityState.Modified;
                 db.Entry(pedido).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("IndexCliente", "CLiente");

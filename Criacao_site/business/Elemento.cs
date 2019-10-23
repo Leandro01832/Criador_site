@@ -29,9 +29,9 @@ namespace business
         [ForeignKey("video_")]
         public virtual Video video { get; set; }
 
-        [Range(1, 10000, ErrorMessage = "Escolha em qual bloco vai estar o elemento")]
-        public int div_ { get; set; }
-        [ForeignKey("div_")]
+        [Range(1, 10000, ErrorMessage = "Escolha em qual bloco vai estar o elemento?")]
+        public int div_2 { get; set; }
+        [ForeignKey("div_2")]
         public virtual Div div { get; set; }
     }
 }

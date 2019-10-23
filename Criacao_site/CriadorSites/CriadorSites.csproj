@@ -292,11 +292,14 @@
     <Content Include="imagem\carrosel.jpg" />
     <Content Include="imagem\cores.jpg" />
     <Content Include="imagem\design.jpg" />
+    <Content Include="imagem\facebook.png" />
     <Content Include="imagem\gerenciamento.jpg" />
+    <Content Include="imagem\instagram.png" />
     <Content Include="imagem\Layout.jpg" />
     <Content Include="imagem\letras.jpg" />
     <Content Include="imagem\now.jpg" />
     <Content Include="imagem\teste.jpg" />
+    <Content Include="imagem\twitter.png" />
     <Content Include="imagem\website.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -330,7 +333,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -428,7 +433,6 @@
     <Content Include="Views\Carousel\Renderizar_Dinamico.cshtml" />
     <Content Include="Views\Texto\EditModal.cshtml" />
     <Content Include="Views\Div\EditModal.cshtml" />
-    <Content Include="Views\Background\EditModal.cshtml" />
     <Content Include="Views\Pagina\EditModal.cshtml" />
     <Content Include="Views\Carousel\EditModal.cshtml" />
     <Content Include="Views\Div\Galeria.cshtml" />
@@ -450,7 +454,7 @@
     <Content Include="Views\Elemento\Index.cshtml" />
     <Content Include="Views\Pedido\Galeria.cshtml" />
     <Content Include="Views\Video\EditModal.cshtml" />
-    <Content Include="Views\Home\Nike.cshtml" />
+    <Content Include="Views\Home\MinhaPagina.cshtml" />
     <Content Include="Views\Background\Details.cshtml" />
     <Content Include="Views\Pagina\Details.cshtml" />
     <Content Include="Views\Div\Details.cshtml" />
@@ -458,8 +462,6 @@
     <Content Include="Views\Video\CreateModal.cshtml" />
     <Content Include="Views\Texto\CreateModal.cshtml" />
     <Content Include="Views\Carousel\CreateModal.cshtml" />
-    <Content Include="Views\Div\CreateModal.cshtml" />
-    <Content Include="Views\Home\Porto_Alegre.cshtml" />
     <Content Include="Views\Home\Layout.cshtml" />
     <Content Include="Views\Home\Blocos.cshtml" />
     <Content Include="Views\Home\Planos_de_fundo.cshtml" />
@@ -467,6 +469,13 @@
     <Content Include="Views\Home\WebSiteNow.cshtml" />
     <Content Include="Views\Imagem\CreateModal.cshtml" />
     <Content Include="Views\Carousel\AdicionarImagem.cshtml" />
+    <Content Include="Views\Div\AdicionarImagem.cshtml" />
+    <Content Include="Views\Imagem\EditModal.cshtml" />
+    <Content Include="Views\Div\CreateModal.cshtml" />
+    <Content Include="Views\Background\EditModal.cshtml" />
+    <Content Include="Views\Elemento\EditModal.cshtml" />
+    <Content Include="Views\Elemento\CreateModal.cshtml" />
+    <Content Include="Views\Pagina\visualizacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

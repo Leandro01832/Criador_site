@@ -1,0 +1,282 @@
+﻿@model business.Elemento
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Elemento</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("pagina", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.div_2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("div_2", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.div_2, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.Label("Elemento", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("element", new List<SelectListItem>
+       {
+           new SelectListItem{ Text="Texto", Value="Texto" },
+           new SelectListItem{ Text="Video", Value="Video" },
+           new SelectListItem{ Text="Carrossel", Value="Carrossel" },
+           new SelectListItem{ Text="Imagem", Value="Imagem" }
+       }, new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.texto_, "texto_", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("texto_", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.texto_, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.carousel_, "carousel_", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("carousel_", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.carousel_, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.imagem_, "imagem_", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("imagem_", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.imagem_, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.video_, "video_", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("video_", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.video_, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.div_, "div_", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("div_", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.div_, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            document.getElementById('texto_').disabled = true;
+
+            document.getElementById('carousel_').disabled = true;
+
+            document.getElementById('video_').disabled = true;
+
+            document.getElementById('imagem_').disabled = true;
+
+
+            $("#element").change(function () {
+
+            if ($("#element").val() == "Texto")
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetElementos")',
+                    dataType: 'json',
+                    data: { DivId: $("#div_2").val(), valor: $("#element").val(), pagina: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#texto_").append('<option value="'
+                                + data.IdTexto + '">'
+                                + data.Nome + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar textos.' + ex);
+                    }
+                });
+                document.getElementById('texto_').disabled = false;
+
+            }
+            else
+            {
+                document.getElementById('texto_').disabled = true;
+                $("#texto_").empty();
+            }
+
+            if ($("#element").val() == "Carrossel")
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetElementos")',
+                    dataType: 'json',
+                    data: { DivId: $("#div_2").val(), valor: $("#element").val(), pagina: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#carousel_").append('<option value="'
+                                + data.IdCarousel + '">'
+                                + data.Nome + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar carrosseis.' + ex);
+                    }
+                });
+                document.getElementById('carousel_').disabled = false;
+            }
+            else
+            {
+                document.getElementById('carousel_').disabled = true;
+                $("#carousel_").empty();
+
+            }
+
+            if ($("#element").val() == "Video")
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetElementos")',
+                    dataType: 'json',
+                    data: { DivId: $("#div_2").val(), valor: $("#element").val(), pagina: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#video_").append('<option value="'
+                                + data.IdVideo + '">'
+                                + data.Nome + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar videos.' + ex);
+                    }
+                });
+                document.getElementById('video_').disabled = false;
+            }
+            else
+            {
+                document.getElementById('video_').disabled = true;
+                $("#video_").empty();
+            }
+
+            if ($("#element").val() == "Imagem")
+            {
+                 $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetElementos")',
+                    dataType: 'json',
+                    data: { DivId: $("#div_2").val(), valor: $("#element").val(), pagina: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#imagem_").append('<option value="'
+                                + data.IdImagem + '">'
+                                + data.IdImagem + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar imagens.' + ex);
+                    }
+                });
+                document.getElementById('imagem_').disabled = false;
+            }
+            else
+            {
+                document.getElementById('imagem_').disabled = true;
+                $("#imagem_").empty();
+            }
+
+            });
+
+
+
+            $("#site").click(function () {
+
+                $("#pagina").empty();
+                $("#pagina").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+            });
+
+            $("#pagina").change(function () {
+
+                $("#div_2").empty();
+                $("#div_2").append('<option value="0">[Selecione  um bloco..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDivs")',
+                    dataType: 'json',
+                    data: { PaginaId: $("#pagina").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#div_2").append('<option value="'
+                                + data.IdDiv + '">'
+                             + data.Nome + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar blocos.' + ex);
+                    }
+                });
+                return false;
+            });
+
+
+
+        });
+    </script>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

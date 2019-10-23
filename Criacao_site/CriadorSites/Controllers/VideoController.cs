@@ -180,6 +180,11 @@ namespace CriadorSites.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Video video = db.Video.Find(id);
+            if (video.div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (video == null)
             {
                 return HttpNotFound();
@@ -237,6 +242,11 @@ namespace CriadorSites.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Video video = db.Video.Find(id);
+            if (video.div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (video == null)
             {
                 return HttpNotFound();

@@ -13,8 +13,19 @@ namespace business
         [Display(Name = "Titulo da pagina")]
         public string Titulo { get; set; }
 
-        public string Codigo { get; set; } 
-        
+        [DataType(DataType.Url)]
+        public string Facebook { get; set; }
+
+        [DataType(DataType.Url)]
+        public string Twiter { get; set; }
+
+        [DataType(DataType.Url)]
+        public string Instagram { get; set; }
+
+        public string Codigo { get; set; }
+
+        public string CodigoRenderizado { get; set; }
+
         public virtual ICollection<Background> Background { get; set; }
         public virtual ICollection<Imagem> Imagem { get; set; }
         public virtual ICollection<Div> Div { get; set; }        

@@ -19,14 +19,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.imagem.Arquivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.imagem.Arquivo)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Pagina.Titulo)
         </dt>
 
@@ -112,6 +104,14 @@
 
         <dd>
             @Html.ActionLink("Textos", "Galeria", "Texto", new { id = Model.IdDiv }, new { @class = "btn btn-primary" })
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Imagem")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Imagens", "Galeria", "Imagem", new { id = Model.IdDiv }, new { @class = "btn btn-primary" })
         </dd>
 
     </dl>

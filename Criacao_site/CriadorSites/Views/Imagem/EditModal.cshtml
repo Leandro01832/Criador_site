@@ -1,0 +1,123 @@
+﻿@model business.Imagem
+
+<style>
+    .modal .modal-dialog .modal-content .modal-header button {
+        float: left;
+    }
+
+    .modal .modal-dialog .modal-content .modal-footer button {
+        float: left;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    <h4>Configuração de bordas</h4>
+    @Html.Label("manter", "Mater a borda", htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.CheckBox("Manter", true)
+}
+
+<hr />
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Imagem</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdImagem)
+        @Html.HiddenFor(model => model.Arquivo)
+
+        <div class="form-group">
+            @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.pagina_, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>@ViewBag.erro</p>
+                @Html.DropDownList("pagina_", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.pagina_, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FiguraFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span class="btn btn-default btn-file">
+                    @Html.TextBoxFor(modelo => modelo.FiguraFile, new { type = "file" })
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+
+    <script>
+
+    $(document).ready(function () {
+
+        $("#pagina_").empty();
+                $("#pagina_").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina_").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+
+            $("#site").click(function () {
+
+                $("#pagina_").empty();
+                $("#pagina_").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina_").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+            });
+
+
+        });
+    </script>
+
+</div>

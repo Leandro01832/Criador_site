@@ -20,6 +20,14 @@ namespace CriadorSites.Controllers
     {
         private BD db = new BD();
 
+        public JsonResult GetImagens(int PaginaId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var imagens = db.Imagem.Where(b => b.pagina_ == PaginaId);
+
+            return Json(imagens);
+        }
+
         public JsonResult GetPaginas(int PedidoId)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -37,33 +45,116 @@ namespace CriadorSites.Controllers
         }
 
         [HttpPost]
-        public JsonResult Alterar(int Id, string Nome, string Divisao, int Height, int background_, int? imagem_, int BorderRadius, int Padding)
+        public JsonResult Alterar(int Id, string Nome, string Divisao, int Height, int background_, int BorderRadius, int Padding, string Colunas)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
-            Div div = db.Div.Include(d => d.Pagina).First(di => di.IdDiv == Id);
+            Div div = db.Div.Include(d => d.Pagina).Include(d => d.Pagina.Background).First(di => di.IdDiv == Id);
+
             div.Nome = Nome;
             div.Divisao = Divisao;
             div.Height = Height;
-            div.imagem_ = imagem_;
             div.background_ = background_;
             div.Desenhado = 0;
             div.BorderRadius = BorderRadius;
             div.Padding = Padding;
+            div.Colunas = Colunas;
             
 
 
             db.Entry(div).State = EntityState.Modified;
-            db.SaveChanges();
-            
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {                
+                return Json("");
+            }
 
-            return Json("");
+            int espaco = 0;
+            int rows = 0;
+
+            foreach (var bloco in div.Pagina.Div)
+            {
+                if (bloco.Divisao == "col-md-12" || bloco.Divisao == "col-sm-12")
+                    espaco += 12;
+
+                if (bloco.Divisao == "col-md-6" || bloco.Divisao == "col-sm-6")
+                    espaco += 6;
+
+                if (bloco.Divisao == "col-md-4" || bloco.Divisao == "col-sm-4")
+                    espaco += 4;
+
+                if (bloco.Divisao == "col-md-3" || bloco.Divisao == "col-sm-3")
+                    espaco += 3;
+
+                if (bloco.Divisao == "col-md-2" || bloco.Divisao == "col-sm-2")
+                    espaco += 2;
+
+
+            }
+
+            rows = espaco / 12;
+
+            rows += 1;
+
+            int[] numero = new int[rows];
+
+            for (int i = 0; i < numero.Length; i++)
+            {
+                numero[i] += i + 1;
+
+            }
+
+            foreach (var fundo in div.Pagina.Background)
+            {
+                if (fundo.backgroundTransparente)
+                {
+                    fundo.Cor = "transparent";
+                }
+            }
+
+            Velocity.Init();
+
+            var Modelo = new
+            {
+                Pagina = div.Pagina,
+                titulo = div.Pagina.Titulo,
+                facebook = div.Pagina.Facebook,
+                twiter = div.Pagina.Twiter,
+                instagram = div.Pagina.Instagram,
+                background = div.Pagina.Background.ToList()[0],
+               // background_url = div.Pagina.Background.ToList()[0].imagem.Arquivo.Replace("~", "../.."),
+                background_topo = div.Pagina.Background.ToList()[1],
+                background_menu = div.Pagina.Background.ToList()[2],
+                background_borda_esquerda = div.Pagina.Background.ToList()[3],
+                background_borda_direita = div.Pagina.Background.ToList()[4],
+                background_bloco = div.Pagina.Background.ToList()[5],
+                divs = div.Pagina.Div,
+                Rows = numero,
+                espacamento = 0,
+                indice = 1
+
+            };
+
+            var velocitycontext = new VelocityContext();
+            velocitycontext.Put("model", Modelo);
+            velocitycontext.Put("divs", div.Pagina.Div);
+
+
+            var html = new StringBuilder();
+            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(div.Pagina.Codigo));
+
+            ViewBag.html = html.ToString();
+
+            return Json(html.ToString());
         }
 
         // GET: Div
         public ActionResult Index()
         {
-            var div = db.Div.Include(d => d.Background).Include(d => d.imagem).Include(d => d.Pagina);
+            var div = db.Div.Include(d => d.Background).Include(d => d.Pagina);
             return View(div.ToList());
         }
 
@@ -112,16 +203,17 @@ namespace CriadorSites.Controllers
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize]
-        public ActionResult Create([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_,imagem_")] Div div)
+        public ActionResult Create([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_,Organizacao")] Div div)
         {
             string email = User.Identity.GetUserName();
             CLiente cli = db.Cliente.First(c => c.UserName == email);
 
             if (ModelState.IsValid)
             {
-                div.Height = 200;
+                div.Colunas = "auto";
+                div.Height = 20;
                 div.Divisao = "col-md-12";
-                div.Padding = 150;
+                div.Padding = 20;
                 div.Desenhado = 0;
                 db.Div.Add(div);
                 db.SaveChanges();
@@ -144,7 +236,7 @@ namespace CriadorSites.Controllers
             var email = User.Identity.GetUserName();
             var Cliente = db.Cliente.First(c => c.UserName == email);
 
-            ViewBag.site = new SelectList(Cliente.Servicos, "IdPedido", "Nome");
+            ViewBag.site2 = new SelectList(Cliente.Servicos, "IdPedido", "Nome");
             ViewBag.background_ = new SelectList(new List<Background>(), "IdBackground", "Nome");
             ViewBag.imagem_ = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
             ViewBag.pagina_ = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
@@ -158,16 +250,17 @@ namespace CriadorSites.Controllers
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize]
-        public ActionResult CreateModal([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_,imagem_")] Div div)
+        public ActionResult CreateModal([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_")] Div div)
         {
             string email = User.Identity.GetUserName();
             CLiente cli = db.Cliente.First(c => c.UserName == email);
 
             if (ModelState.IsValid)
             {
+                div.Colunas = "auto";
                 div.Height = 200;
                 div.Divisao = "col-md-12";
-                div.Padding = 150;
+                div.Padding = 20;
                 div.Desenhado = 0;
                 db.Div.Add(div);
                 db.SaveChanges();
@@ -189,21 +282,27 @@ namespace CriadorSites.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Div div = db.Div.Find(id);
+            if (div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (div == null)
             {
                 return HttpNotFound();
             }
-            string email = User.Identity.GetUserName();
-            CLiente cli = db.Cliente.First(c => c.UserName == email);
 
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", div.Pagina.pedido_);
             ViewBag.background_ = new SelectList(db.Background.Where(b => b.IdBackground == div.background_), "IdBackground", "Nome", div.background_);
-            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == div.imagem_), "IdImagem", "IdImagem", div.imagem_);
+          //  ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == div.imagem_), "IdImagem", "IdImagem", div.imagem_);
             ViewBag.pagina_ = new SelectList(db.Pagina.Where(p => p.IdPagina == div.pagina_), "IdPagina", "Titulo", div.pagina_);
             return View(div);
         }
@@ -215,13 +314,14 @@ namespace CriadorSites.Controllers
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_,imagem_")] Div div)
+        public ActionResult Edit([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_,Organizacao")] Div div)
         {
             if (ModelState.IsValid)
             {
+                div.Colunas = "auto";
                 div.Height = 200;
                 div.Divisao = "col-md-12";
-                div.Padding = 150;
+                div.Padding = 20;
                 div.Desenhado = 0;
                 db.Entry(div).State = EntityState.Modified;
                 db.SaveChanges();
@@ -232,7 +332,7 @@ namespace CriadorSites.Controllers
 
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", div.Pagina.pedido_);
             ViewBag.background_ = new SelectList(db.Background.Where(b => b.IdBackground == div.background_), "IdBackground", "Nome", div.background_);
-            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == div.imagem_), "IdImagem", "IdImagem", div.imagem_);
+          //  ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == div.imagem_), "IdImagem", "IdImagem", div.imagem_);
             ViewBag.pagina_ = new SelectList(db.Pagina.Where(p => p.IdPagina == div.pagina_), "IdPagina", "Titulo", div.pagina_);
             return View(div);
         }
@@ -242,22 +342,82 @@ namespace CriadorSites.Controllers
         [Authorize]
         public ActionResult EditModal(int? id)
         {
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Div div = db.Div.Find(id);
+            if (div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
             if (div == null)
             {
                 return HttpNotFound();
             }
-            string email = User.Identity.GetUserName();
-            CLiente cli = db.Cliente.First(c => c.UserName == email);
+            
+
             ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome", div.Pagina.pedido_);
             ViewBag.background_ = new SelectList(db.Background.Where(b => b.IdBackground == div.background_), "IdBackground", "Nome", div.background_);
-            ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == div.imagem_), "IdImagem", "IdImagem", div.imagem_);
+         //   ViewBag.imagem_ = new SelectList(db.Imagem.Where(i => i.IdImagem == div.imagem_), "IdImagem", "IdImagem", div.imagem_);
             ViewBag.pagina_ = new SelectList(db.Pagina.Where(p => p.IdPagina == div.pagina_), "IdPagina", "Titulo", div.pagina_);
             return PartialView(div);
+        }
+
+        [Authorize]
+        public ActionResult AdicionarImagem(int? id)
+        {
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Div div = db.Div.Find(id);
+            if (div.Pagina.Pedido.Cliente != cli)
+            {
+                return RedirectToAction("IndexCliente", "CLiente");
+            }
+
+            if (div == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+            ViewBag.Imagem = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+            return PartialView(div);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        [Authorize]
+        public ActionResult AdicionarImagem([Bind(Include = "IdDiv,Nome,Codigo,background_,pagina_")] Div div)
+        {
+
+            string email = User.Identity.GetUserName();
+            CLiente cli = db.Cliente.First(c => c.UserName == email);
+            if (ModelState.IsValid)
+            {
+                Imagem img = db.Imagem.Find(int.Parse(Request["Imagem"].ToString()));
+                div.Imagem = db.Div.First(c => c.IdDiv == div.IdDiv).Imagem;
+                div.Imagem.Add(img);
+                db.SaveChanges();
+
+                
+                return RedirectToAction("Renderizar_Dinamico", "Pagina", new { id = div.pagina_ });
+            }
+            ViewBag.site = new SelectList(cli.Servicos, "IdPedido", "Nome");
+            ViewBag.pagina = new SelectList(new List<Pagina>(), "IdPagina", "Titulo");
+            ViewBag.Imagem = new SelectList(new List<Imagem>(), "IdImagem", "IdImagem");
+            return View(div);
         }
 
         public ActionResult Renderizar_Dinamico(int? id)

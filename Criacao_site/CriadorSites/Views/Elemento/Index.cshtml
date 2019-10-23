@@ -15,10 +15,7 @@
             @Html.DisplayNameFor(model => model.carousel.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.div.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imagem.Nome)
+            @Html.DisplayNameFor(model => model.imagem.IdImagem)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.texto.Nome)
@@ -35,10 +32,7 @@
             @Html.DisplayFor(modelItem => item.carousel.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.div.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imagem.Nome)
+            @Html.DisplayFor(modelItem => item.imagem.IdImagem)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.texto.Nome)
@@ -47,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.video.Nome)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdElemento }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdElemento }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdElemento })
+            @Html.ActionLink("Editar ", "Edit", new { id = item.IdElemento }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IdElemento }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.IdElemento })
         </td>
     </tr>
 }

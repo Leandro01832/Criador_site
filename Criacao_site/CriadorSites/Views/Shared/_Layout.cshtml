@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Meu Projeto Agora</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     
@@ -25,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("WebSiteNow", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Meu Projeto Agora", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -37,9 +37,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exemplos de pagina criadas</a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Nike", "Nike", "Home")</li>
-                            <li>@Html.ActionLink("Saudali", "Saudali", "Home")</li>
-                            <li>@Html.ActionLink("Porto Alegre", "Porto_Alegre", "Home")</li>
+                            <li>@Html.ActionLink("Nike", "MinhaPagina", "Home", new { id = 2 }, null)</li>
+                            <li>@Html.ActionLink("Saudali", "MinhaPagina", "Home", new { id = 3 }, null)</li>
+                            <li>@Html.ActionLink("Porto Alegre", "MinhaPagina", "Home", new { id = 4 }, null)</li>
+                            <li>@Html.ActionLink("Vilma", "MinhaPagina", "Home", new { id = 5 }, null)</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -61,7 +62,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - WebSiteNow</p>
+            <p>&copy; @DateTime.Now.Year - Meu Projeto Agora</p>
         </footer>
     </div>
 

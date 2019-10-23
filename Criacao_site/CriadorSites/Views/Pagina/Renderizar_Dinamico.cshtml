@@ -8,11 +8,13 @@
     ViewBag.Title = "Renderizar";
 
     Layout = "~/Views/Shared/_Render.cshtml";
+
+    string valor = ViewBag.html;
 }
 
 <style media="screen and (min-width: 0px)">
     #exampleModalLong {
-        width: 90%; 
+        width: 90%;
     }
 
     #exampleModalLong2 {
@@ -25,6 +27,7 @@
         left: 20%;
         width: 70%;
     }
+
     #exampleModalLong2 {
         width: 100%;
     }
@@ -35,6 +38,7 @@
         left: 50%;
         width: 50%;
     }
+
     #exampleModalLong2 {
         width: 100%;
     }
@@ -45,6 +49,7 @@
         left: 70%;
         width: 30%;
     }
+
     #exampleModalLong2 {
         width: 100%;
     }
@@ -55,15 +60,22 @@
         left: 70%;
         width: 30%;
     }
+
     #exampleModalLong2 {
         width: 100%;
     }
 </style>
 
-<div class="content">
-    @Html.Raw(ViewBag.html)
+
+
+<div class="content" data-id="">
+
+    @Html.Raw(ViewBag.html);
+
+
 </div>
-                  
+
+
 
 <div class="modal fade" id="exampleModalLong" style="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -87,30 +99,41 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".close").click(function () {
-               
-                $(".Topo").css("border", "0");
-                $(".Menu").css("border", "0");
-                $(".bloco").css("border", "0");
-                $(".ClassDiv").css("border", "0");
-                $(".Textos").css("border", "0");
-                $(".Carrosel").css("border", "0");
-                $(".video").css("border", "0");
-                $(".bordaEsquerda").css("border", "0");
-                $(".bordaDireita").css("border", "0");
-                   
-                    
-                
+
+                if ($("#Manter").is(':checked') == false) {
+                    $(".Topo").css("border", "0");
+                    $(".Menu").css("border", "0");
+                    $(".bloco").css("border", "0");
+                    $(".ClassDiv").css("border", "0");
+                    $(".Textos").css("border", "0");
+                    $(".Carrosel").css("border", "0");
+                    $(".video").css("border", "0");
+                    $(".bordaEsquerda").css("border", "0");
+                    $(".bordaDireita").css("border", "0");
+                    $(".row").css("border", "0");
+                    $(".Conteudo").css("border", "0");
+                    $(".Imagem").css("border", "0");
+                    $(".Elemento").css("border", "0");
+                }
+
+
             });
             $(".btn-secondary").click(function () {
-                $(".Topo").css("border", "0");
-                $(".Menu").css("border", "0");
-                $(".bloco").css("border", "0");
-                $(".ClassDiv").css("border", "0");
-                $(".Textos").css("border", "0");
-                $(".Carrosel").css("border", "0");
-                $(".video").css("border", "0");
-                $(".bordaEsquerda").css("border", "0");
-                $(".bordaDireita").css("border", "0");
+                if ($("#Manter").is(':checked') == false) {
+                    $(".Topo").css("border", "0");
+                    $(".Menu").css("border", "0");
+                    $(".bloco").css("border", "0");
+                    $(".ClassDiv").css("border", "0");
+                    $(".Textos").css("border", "0");
+                    $(".Carrosel").css("border", "0");
+                    $(".video").css("border", "0");
+                    $(".bordaEsquerda").css("border", "0");
+                    $(".bordaDireita").css("border", "0");
+                    $(".row").css("border", "0");
+                    $(".Conteudo").css("border", "0");
+                    $(".Imagem").css("border", "0");
+                    $(".Elemento").css("border", "0");
+                }
             });
         });
     </script>
@@ -134,15 +157,10 @@
             </div>
         </div>
     </div>
-</div>
-
-
+</div>                  
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
-
-
-
 
     <script type="text/javascript">
 
@@ -153,8 +171,8 @@
             var x;
             var y;
             var z;
-            var substring = "ClassDiv"; 
-            
+            var substring = "ClassDiv";
+
 
             el.click(function () {
 
@@ -165,11 +183,10 @@
 
 
                 if (timer) clearTimeout(timer);
-                timer = setTimeout(function ()
-                {
+                timer = setTimeout(function () {
                     condicao = 1;
                 },
-                300);
+                    300);
 
             });
 
@@ -183,21 +200,19 @@
 
             });
 
-            setInterval(verifica, 3000);
+            setInterval(verifica, 1000);
 
-            function verifica()
-            {
-                if (condicao != 0)
-                {
+            function verifica() {
+                if (condicao != 0) {
 
                     if (condicao == 1) {
 
-
-
                         if (y.tagName == "DIV" && x.includes(substring)) {
                             var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
+                            $("#" + y.id).css("border-style", "solid");
+                            $("#" + y.id).css("border-width", "5px");
+                            $("#" + y.parentElement.id).css("border-style", "solid");
+                            $("#" + y.parentElement.id).css("border-width", "5px");
                             condicao = 0;
                             $("#conteudomodal").load("/Div/EditModal/" + id, function () {
 
@@ -205,137 +220,99 @@
                             });
                         }
 
-                        if (x == "Topo") {
+                        if (x == "Topo" || x == "Menu" || x == "bloco" || x == "bordaEsquerda" || x == "bordaDireita") {
                             var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
-                            condicao = 0;
+                            $("#" + y.id).css("border-style", "solid");
+                            $("#" + y.id).css("border-width", "5px");
+                            $("#" + y.parentElement.id).css("border-style", "solid");
+                            $("#" + y.parentElement.id).css("border-width", "5px");
+                            condicao = 0;                               
+
                             $("#conteudomodal").load("/Background/EditModal/" + id, function () {
 
                                 $('#exampleModalLong').modal("show");
                             });
+
+                            
                         }
 
-                        if (x == "Menu") {
+
+                        if (x == "video grid-item" || x == "Textos grid-item") {
                             var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
+                            var idElemento = $("#" + y.id).attr("data-id");
+                            $("#" + y.id).css("border-style", "solid");
+                            $("#" + y.id).css("border-width", "5px");
+                            $("#" + y.parentElement.id).css("border-style", "solid");
+                            $("#" + y.parentElement.id).css("border-width", "5px");
                             condicao = 0;
-                            $("#conteudomodal").load("/Background/EditModal/" + id, function () {
-
-                                $('#exampleModalLong').modal("show");
-                            });
-                        }
-
-                        if (x == "bloco") {
-                            var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
-                            condicao = 0;
-                            $("#conteudomodal").load("/Background/EditModal/" + id, function () {
-
-                                $('#exampleModalLong').modal("show");
-                            });
-                        }
-
-                        if (x == "bordaEsquerda") {
-                            var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
-                            condicao = 0;
-                            $("#conteudomodal").load("/Background/EditModal/" + id, function () {
-
-                                $('#exampleModalLong').modal("show");
-                            });
-                        }
-
-                        if (x == "bordaDireita") {
-                            var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
-                            condicao = 0;
-                            $("#conteudomodal").load("/Background/EditModal/" + id, function () {
-
-                                $('#exampleModalLong').modal("show");
-                            });
-                        }
-
-                        if (x == "video") {
-                            var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
-                            condicao = 0;
-                            $("#conteudomodal").load("/Video/EditModal/" + id, function () {
+                            $("#conteudomodal").load("/Elemento/EditModal/" + idElemento, function () {
 
                                 $('#exampleModalLong').modal("show");
                             });
                         }
 
 
-                        if (x == "Textos") {
-                            var id = $("#" + y.id).data("value");
-                            $("#" + y.id).css("border-style", "double");
-                            $("#" + y.id).css("border-width", "15px");
-                            condicao = 0;
-                            $("#conteudomodal").load("/Texto/EditModal/" + id, function () {
-                                $('#exampleModalLong').modal("show");
-                            });
-                        }                             
-
-                        
-                        if (x == "") {
+                        if (x == "" || x == "carousel-inner" || x == "img-responsive" || x == "carousel-item ativo" || x == "img-responsive minhaimg") {
                             y = z;
-                            while (y.className != "Textos") {
+                            while (y.className != "content") {
                                 y = y.parentElement;
+
                                 if (y.className == "content") {
                                     condicao = 0;
                                     break;
                                 }
 
-                                if (y.className == "Textos") {
+                                if (y.className == "Textos grid-item") {
                                     var id = $("#" + y.id).data("value");
-                                    $("#" + y.id).css("border-style", "double");
-                                    $("#" + y.id).css("border-width", "15px");
+                                    var idElemento = $("#" + y.id).attr("data-id");
+                                    $("#" + y.id).css("border-style", "solid");
+                                    $("#" + y.id).css("border-width", "5px");
+                                    $("#" + y.parentElement.id).css("border-style", "solid");
+                                    $("#" + y.parentElement.id).css("border-width", "5px");
                                     condicao = 0;
-                                    $("#conteudomodal2").load("/Texto/EditModal/" + id, function () {
+                                    $("#conteudomodal2").load("/Elemento/EditModal/" + idElemento, function () {
                                         $('#exampleModalLong2').modal("show");
                                     });
                                     break;
                                 }
 
-                            }
-
-                        }
-
-
-                        if (x == "carousel-inner") {
-                            y = z;
-                            while (y.className != "Carrosel") {
-                                y = y.parentElement;
-                                if (y.className == "content") {
-                                    condicao = 0;
-                                    break;
-                                }
-
-                                if (y.className == "Carrosel") {
+                                if (y.className == "Carrosel grid-item") {
                                     var id = $("#" + y.id).data("value");
-                                    $("#" + y.id).css("border-style", "double");
-                                    $("#" + y.id).css("border-width", "15px");
+                                    var idElemento = $("#" + y.id).attr("data-id");
+                                    $("#" + y.id).css("border-style", "solid");
+                                    $("#" + y.id).css("border-width", "5px");
+                                    $("#" + y.parentElement.id).css("border-style", "solid");
+                                    $("#" + y.parentElement.id).css("border-width", "5px");
                                     condicao = 0;
-                                    $("#conteudomodal").load("/Carousel/EditModal/" + id, function () {
+                                    $("#conteudomodal").load("/Elemento/EditModal/" + idElemento, function () {
                                         $('#exampleModalLong').modal("show");
                                     });
                                     break;
                                 }
+
+                                if (y.className == "Imagem grid-item") {
+                                    var id = $("#" + y.id).data("value");
+                                    var idElemento = $("#" + y.id).attr("data-id");
+                                    $("#" + y.id).css("border-style", "solid");
+                                    $("#" + y.id).css("border-width", "5px");
+                                    $("#" + y.parentElement.id).css("border-style", "solid");
+                                    $("#" + y.parentElement.id).css("border-width", "5px");
+                                    condicao = 0;
+                                    $("#conteudomodal").load("/Elemento/EditModal/" + idElemento, function () {
+                                        $('#exampleModalLong').modal("show");
+                                    });
+                                    break;
+                                }
+
                             }
+
                         }
+
                     }
 
                     if (condicao == 2) {
 
                         if (y.tagName == "DIV" && x.includes(substring)) {
-                            var id = $("#" + y.id).data("value");
-
                             $("#conteudomodal2").load("/Div/CreateModal/", function () {
                                 $('#exampleModalLong2').modal("show");
                             });
@@ -343,9 +320,7 @@
                             condicao = 0;
                         }
 
-                        if (x == "Topo") {
-                            var id = $("#" + y.id).data("value");
-
+                        if (x == "Topo" || x == "Menu" || x == "bloco" || x == "bordaEsquerda" || x == "bordaDireita") {
                             $("#conteudomodal2").load("/Background/CreateModal/", function () {
                                 $('#exampleModalLong2').modal("show");
                             });
@@ -353,80 +328,27 @@
                             condicao = 0;
                         }
 
-                        if (x == "Menu") {
-                            var id = $("#" + y.id).data("value");
+                        if (x == "video grid-item" || x == "Textos grid-item" || x == "img-responsive") {
 
-                            $("#conteudomodal2").load("/Background/CreateModal/", function () {
+                            $("#conteudomodal2").load("/Elemento/CreateModal/", function () {
                                 $('#exampleModalLong2').modal("show");
                             });
                             x = "";
                             condicao = 0;
                         }
 
-                        if (x == "bloco") {
-                            var id = $("#" + y.id).data("value");
-
-                            $("#conteudomodal2").load("/Div/CreateModal/" + id, function () {
-                                $('#exampleModalLong2').modal("show");
-                            });
-                            x = "";
-                            condicao = 0;
-                        }
-
-                        if (x == "bordaEsquerda") {
-                            var id = $("#" + y.id).data("value");
-
-                            $("#conteudomodal2").load("/Background/CreateModal/", function () {
-                                $('#exampleModalLong2').modal("show");
-                            });
-                            x = "";
-                            condicao = 0;
-                        }
-
-                        if (x == "bordaDireita") {
-                            var id = $("#" + y.id).data("value");
-
-                            $("#conteudomodal2").load("/Background/CreateModal/", function () {
-                                $('#exampleModalLong2').modal("show");
-                            });
-                            x = "";
-                            condicao = 0;
-                        }
-
-                        if (x == "video") {
-                            var id = $("#" + y.id).data("value");
-
-                            $("#conteudomodal2").load("/Video/CreateModal/", function () {
-                                $('#exampleModalLong2').modal("show");
-                            });
-                            x = "";
-                            condicao = 0;
-                        }
-
-                        if (x == "Textos") {
-                            var id = $("#" + y.id).data("value");
-
-                            $("#conteudomodal2").load("/Texto/CreateModal/", function () {
-                                $('#exampleModalLong2').modal("show");
-                            });
-                            x = "Textos";
-                            condicao = 0;
-                        }         
-
-
-                        if (x == "") {
+                        if (x == "" || x == "carousel-inner" || x == "carousel-item ativo" || x == "img-responsive minhaimg") {
                             y = z;
-                            while (y.className != "Textos") {
+                            while (y.className != "content") {
                                 y = y.parentElement;
                                 if (y.className == "content") {
                                     condicao = 0;
                                     break;
                                 }
 
-                                if (y.className == "Textos") {
-                                    var id = $("#" + y.id).data("value");
+                                if (y.className == "Textos grid-item") {
 
-                                    $("#conteudomodal2").load("/Texto/CreateModal/", function () {
+                                    $("#conteudomodal2").load("/Elemento/CreateModal/", function () {
                                         $('#exampleModalLong2').modal("show");
                                     });
                                     x = "Textos";
@@ -434,41 +356,24 @@
                                     break;
                                 }
 
-                            }
+                                if (y.className == "Carrosel grid-item") {
 
-                        }
-
-
-
-                        if (x == "carousel-inner") {
-                            y = z;
-                            while (y.className != "Carrosel") {
-                                y = y.parentElement;
-                                if (y.className == "content") {
-                                    condicao = 0;
-                                    break;
-                                }
-
-                                if (y.className == "Carrosel") {
-                                    var id = $("#" + y.id).data("value");
-
-                                    $("#conteudomodal2").load("/Carousel/CreateModal/" + id, function () {
+                                    $("#conteudomodal2").load("/Elemento/CreateModal/", function () {
                                         $('#exampleModalLong2').modal("show");
                                     });
                                     x = "Carrosel";
                                     condicao = 0;
                                     break;
                                 }
+
                             }
+
                         }
+
                     }
-
                 }
+            }    
 
-
-
-
-            }
 
 
         });

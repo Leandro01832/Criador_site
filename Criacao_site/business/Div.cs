@@ -25,6 +25,9 @@ namespace business
         [Display(Name = "Altura")]
         public int Height { get; set; }
 
+        [Display(Name = "Quantidade de colunas")]
+        public string Colunas { get; set; }
+
         public int Desenhado { get; set; }
 
         [Display(Name = "Espaçamento")]
@@ -42,8 +45,9 @@ namespace business
         public virtual List<Texto> Textos { get; set; }
         public virtual List<Carousel> Carousel { get; set; }
         public virtual List<Video> Video { get; set; }
+        public virtual List<Imagem> Imagem { get; set; }
         public virtual List<Elemento> Elemento { get; set; }
-        public virtual List<Div> Blocos { get; set; }
+        
 
 
         [Range(1, 10000, ErrorMessage = "Escolha em qual pagina vai estar o bloco")]
@@ -52,10 +56,7 @@ namespace business
         [ForeignKey("pagina_")]
         public virtual Pagina Pagina { get; set; }
 
-        [Display(Name = "Qual é a imagem do bloco?")]
-        public int? imagem_ { get; set; }
-        [ForeignKey("imagem_")]
-        public virtual Imagem imagem { get; set; }
+        
 
 
     }

@@ -28,8 +28,8 @@ namespace CriadorSites
 
             routes.MapRoute(
               name: "Preview_dinamico",
-              url: "Codigo/Renderizar_Dinamico/{id}",
-              defaults: new { controller = "Codigo", action = "Renderizar_Dinamico", id = UrlParameter.Optional }
+              url: "codigo/Renderizar_Dinamico/{id}",
+              defaults: new { controller = "codigo", action = "Renderizar_Dinamico", id = UrlParameter.Optional }
           );
 
             routes.MapRoute(

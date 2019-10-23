@@ -22,7 +22,7 @@ namespace CriadorSites
             var envia = "leandroleanleo@gmail.com";
            // var user = "leandro@roupafestas.com";
             // var pass = "Le@ndro01832";
-            var pass = "";
+            var pass = "leandro01083832";
 
             System.Net.NetworkCredential credencial = new System.Net.NetworkCredential(envia, pass);
 

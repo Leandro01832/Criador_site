@@ -1,0 +1,212 @@
+﻿@model business.Div
+
+<style>
+    .modal .modal-dialog .modal-content .modal-header button {
+        float: left;
+    }
+
+    .modal .modal-dialog .modal-content .modal-footer button {
+        float: left;
+    }
+</style>
+
+<h2>Adicionar Imagem</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Bloco</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdDiv)
+    @Html.HiddenFor(model => model.Nome)
+    @Html.HiddenFor(model => model.Codigo)
+    @Html.HiddenFor(model => model.background_)
+    @Html.HiddenFor(model => model.pagina_)
+
+    <div class="form-group">
+        @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("site", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("pagina", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Imagem", "Escolha a imagem", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Imagem", null, htmlAttributes: new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div id="img">
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+
+    <script>
+    $(document).ready(function () {
+
+        $("#site").click(function () {
+                $("#pagina").empty();
+                $("#pagina").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+        });
+
+
+        $("#pagina").change(function () {
+
+            $("#Imagem").empty();
+            $("#Imagem").append('<option value="0">[Selecione  uma imagem..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetImagens")',
+                    dataType: 'json',
+                    data: { PaginaId: $("#pagina").val() },
+                    success: function (data) {
+
+                        $.each(data, function (i, data) {
+
+                            $("#Imagem").append('<option id=" ' + data.IdImagem + ' " class="' + data.Arquivo + '" value="'
+                                + data.IdImagem + '" data-value="' + data.Arquivo + '" >'
+                                + data.Arquivo + '</option>');
+
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar imagens.' + ex);
+                    }
+                });
+                return false;
+        });
+
+        var items = document.getElementById('Imagem');
+        items.addEventListener('change', function () {
+            var x = document.getElementById('Imagem');
+            var y = x.selectedOptions[0].className;
+            y = y.replace("~", "../..");
+
+            document.getElementById("img").innerHTML = "<br /> <img src='" + y + "' style='width:300px; height:150px; max-width: 100%; height: auto;' /> <br />";
+
+        });
+
+
+
+
+
+    });
+    </script>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    $(document).ready(function () {
+
+        $("#site").click(function () {
+                $("#pagina").empty();
+                $("#pagina").append('<option value="0">[Selecione  uma pagina..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPaginas")',
+                    dataType: 'json',
+                    data: { PedidoId: $("#site").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#pagina").append('<option value="'
+                                + data.IdPagina + '">'
+                                + data.Titulo + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar paginas.' + ex);
+                    }
+                });
+                return false;
+        });
+
+
+        $("#pagina").change(function () {
+
+            $("#Imagem").empty();
+            $("#Imagem").append('<option value="0">[Selecione  uma imagem..]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetImagens")',
+                    dataType: 'json',
+                    data: { PaginaId: $("#pagina").val() },
+                    success: function (data) {
+
+                        $.each(data, function (i, data) {
+
+                            $("#Imagem").append('<option id=" ' + data.IdImagem + ' " class="' + data.Arquivo + '" value="'
+                                + data.IdImagem + '" data-value="' + data.Arquivo + '" >'
+                                + data.Arquivo + '</option>');
+
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar imagens.' + ex);
+                    }
+                });
+                return false;
+        });
+
+        var items = document.getElementById('Imagem');
+        items.addEventListener('change', function () {
+            var x = document.getElementById('Imagem');
+            var y = x.selectedOptions[0].className;
+            y = y.replace("~", "../..");
+
+            document.getElementById("img").innerHTML = "<br /> <img src='" + y + "' style='width:300px; height:150px; max-width: 100%; height: auto;' /> <br />";
+
+        });
+
+    });
+    </script>
+
+
+}
