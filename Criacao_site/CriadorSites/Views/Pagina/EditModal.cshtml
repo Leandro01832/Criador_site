@@ -1,79 +1,26 @@
 ﻿@model business.Pagina
 
 
-       <style>
-           .modal .modal-dialog .modal-content .modal-header button
-           {
-               float: left;
-           }
-           .modal .modal-dialog .modal-content .modal-footer button
-           {
-               float: left;
-           }
-
-           
-       </style>
-
-@{
-    int i = 0;
-    foreach (var back in Model.Background)
-    {
-        if (i == 0)
-        {
-            <p>
-                <a href="#" data-value="@back.IdBackground" class="btn btn-success Background">alterar plano de fundo da pagina</a>
-            </p>
-        }
-        if (i == 1)
-        {
-            <p>
-                <a href="#" data-value="@back.IdBackground" class="btn btn-success Background">alterar plano de fundo do topo</a>
-            </p>
-        }
-
-        if (i == 2)
-        {
-            <p>
-                <a href="#" data-value="@back.IdBackground" class="btn btn-success Background">alterar plano de fundo do menu</a>
-            </p>
-        }
-
-        if (i == 3)
-        {
-            <p>
-                <a href="#" data-value="@back.IdBackground" class="btn btn-success Background">alterar plano de fundo da borda esquerda</a>
-            </p>
-        }
-
-        if (i == 4)
-        {
-            <p>
-                <a href="#" data-value="@back.IdBackground" class="btn btn-success Background">alterar plano de fundo da borda direita</a>
-            </p>
-        }
-
-        if (i == 5)
-        {
-            <p>
-                <a href="#" data-value="@back.IdBackground" class="btn btn-success Background">alterar plano de fundo dos blocos</a>
-            </p>
-        }
-
-        i++;
+<style>
+    .modal .modal-dialog .modal-content .modal-header button {
+        float: left;
     }
+
+    .modal .modal-dialog .modal-content .modal-footer button {
+        float: left;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    <h4>Configuração de bordas</h4>
+    @Html.Label("manter", "Manter a borda", htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.CheckBox("Manter", true)
 }
 
 <hr />
 
-@{
-
-    foreach (var div in Model.Div)
-    {
-        <p>
-            <a href="#" data-value="@div.IdDiv" class="btn btn-success bloco">alterar bloco - @div.Nome</a>
-        </p>
-    }
-}
+<a href="#" class="btn btn-success imagem">Background da pagina</a>
 
 <hr />
 
@@ -82,41 +29,63 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Pagina</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdPagina)
+<div class="form-horizontal">
+    <h4>Pagina</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdPagina)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdPagina, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdPagina, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.IdPagina, "", new { @class = "text-danger" })
-            </div>
+    <input id="Hidden1" name="Hidden1" type="hidden" value="" />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdPagina, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IdPagina, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.IdPagina, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-            </div>
-        </div>          
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.pedido_, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("pedido_", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.pedido_, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ModalDireita, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.ModalDireita)
+                @Html.ValidationMessageFor(model => model.ModalDireita, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Layout, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.Layout)
+                @Html.ValidationMessageFor(model => model.Layout, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.pedido_, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("pedido_", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.pedido_, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+</div>
 }
 
-<div class="modal fade" id="exampleModalLong"   tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -141,49 +110,34 @@
 
     <script type="text/javascript">
             $(document).ready(function () {
-                $("input[name='Titulo'], input[name='servico_']").change(function () {
-                debugger
+                $("input[name='Titulo'], input[name='servico_'], input[name='Layout'], input[name='ModalDireita'], select[name='pedido_']").change(function () {
+                
 
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("Alterar")',
                     dataType: 'json',
-                    data: { Id: $("#IdPagina").val(), Titulo: $("#Titulo").val(), pedido_: $("#pedido_").val() },
+                    data: { Id: $("#IdPagina").val(), Titulo: $("#Titulo").val(), pedido_: $("#pedido_").val(), ModalDireita: $("#ModalDireita").is(':checked'), Layout: $("#Layout").is(':checked') },
                     success: function (data) {
 
-
-                        alert('alteração efetuada');
-                        
-                        location.reload();
-                         
-                       // document.getElementsByClassName("content").innerHTML = "<h1> Deus é bom </h1>";
-
-
+                        $("#Hidden1").val(true);
+                            $(".content").load("/Pagina/getview",
+                                { id: "@Model.IdPagina" });
                     },
-                    error: function (ex) {
-                        alert('Falha ao buscar cidades.' + ex);
+                    error: function (ex)
+                    {
+                        alert('Falha na alteração.' + ex);
                     }
                 });
                 return false;
                 });
 
 
-                $(".Background").click(function () {
+                $(".btn-success").click(function () {
 
-                    var id = $(this).data("value");
+                    var id = $("#corpo").data("value");
 
                     $("#conteudomodal").load("/Background/EditModal/" + id, function () {
-                        $('#exampleModalLong').modal("show");
-
-                    });
-                });
-
-
-                $(".bloco").click(function () {
-
-                    var id = $(this).data("value");
-
-                    $("#conteudomodal").load("/Div/EditModal/" + id, function () {
                         $('#exampleModalLong').modal("show");
 
                     });

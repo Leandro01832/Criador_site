@@ -57,6 +57,16 @@ namespace CriadorSites.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if(returnUrl != null)
+            {
+                if (returnUrl.Contains("/Video/"))
+                {
+                    ViewBag.aviso = "Você precisa de uma permissão para fazer upload de videos \n ";
+                }
+            }
+
+            
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -201,8 +211,9 @@ namespace CriadorSites.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null)
                 {
+                    ModelState.AddModelError("", "O email é inválido");
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }

@@ -109,7 +109,7 @@
                         $.each(data, function (i, data) {
                             $("#div_").append('<option value="'
                                 + data.IdDiv + '">'
-                                + data.Nome + '</option>');
+                                + data.Nome + ' - ' + data.IdDiv + '</option>');
                         });
                     },
                     error: function (ex) {

@@ -45,7 +45,7 @@ namespace CriadorSites.Controllers
         }
 
         [HttpPost]
-        public JsonResult Alterar(int Id, string Nome, string Divisao, int Height, int background_, int BorderRadius, int Padding, string Colunas)
+        public JsonResult Alterar(int Id, string Nome, string Divisao, int Height, int background_, int BorderRadius, int Padding, string Colunas, int pagina_)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
@@ -59,8 +59,7 @@ namespace CriadorSites.Controllers
             div.BorderRadius = BorderRadius;
             div.Padding = Padding;
             div.Colunas = Colunas;
-            
-
+            div.pagina_ = pagina_;
 
             db.Entry(div).State = EntityState.Modified;
             try
@@ -72,83 +71,7 @@ namespace CriadorSites.Controllers
                 return Json("");
             }
 
-            int espaco = 0;
-            int rows = 0;
-
-            foreach (var bloco in div.Pagina.Div)
-            {
-                if (bloco.Divisao == "col-md-12" || bloco.Divisao == "col-sm-12")
-                    espaco += 12;
-
-                if (bloco.Divisao == "col-md-6" || bloco.Divisao == "col-sm-6")
-                    espaco += 6;
-
-                if (bloco.Divisao == "col-md-4" || bloco.Divisao == "col-sm-4")
-                    espaco += 4;
-
-                if (bloco.Divisao == "col-md-3" || bloco.Divisao == "col-sm-3")
-                    espaco += 3;
-
-                if (bloco.Divisao == "col-md-2" || bloco.Divisao == "col-sm-2")
-                    espaco += 2;
-
-
-            }
-
-            rows = espaco / 12;
-
-            rows += 1;
-
-            int[] numero = new int[rows];
-
-            for (int i = 0; i < numero.Length; i++)
-            {
-                numero[i] += i + 1;
-
-            }
-
-            foreach (var fundo in div.Pagina.Background)
-            {
-                if (fundo.backgroundTransparente)
-                {
-                    fundo.Cor = "transparent";
-                }
-            }
-
-            Velocity.Init();
-
-            var Modelo = new
-            {
-                Pagina = div.Pagina,
-                titulo = div.Pagina.Titulo,
-                facebook = div.Pagina.Facebook,
-                twiter = div.Pagina.Twiter,
-                instagram = div.Pagina.Instagram,
-                background = div.Pagina.Background.ToList()[0],
-               // background_url = div.Pagina.Background.ToList()[0].imagem.Arquivo.Replace("~", "../.."),
-                background_topo = div.Pagina.Background.ToList()[1],
-                background_menu = div.Pagina.Background.ToList()[2],
-                background_borda_esquerda = div.Pagina.Background.ToList()[3],
-                background_borda_direita = div.Pagina.Background.ToList()[4],
-                background_bloco = div.Pagina.Background.ToList()[5],
-                divs = div.Pagina.Div,
-                Rows = numero,
-                espacamento = 0,
-                indice = 1
-
-            };
-
-            var velocitycontext = new VelocityContext();
-            velocitycontext.Put("model", Modelo);
-            velocitycontext.Put("divs", div.Pagina.Div);
-
-
-            var html = new StringBuilder();
-            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(div.Pagina.Codigo));
-
-            ViewBag.html = html.ToString();
-
-            return Json(html.ToString());
+            return Json("valor");
         }
 
         // GET: Div

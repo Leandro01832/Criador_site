@@ -37,6 +37,7 @@ namespace CriadorSites.Controllers
             return Json(paginas);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public JsonResult AlterarBack(int Id, string Nome, bool backgroundImage, bool backgroundTransparente, string cores, string Background_Repeat, string Background_Position, int imagem_)
         {
@@ -49,87 +50,8 @@ namespace CriadorSites.Controllers
             back.Background_Repeat = Background_Repeat;
             back.Background_Position = Background_Position;
             back.imagem_ = imagem_;
-            back.backgroundTransparente = backgroundTransparente;            
+            back.backgroundTransparente = backgroundTransparente;
 
-            int espaco = 0;
-            int rows = 0;
-
-            foreach (var bloco in back.Pagina.Div)
-            {
-                if (bloco.Divisao == "col-md-12" || bloco.Divisao == "col-sm-12")
-                    espaco += 12;
-
-                if (bloco.Divisao == "col-md-6" || bloco.Divisao == "col-sm-6")
-                    espaco += 6;
-
-                if (bloco.Divisao == "col-md-4" || bloco.Divisao == "col-sm-4")
-                    espaco += 4;
-
-                if (bloco.Divisao == "col-md-3" || bloco.Divisao == "col-sm-3")
-                    espaco += 3;
-
-                if (bloco.Divisao == "col-md-2" || bloco.Divisao == "col-sm-2")
-                    espaco += 2;
-
-
-            }
-
-            rows = espaco / 12;
-
-            rows += 1;
-
-            int[] numero = new int[rows];
-
-            for (int i = 0; i < numero.Length; i++)
-            {
-                numero[i] += i + 1;
-
-            }
-
-            foreach (var fundo in back.Pagina.Background)
-            {
-                if (fundo.backgroundTransparente)
-                {
-                    fundo.Cor = "transparent";
-                }
-            }
-
-            Velocity.Init();
-
-            var Modelo = new
-            {
-                Pagina = back.Pagina,
-                titulo = back.Pagina.Titulo,
-                facebook = back.Pagina.Facebook,
-                twiter = back.Pagina.Twiter,
-                instagram = back.Pagina.Instagram,
-                background = back.Pagina.Background.ToList()[0],
-                background_topo = back.Pagina.Background.ToList()[1],
-                background_menu = back.Pagina.Background.ToList()[2],
-                background_borda_esquerda = back.Pagina.Background.ToList()[3],
-                background_borda_direita = back.Pagina.Background.ToList()[4],
-                background_bloco = back.Pagina.Background.ToList()[5],
-                divs = back.Pagina.Div,
-                Rows = numero,
-                espacamento = 0,
-                indice = 1
-
-            };
-
-            var velocitycontext = new VelocityContext();
-            velocitycontext.Put("model", Modelo);
-            velocitycontext.Put("divs", back.Pagina.Div);
-
-
-            var html = new StringBuilder();
-            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(back.Pagina.Codigo));
-
-            foreach(var d in back.Pagina.Div)
-            {
-                d.Desenhado = 0;
-            }
-
-            back.Pagina.CodigoRenderizado = html.ToString();
             db.Entry(back).State = EntityState.Modified;
             try
             {
@@ -139,9 +61,9 @@ namespace CriadorSites.Controllers
             {
                 var erro = "Preencha o formulario corretamente";
                 return Json(erro);
-            }
+            }           
 
-            return Json(html.ToString());
+            return Json("valor");
         }
 
         // GET: Background

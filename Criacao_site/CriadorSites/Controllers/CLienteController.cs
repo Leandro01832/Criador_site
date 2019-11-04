@@ -10,12 +10,42 @@ using DataContextCriacaoSite;
 using business;
 using Microsoft.AspNet.Identity;
 using Ecommerce.Classes;
+using CriadorSites.Models;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CriadorSites.Controllers
 {
     public class CLienteController : Controller
     {
         private BD db = new BD();
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         // GET: CLiente
         public ActionResult Index()
@@ -68,7 +98,7 @@ namespace CriadorSites.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdCliente,FirstName,LastName,UserName,Cpf,Endereco,Telefone,Password,ConfirmPassword")] CLiente cLiente)
+        public async Task<ActionResult> Create([Bind(Include = "IdCliente,FirstName,LastName,UserName,Cpf,Endereco,Telefone,Password,ConfirmPassword")] CLiente cLiente)
         {
             if (ModelState.IsValid)
             {
@@ -76,9 +106,18 @@ namespace CriadorSites.Controllers
                 db.SaveChanges();
                 UserHelper.UsersHelper.CreateUserASP(cLiente.UserName, "User", cLiente.Password);
 
-                List<Imagem> imagens = db.Imagem.Where(img => img.IdImagem < 4).ToList();
-                db.Imagem.AddRange(imagens);
-                db.SaveChanges();                                
+                var user = new ApplicationUser { UserName = cLiente.UserName, Email = cLiente.UserName };
+                var result = await UserManager.CreateAsync(user, cLiente.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">AQUI</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
 
                 return RedirectToAction("IndexCliente");
             }

@@ -12,6 +12,10 @@
             {
                 @Html.AntiForgeryToken()
             <h4>Use a conta local para log in.</h4>
+
+            <br />
+            <p class="text-danger">@ViewBag.aviso</p>
+            <br />
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">

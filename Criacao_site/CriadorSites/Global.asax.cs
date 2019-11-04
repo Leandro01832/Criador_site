@@ -65,6 +65,11 @@ namespace CriadorSites
             {
                 usermaneger.AddToRole(user.Id, "Delete");
             }
+
+            if (!usermaneger.IsInRole(user.Id, "Videos"))
+            {
+                usermaneger.AddToRole(user.Id, "Videos");
+            }
         }
 
         private void criarsuperuser(ApplicationDbContext db)
@@ -108,6 +113,11 @@ namespace CriadorSites
             if (!rolemanager.RoleExists("Delete"))
             {
                 rolemanager.Create(new IdentityRole("Delete"));
+            }
+
+            if (!rolemanager.RoleExists("Videos"))
+            {
+                rolemanager.Create(new IdentityRole("Videos"));
             }
         }
     }

@@ -10,6 +10,7 @@ using DataContextCriacaoSite;
 using business;
 using Ecommerce.Classes;
 using Microsoft.AspNet.Identity;
+using System.Web.Helpers;
 
 namespace CriadorSites.Controllers
 {
@@ -24,6 +25,104 @@ namespace CriadorSites.Controllers
 
             return Json(paginas);
         }
+
+        public JsonResult AlterarImagem(int Id, bool Recortar, int RecortarTop, int RecortarLeft, int RecortarRight, int RecortarBottom, bool Redimencionar, int RedimencionarLargura, int RedimencionarAltura, bool FlipHorizontal, bool FlipVertical, bool RotacaoEsquerda, bool RotacaoDireita, bool Texto, string TextoImagem)
+        {
+            Imagem img = db.Imagem.First(i => i.IdImagem == Id);
+
+            img.Recortar = Recortar;
+            img.RecortarTop = RecortarTop;
+            img.RecortarRight = RecortarRight;
+            img.RecortarLeft = RecortarLeft;
+            img.RecortarBottom = RecortarBottom;
+            img.Redimencionar = Redimencionar;
+            img.RedimencionarAltura = RedimencionarAltura;
+            img.RedimencionarLargura = RedimencionarLargura;
+            img.FlipHorizontal = FlipHorizontal;
+            img.FlipVertical = FlipVertical;
+            img.RotacaoDireita = RotacaoDireita;
+            img.RotacaoEsquerda = RotacaoEsquerda;
+            img.Texto = Texto;
+            img.TextoImagem = TextoImagem;
+
+            if (img.Recortar && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+               .Crop(img.RecortarTop, img.RecortarLeft, img.RecortarBottom, img.RecortarRight).Save(@"" + img.Arquivo);
+            }
+            else if (!img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+               .Crop(0, 0, 0, 0).Save(@"" + img.Arquivo);
+            }
+
+            if (img.Redimencionar && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+                .Resize(img.RedimencionarLargura, img.RedimencionarAltura).Save(@"" + img.Arquivo);
+            }
+            else if (!img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+                .Resize(new WebImage(@"" + img.Arquivo).Width, new WebImage(@"" + img.Arquivo).Height).Save(@"" + img.Arquivo);
+            }
+
+            if (img.FlipHorizontal && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+               .FlipHorizontal().Save(@"" + img.Arquivo);
+            }
+            
+
+            if (img.FlipVertical && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+                .FlipVertical().Save(@"" + img.Arquivo);
+            }
+            
+
+            if (img.RotacaoEsquerda && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+                .RotateLeft().Save(@"" + img.Arquivo);
+            }
+
+            if (img.RotacaoDireita && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+                .RotateRight().Save(@"" + img.Arquivo);
+            }
+
+            if (img.Texto && !img.Arquivo.Contains(".gif"))
+            {
+                new WebImage(@"" + img.Arquivo)
+                .AddTextWatermark(img.TextoImagem, "white", 12, "Regular").Save(@"" + img.Arquivo);
+            }
+
+            db.Entry(img).State = EntityState.Modified;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                var erro = "Preencha o formulario corretamente";
+                return Json(erro);
+            }           
+
+            return Json("valor");
+        }
+
+        
+        //public void GetImageWatermark()
+        //{
+        //    var watermarkPath = HttpContext.Server.MapPath(@"~/Imagens/marcadagua.jpg");
+        //    var watermark = new WebImage(watermarkPath);
+
+        //    new WebImage(ImagePath)
+        //        .AddImageWatermark(watermark)
+        //        .Write();
+        //}
 
         // GET: Imagem
         public ActionResult Index()

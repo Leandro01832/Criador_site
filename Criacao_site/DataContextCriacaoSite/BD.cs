@@ -1,4 +1,5 @@
 ﻿using business;
+using PagSeguro;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -29,9 +30,7 @@ namespace DataContextCriacaoSite
         public DbSet<Background> Background { get; set; }
         public DbSet<Video> Video { get; set; }
         public DbSet<Elemento> Elemento { get; set; }
-
-
-
+        public DbSet<Dados> Dados { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

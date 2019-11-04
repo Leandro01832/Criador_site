@@ -178,3 +178,6 @@ F:\Projects\Criacao_site\CriadorSites\obj\Debug\CriadorSites.csproj.CoreCompileI
 F:\Projects\Criacao_site\CriadorSites\obj\Debug\CriadorSites.csproj.CopyComplete
 F:\Projects\Criacao_site\CriadorSites\obj\Debug\CriadorSites.dll
 F:\Projects\Criacao_site\CriadorSites\obj\Debug\CriadorSites.pdb
+F:\Projects\Criacao_site\CriadorSites\bin\PagSeguro.dll
+F:\Projects\Criacao_site\CriadorSites\bin\PagSeguro.pdb
+F:\Projects\Criacao_site\CriadorSites\bin\PagSeguro.dll.config

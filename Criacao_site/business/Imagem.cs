@@ -13,7 +13,23 @@ namespace business
         [Display(Name = "Arquivo")]
         public string Arquivo { get; set; }
 
-        
+        public bool Redimencionar { get; set; }
+        public int RedimencionarAltura { get; set; }
+        public int RedimencionarLargura { get; set; }
+
+        public bool Recortar { get; set; }
+        public int RecortarTop { get; set; }
+        public int RecortarLeft { get; set; }
+        public int RecortarRight { get; set; }
+        public int RecortarBottom { get; set; }
+
+        public bool FlipHorizontal { get; set; }
+        public bool FlipVertical { get; set; }
+        public bool RotacaoEsquerda { get; set; }
+        public bool RotacaoDireita { get; set; }
+
+        public bool Texto { get; set; }
+        public string TextoImagem { get; set; }
 
         [NotMapped]
         public IEnumerable<HttpPostedFileBase> FiguraFile { get; set; }

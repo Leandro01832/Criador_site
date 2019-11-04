@@ -13,6 +13,7 @@ using NVelocity.App;
 using NVelocity;
 using System.Text;
 using System.IO;
+using System.Web.Helpers;
 
 namespace CriadorSites.Controllers
 {
@@ -20,13 +21,16 @@ namespace CriadorSites.Controllers
     {
         private BD db = new BD();
 
-        public JsonResult Alterar(int Id, string Titulo, int pedido_)
+        [HttpPost]
+        public JsonResult Alterar(int Id, string Titulo, int pedido_, bool ModalDireita, bool Layout)
         {
             db.Configuration.ProxyCreationEnabled = false;
            
             Pagina pagina = db.Pagina.First(di => di.IdPagina == Id);
             pagina.Titulo = Titulo;
             pagina.pedido_ = pedido_;
+            pagina.ModalDireita = ModalDireita;
+            pagina.Layout = Layout;
 
             db.Entry(pagina).State = EntityState.Modified;
             db.SaveChanges();
@@ -106,107 +110,21 @@ namespace CriadorSites.Controllers
                 {
                     pagina.Instagram = "vazio";
                 }
-                pagina.Codigo = db.Pagina.Find(1).Codigo;
-                    db.Pagina.Add(pagina);
-                    db.SaveChanges();
-
-                Background back1 = new Background
-                {
-                    backgroundImage = true,
-                    backgroundTransparente = false,
-                    Background_Position = "",
-                    Background_Repeat = "",
-                    pagina_2 = pagina.IdPagina,
-                    Codigo = "",
-                    Cor = "#000000",
-                    imagem = db.Imagem.ToList()[0],
-                    imagem_ = db.Imagem.ToList()[0].IdImagem,
-                    Nome = "plano de fundo da pagina"
-                };
-
-                Background back2 = new Background
-                {
-                    backgroundImage = true,
-                    backgroundTransparente = false,
-                    Background_Position = "",
-                    Background_Repeat = "",
-                    pagina_2 = pagina.IdPagina,
-                    Codigo = "",
-                    Cor = "#000000",
-                    imagem = db.Imagem.ToList()[1],
-                    imagem_ = db.Imagem.ToList()[1].IdImagem,
-                    Nome = "topo"
-                };
-
-
-                Background back3 = new Background
-                {
-                    backgroundImage = true,
-                    backgroundTransparente = false,
-                    Background_Position = "",
-                    Background_Repeat = "",
-                    pagina_2 = pagina.IdPagina,
-                    Codigo = "",
-                    Cor = "#000000",
-                    imagem = db.Imagem.ToList()[2],
-                    imagem_ = db.Imagem.ToList()[2].IdImagem,
-                    Nome = "menu"
-                };
-
-                Background back4 = new Background
-                {
-                    backgroundImage = false,
-                    backgroundTransparente = true,
-                    Background_Position = "",
-                    Background_Repeat = "",
-                    pagina_2 = pagina.IdPagina,
-                    Codigo = "",
-                    Cor = "#000000",
-                    imagem = db.Imagem.ToList()[0],
-                    imagem_ = db.Imagem.ToList()[0].IdImagem,
-                    Nome = "borda esquerda"
-                };
-
-                Background back5 = new Background
-                {
-                    backgroundImage = false,
-                    backgroundTransparente = true,
-                    Background_Position = "",
-                    Background_Repeat = "",
-                    pagina_2 = pagina.IdPagina,
-                    Codigo = "",
-                    Cor = "#000000",
-                    imagem = db.Imagem.ToList()[0],
-                    imagem_ = db.Imagem.ToList()[0].IdImagem,
-                    Nome = "borda direita"
-                };
-
-                Background back6 = new Background
-                {
-                    backgroundImage = false,
-                    backgroundTransparente = true,
-                    Background_Position = "",
-                    Background_Repeat = "",
-                    pagina_2 = pagina.IdPagina,
-                    Codigo = "",
-                    Cor = "#000000",
-                    imagem = db.Imagem.ToList()[0],
-                    imagem_ = db.Imagem.ToList()[0].IdImagem,
-                    Nome = "blocos"
-                };
-
-                List<Background> Background = new List<Background>();
-                Background.Add(back1);
-                Background.Add(back2);
-                Background.Add(back3);
-                Background.Add(back4);
-                Background.Add(back5);
-                Background.Add(back6);
-
-                db.Background.AddRange(Background);
+                pagina.CodigoCss = db.Pagina.Find(1).CodigoCss;
+                pagina.CodigoHtml = db.Pagina.Find(1).CodigoHtml;
+                pagina.Layout = false;
+                db.Pagina.Add(pagina);
                 db.SaveChanges();
 
-                pagina.Background.ToList().AddRange(Background);
+                Pagina paginaLayout = db.Pagina.Include(pa => pa.Background).FirstOrDefault(p => pagina.Layout == true);
+                pagina = db.Pagina.Include(p => p.Pedido).Include(p => p.Pedido.Paginas).First(p => p.IdPagina == pagina.IdPagina);
+
+                List<Background> b = pagina.CriarBackgrounds(pagina, paginaLayout, db.Imagem.ToList());
+                db.Background.AddRange(b);
+                db.SaveChanges();
+
+                pagina.Background = new List<Background>();
+                pagina.Background.AddRange(b);
                 db.SaveChanges();
 
                 return RedirectToAction("Galeria", new { id = pagina.pedido_ });               
@@ -329,85 +247,13 @@ namespace CriadorSites.Controllers
                 return HttpNotFound();
             }
 
-            int espaco = 0;
-            int rows = 0;
+            renderizacao(id);
 
-            foreach(var bloco in pagina.Div)
-            {
-                if(bloco.Divisao == "col-md-12" || bloco.Divisao == "col-sm-12")
-                espaco += 12;                
-
-                if(bloco.Divisao == "col-md-6" || bloco.Divisao == "col-sm-6")
-                espaco += 6;
-
-                if(bloco.Divisao == "col-md-4" || bloco.Divisao == "col-sm-4")
-                espaco += 4;
-
-                if(bloco.Divisao == "col-md-3" || bloco.Divisao == "col-sm-3")
-                espaco += 3;
-
-                if (bloco.Divisao == "col-md-2" || bloco.Divisao == "col-sm-2")
-                espaco += 2;
-
-                
-            }
-
-            rows = espaco / 12;
-
-            rows += 1;
-
-            int[] numero = new int[rows];
-
-            for (int i = 0; i < numero.Length; i++)
-            {
-                numero[i] += i + 1;
-                
-            }
-
-            foreach (var fundo in pagina.Background)
-            {
-                if (fundo.backgroundTransparente)
-                {
-                    fundo.Cor = "transparent";
-                }
-            }
-
-            Velocity.Init();
-
-            var Modelo = new
-            {
-                Pagina = pagina,
-                titulo = pagina.Titulo,
-                facebook = pagina.Facebook,
-                twiter = pagina.Twiter,
-                instagram = pagina.Instagram,
-                background = pagina.Background.ToList()[0],
-                background_topo = pagina.Background.ToList()[1],
-                background_menu = pagina.Background.ToList()[2],
-                background_borda_esquerda = pagina.Background.ToList()[3],
-                background_borda_direita = pagina.Background.ToList()[4],
-                background_bloco = pagina.Background.ToList()[5],
-                divs = pagina.Div,
-                Rows = numero,
-                espacamento = 0,
-                indice = 1
-                
-            };
-
-            var velocitycontext = new VelocityContext();
-            velocitycontext.Put("model", Modelo);
-            velocitycontext.Put("divs", pagina.Div);
-            var html = new StringBuilder();
-            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.Codigo));
-
-             ViewBag.html = html.ToString();
-
-              return View(pagina);  
-           // return html.ToString();
+             return View(pagina);         
         }
 
         [Authorize]
-        public ActionResult visualizacao(int? id)
+        public ActionResult GetView(int? id)
         {
             var email = User.Identity.GetUserName();
             CLiente cli = db.Cliente.First(c => c.UserName == email);
@@ -427,40 +273,76 @@ namespace CriadorSites.Controllers
                 return HttpNotFound();
             }
 
-            int espaco = 0;
-            int rows = 0;
+            renderizacao(id);
 
-            foreach (var bloco in pagina.Div)
+            return PartialView("GetView");            
+        }
+
+        public void renderizacao(int? id)
+        {
+            Pagina pagina = db.Pagina.Find(id);
+
+            foreach (var img in pagina.Imagem.ToList())
             {
-                if (bloco.Divisao == "col-md-12" || bloco.Divisao == "col-sm-12")
-                    espaco += 12;
+                if (img.Recortar && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                   .Crop(img.RecortarTop, img.RecortarLeft, img.RecortarBottom, img.RecortarRight).Save(@"" + img.Arquivo);
+                }
+                else if (!img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                   .Crop(0, 0, 0, 0).Save(@"" + img.Arquivo);
+                }
 
-                if (bloco.Divisao == "col-md-6" || bloco.Divisao == "col-sm-6")
-                    espaco += 6;
+                if (img.Redimencionar && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                    .Resize(img.RedimencionarLargura, img.RedimencionarAltura).Save(@"" + img.Arquivo);
+                }
+                else if (!img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                    .Resize(new WebImage(@"" + img.Arquivo).Width, new WebImage(@"" + img.Arquivo).Height).Save(@"" + img.Arquivo);
+                }
 
-                if (bloco.Divisao == "col-md-4" || bloco.Divisao == "col-sm-4")
-                    espaco += 4;
-
-                if (bloco.Divisao == "col-md-3" || bloco.Divisao == "col-sm-3")
-                    espaco += 3;
-
-                if (bloco.Divisao == "col-md-2" || bloco.Divisao == "col-sm-2")
-                    espaco += 2;
+                if (img.FlipHorizontal && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                   .FlipHorizontal().Save(@"" + img.Arquivo);
+                }
 
 
+                if (img.FlipVertical && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                    .FlipVertical().Save(@"" + img.Arquivo);
+                }
+
+
+                if (img.RotacaoEsquerda && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                    .RotateLeft().Save(@"" + img.Arquivo);
+                }
+
+                if (img.RotacaoDireita && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                    .RotateRight().Save(@"" + img.Arquivo);
+                }
+
+                if (img.Texto && !img.Arquivo.Contains(".gif"))
+                {
+                    new WebImage(@"" + img.Arquivo)
+                    .AddTextWatermark(img.TextoImagem, "white", 12, "Regular").Save(@"" + img.Arquivo);
+                }
             }
 
-            rows = espaco / 12;
+            pagina.CodigoCss = db.Pagina.Find(1).CodigoCss;
+            pagina.CodigoHtml = db.Pagina.Find(1).CodigoHtml;
 
-            rows += 1;
-
-            int[] numero = new int[rows];
-
-            for (int i = 0; i < numero.Length; i++)
-            {
-                numero[i] += i + 1;
-
-            }
+            int[] numero = pagina.CriarRows(pagina);            
 
             foreach (var fundo in pagina.Background)
             {
@@ -496,12 +378,9 @@ namespace CriadorSites.Controllers
             velocitycontext.Put("model", Modelo);
             velocitycontext.Put("divs", pagina.Div);
             var html = new StringBuilder();
-            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.Codigo));
+            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.CodigoCss + pagina.CodigoHtml));
 
             ViewBag.html = html.ToString();
-
-            return View(pagina);
-            // return html.ToString();
         }
 
         // GET: Pagina/Delete/5

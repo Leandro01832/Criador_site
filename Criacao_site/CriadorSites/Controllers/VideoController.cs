@@ -13,6 +13,7 @@ using Ecommerce.Classes;
 
 namespace CriadorSites.Controllers
 {
+    [Authorize(Roles = "Videos")]
     public class VideoController : Controller
     {
         private BD db = new BD();
@@ -34,6 +35,7 @@ namespace CriadorSites.Controllers
         }
 
         // GET: Video
+        [Authorize(Users ="leandroleanleo@gmail.com")]
         public ActionResult Index()
         {
             return View(db.Video.ToList());

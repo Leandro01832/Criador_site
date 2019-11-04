@@ -6,6 +6,11 @@
     ViewBag.Title = "Index";
 }
 
+<br />
+<br />
+<br />
+<br />
+
 <h2>lista de Usuarios</h2>
 
 <table class="table">
@@ -16,7 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-       
+
         <th></th>
     </tr>
 
@@ -29,10 +34,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            
+
             <td>
                 @Html.ActionLink("Permissões", "Roles", new { id = item.UserId }) |
-                
+
             </td>
         </tr>
     }

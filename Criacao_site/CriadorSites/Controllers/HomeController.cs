@@ -1,7 +1,9 @@
 ﻿using business;
 using DataContextCriacaoSite;
+using Microsoft.AspNet.Identity;
 using NVelocity;
 using NVelocity.App;
+using PagSeguro;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -144,9 +146,51 @@ namespace CriadorSites.Controllers
             velocitycontext.Put("model", Modelo);
             velocitycontext.Put("divs", pagina.Div);
             var html = new StringBuilder();
-            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.Codigo));
+            bool result = Velocity.Evaluate(velocitycontext, new StringWriter(html), "NomeParaCapturarLogError", new StringReader(pagina.CodigoCss + pagina.CodigoHtml));
 
             return html.ToString();
+        }
+
+        
+        [Authorize]
+        public ActionResult Compra()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult FazerCompra()
+        {
+            string email = User.Identity.GetUserName();
+
+            var cliente = db.Cliente.First(c => c.UserName == email);
+
+            Dados dados = new Dados();
+            
+            dados.Email = email;
+            dados.data = DateTime.Now;
+            
+            var cli = db.Cliente.Find(cliente.IdCliente);
+            dados.Nome = cli.FirstName + " " + cli.LastName;
+            dados.DDD = db.Cliente.First(c => c.IdCliente == cliente.IdCliente).Telefone.DDD_Celular;
+            dados.NumeroTelefone = db.Cliente.First(c => c.IdCliente == cliente.IdCliente).Telefone.Celular;            
+
+            dados.Valor = "80.00";
+
+            dados.MeuEmail = "leandro91luis@gmail.com";
+            dados.MeuToken = "ffd81aee-ddac-42c9-b6ff-d1cc90f8eab42ee5fca7432694c690d3819c29f774714bd9-609f-4b91-9704-6df2d8c0e2e4";
+            dados.TituloPagamento = "Pagamento";
+            dados.Referencia = "Meu Projeto Agora - " + dados.Email;
+
+            dados = sPagSeguro.GerarPagamento(dados);
+
+            db.Dados.Add(dados);
+            db.SaveChanges();
+
+
+            return Redirect(dados.stringConexao);
         }
     }
 }

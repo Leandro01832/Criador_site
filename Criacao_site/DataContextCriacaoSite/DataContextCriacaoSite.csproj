@@ -62,6 +62,10 @@
       <Project>{6070C1E9-0453-4F44-B363-CBAB4AA9E610}</Project>
       <Name>business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\pagseguro\pagseguro.csproj">
+      <Project>{DB631135-EA37-4BC5-94D2-EE887C467AF8}</Project>
+      <Name>pagseguro</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

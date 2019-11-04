@@ -82,11 +82,32 @@ namespace CriadorSites.Controllers
             {
                 pedido.Datapedido = DateTime.Now;
                 pedido.Status = "Nao realizado";
-
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
 
+                pedido.Paginas = new List<Pagina>();
+                pedido.Paginas.Add(new Pagina
+                {
+                    ModalDireita = true,
+                    Codigo = db.Pagina.Find(1).Codigo,
+                    Titulo = "Lixeira",
+                    pedido_ = pedido.IdPedido,
+                    Imagem = new List<Imagem>(),
+                    Facebook = "vazio",
+                    Instagram = "vazio",
+                    Twiter = "vazio",
+                    Pedido = pedido
+                });
+
                 cli.Servicos.Add(pedido);
+                db.SaveChanges();
+
+                pedido = db.Pedido.Include(p => p.Cliente).Include(p => p.Cliente.Servicos).First(p => p.IdPedido == pedido.IdPedido);                
+
+                pedido.CriarPaginaLixeira(pedido, db.Imagem.ToList());
+                db.SaveChanges();
+
+                pedido.CriarBlocoLixeira(pedido);
                 db.SaveChanges();
                 return RedirectToAction("IndexCliente", "CLiente");
             }

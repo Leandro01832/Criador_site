@@ -25,3 +25,6 @@ F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\business.dll.config
 F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.xml
 F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\EntityFramework.SqlServer.xml
 F:\Projects\Criacao_site\DataContextCriacaoSite\obj\Debug\DataContextCriacaoSite.csproj.CopyComplete
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\PagSeguro.dll
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\PagSeguro.pdb
+F:\Projects\Criacao_site\DataContextCriacaoSite\bin\Debug\PagSeguro.dll.config

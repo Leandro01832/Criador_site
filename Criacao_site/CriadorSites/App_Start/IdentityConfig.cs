@@ -19,31 +19,7 @@ namespace CriadorSites
     {
         public Task SendAsync(IdentityMessage message)
         {
-            var envia = "leandroleanleo@gmail.com";
-           // var user = "leandro@roupafestas.com";
-            // var pass = "Le@ndro01832";
-            var pass = "leandro01083832";
-
-            System.Net.NetworkCredential credencial = new System.Net.NetworkCredential(envia, pass);
-
-            SmtpClient cliente = new SmtpClient()
-            {
-                 Host = "smtp.gmail.com",
-               // Host = "relay-hosting.secureserver.net",                
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Port = 25,
-                EnableSsl = false,
-                Credentials = credencial
-                  
-            };
-
-            var mail = new MailMessage(envia, message.Destination);
-            mail.Subject = message.Subject;
-            mail.Body = message.Body;
-            mail.IsBodyHtml = true;
-
-            return cliente.SendMailAsync(mail);
+            
         }
     }
 

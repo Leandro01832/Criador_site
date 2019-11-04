@@ -67,6 +67,29 @@ namespace CriadorSites.Controllers
             return Json("");
         }
 
+        [HttpPost]
+        public JsonResult AdicionarImagemCarousel(int Id, int Imagem)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+
+            Carousel carousel = db.Carousel.Include(ca => ca.imagens).First(c => c.IdCarousel == Id);
+            Imagem img = db.Imagem.Find(int.Parse(Request["Imagem"].ToString()));
+            carousel.imagens = db.Carousel.First(c => c.IdCarousel == carousel.IdCarousel).imagens;
+            carousel.imagens.Add(img);
+            
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                var erro = "Preencha o formulario corretamente";
+                return Json(erro);
+            }
+
+            return Json("");
+        }
+
         // GET: Carousel
         public ActionResult Index()
         {

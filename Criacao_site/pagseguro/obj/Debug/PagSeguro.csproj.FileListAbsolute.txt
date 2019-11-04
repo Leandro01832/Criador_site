@@ -1,0 +1,20 @@
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.frPrincipal.resources
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.GenerateResource.Cache
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\PagSeguro.dll.config
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\PagSeguro.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\bin\Debug\PagSeguro.pdb
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.Properties.Resources.resources
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.dll
+C:\Users\leand\documents\visual studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.pdb
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csproj.CoreCompileInputs.cache
+C:\Users\leand\Documents\Visual Studio 2015\Projects\Aline\PagSeguro\obj\Debug\PagSeguro.csprojResolveAssemblyReference.cache
+F:\Projects\Criacao_site\pagseguro\bin\Debug\PagSeguro.dll.config
+F:\Projects\Criacao_site\pagseguro\bin\Debug\PagSeguro.dll
+F:\Projects\Criacao_site\pagseguro\bin\Debug\PagSeguro.pdb
+F:\Projects\Criacao_site\pagseguro\obj\Debug\pagseguro.csprojAssemblyReference.cache
+F:\Projects\Criacao_site\pagseguro\obj\Debug\PagSeguro.frPrincipal.resources
+F:\Projects\Criacao_site\pagseguro\obj\Debug\PagSeguro.Properties.Resources.resources
+F:\Projects\Criacao_site\pagseguro\obj\Debug\pagseguro.csproj.GenerateResource.cache
+F:\Projects\Criacao_site\pagseguro\obj\Debug\pagseguro.csproj.CoreCompileInputs.cache
+F:\Projects\Criacao_site\pagseguro\obj\Debug\PagSeguro.dll
+F:\Projects\Criacao_site\pagseguro\obj\Debug\PagSeguro.pdb

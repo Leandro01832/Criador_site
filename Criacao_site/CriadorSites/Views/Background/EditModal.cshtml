@@ -22,12 +22,8 @@
     @Html.CheckBox("Manter", true)
 }
 
-<hr />
+<hr />   
 
-
-<a href="#" class="btn btn-success imagem">Background da pagina</a>
-
-<hr />
 
 
 @using (Html.BeginForm())
@@ -176,18 +172,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var v = "";
-
-            $(".btn-success").click(function () {
-
-                var id = $("#corpo").data("value");
-
-                $("#conteudomodal").load("/Background/EditModal/" + id, function () {
-                    $('#exampleModalLong').modal("show");
-
-                });
-            });
-
+            var v = "";   
 
                  $("#site").click(function () {
 
@@ -255,7 +240,7 @@
 
 
 
-            $("input[name='Nome'], input[name='cores'], input[name='Background_Position'], input[name='backgroundTransparente']").change(function () {
+            $("input[name='Nome'], input[name='cores'], select[name='Background_Position'], select[name='Background_Repeat'], input[name='backgroundImage'], input[name='backgroundTransparente'], select[name='imagem_']").change(function () {
                 
 
                 $.ajax({
@@ -267,15 +252,16 @@
 
                         if (data != "")
                         {         
-                            document.getElementById("Hidden1").value = data;
-                            v = document.getElementById("Hidden1").value;                             
-                           // alert(v);                               
-                          //  document.getElementsByClassName("content")[0].innerHTML = data;  
+                            $("#Hidden1").val(true);
+                            $(".content").load("/Pagina/getview",
+                                { id: "@Model.pagina_2" });
+                        
+                           
                             
                         }
                         else { alert('Erro: Preencha o formulario corretamente'); } 
 
-                        location.reload();
+                       // location.reload();
                     },
                     error: function (ex) {
                         alert('Falha ao buscar cidades.' + ex);

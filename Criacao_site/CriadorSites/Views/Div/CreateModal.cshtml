@@ -10,7 +10,9 @@
 
 <a href="#" class="btn btn-warning">Criar Carrosseis</a>
 
+<a href="#" class="btn btn-primary">Criar imagens</a>
 
+<a href="#" class="btn btn-info elemento">Criar elementos</a>
 
 <h2>Criar Blocos</h2>
 
@@ -154,19 +156,29 @@
 
         $(".btn-success").click(function () {
 
-
-
             $("#conteudomodal2").load("/Texto/CreateModal/", function () {
                 $('#exampleModalLong2').modal("show");
 
             });
         });
 
-        $(".btn-danger").click(function () {
-
-
+        $(".btn-danger").click(function () {     
 
             $("#conteudomodal2").load("/Video/CreateModal/", function () {
+                $('#exampleModalLong2').modal("show");
+
+            }); 
+           
+            if ($("#conteudomodal2")[0].innerHTML == "")
+            {
+                $("#conteudomodal2")[0].innerHTML += "<h3> leo </h3>";
+            }
+
+        });
+
+        $(".btn-primary").click(function () {
+
+            $("#conteudomodal2").load("/Imagem/CreateModal/", function () {
                 $('#exampleModalLong2').modal("show");
 
             });
@@ -174,14 +186,17 @@
 
         $(".btn-warning").click(function () {
 
-
-
             $("#conteudomodal2").load("/Carousel/CreateModal/", function () {
                 $('#exampleModalLong2').modal("show");
 
             });
-        });
+        }); 
 
+        $(".elemento").click(function () { 
+            $("#conteudomodal2").load("/Elemento/CreateModal/", function () {
+                $('#exampleModalLong2').modal("show");
+            });
+        });
 
 
     </script>

@@ -24,3 +24,4 @@ F:\Projects\Criacao_site\business\obj\Debug\business.csproj.CopyComplete
 F:\Projects\Criacao_site\business\obj\Debug\business.dll
 F:\Projects\Criacao_site\business\obj\Debug\business.pdb
 F:\Projects\Criacao_site\business\obj\Debug\business.csprojAssemblyReference.cache
+F:\Projects\Criacao_site\business\bin\Debug\System.Web.Helpers.dll

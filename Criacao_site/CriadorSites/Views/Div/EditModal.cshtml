@@ -42,6 +42,8 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.IdDiv)
 
+    <input id="Hidden1" name="Hidden1" type="hidden" value="" />
+
     <div class="form-group">
         @Html.LabelFor(model => model.IdDiv, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -76,7 +78,7 @@
                 new SelectListItem{ Text="11", Value="auto auto auto auto auto auto auto auto auto auto auto" },
                 new SelectListItem{ Text="12", Value="auto auto auto auto auto auto auto auto auto auto auto auto" }
                 }, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Colunas, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Colunas, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -251,25 +253,25 @@
 
 
 
-            $("input[name='Nome'], input[name='Divisao'], input[name='Height'], input[name='BorderRadius'], input[name='Padding'], input[name='Colunas']").change(function () {
+            $("input[name='Nome'], select[name='Divisao'], input[name='Height'], input[name='BorderRadius'], select[name='Padding'], select[name='Colunas'], select[name='background_']").change(function () {
 
                     
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("Alterar")',
                     dataType: 'json',
-                    data: { Id: $("#IdDiv").val(), Nome: $("#Nome").val(), Divisao: $("#Divisao").val(), Height: $("#Height").val(), background_: $("#background_").val(), BorderRadius: $("#BorderRadius").val(), Padding: $("#Padding").val(), Colunas: $("#Colunas").val() },
+                    data: { Id: $("#IdDiv").val(), Nome: $("#Nome").val(), Divisao: $("#Divisao").val(), Height: $("#Height").val(), background_: $("#background_").val(), BorderRadius: $("#BorderRadius").val(), Padding: $("#Padding").val(), Colunas: $("#Colunas").val(), pagina_: $("#pagina_").val() },
 
                     success: function (data) {
                         if (data != "")
                         {
-                          //  document.getElementsByClassName("content").innerHTML = data;
-                          //  alert(data);
-                            
+                          $("#Hidden1").val(true);
+                            $(".content").load("/Pagina/getview",
+                                { id: "@Model.pagina_" });                          
 
                         }
                         else { alert('Erro: Preencha o formulario corretamente'); } 
-                        location.reload();
+                       // location.reload();
                         
 
                     },
